@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block titulo %}Anotaciones institucionales{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion"><h2>Anotaciones de la institución</h2></div>
+<div class="panel">
+  {% if not todas %}
+    <div class="vacio">Aún no hay anotaciones.</div>
+  {% else %}
+    {% for o in todas %}
+    <div class="obs-item"><div class="obs-meta">{{ formato_fecha(o.fecha) }} · {{ o.estudiante_nombre }} ({{ o.grado_nombre }}) · registró: {{ o.autor_nombre }}</div>{{ o.texto }}</div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

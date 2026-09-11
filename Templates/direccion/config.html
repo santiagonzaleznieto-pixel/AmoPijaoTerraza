@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block titulo %}Configuración{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion"><h2>Configuración institucional</h2></div>
+<div class="panel">
+  <h3>Fecha de cierre de cada período</h3>
+  <p class="pista" style="margin-bottom:10px;">La nota final de cada período se habilita para los profesores desde una semana antes de esta fecha.</p>
+  <form method="post" action="{{ url_for('configuracion') }}">
+    {% for p in PERIODOS %}
+    <div class="campo"><label>{{ p }}</label><input type="date" name="cierre_p{{ loop.index }}" value="{{ inst['cierre_p' ~ loop.index] or '' }}"></div>
+    {% endfor %}
+    <button type="submit" class="btn btn-terracota">Guardar fechas</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% import "macros.html" as m with context %}
+{% block titulo %}Panel institucional{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion"><h2>Panel institucional</h2></div>
+<form method="get" action="{{ url_for('panel_institucional') }}" class="form-inline">
+  <div class="campo">
+    <label>Grado</label>
+    <select name="grado" onchange="this.form.submit()">
+      {% for g in grados_todos %}<option value="{{ g.id }}" {{ 'selected' if g.id==grado.id else '' }}>{{ g.nombre }}</option>{% endfor %}
+    </select>
+  </div>
+</form>
+<div class="banner-director">Director(a) de grupo: <strong>{{ director.nombre if director else grado.director_usuario }}</strong> · {{ estudiantes|length }} estudiante(s)</div>
+<div class="selector-periodos">
+  {% for p in PERIODOS %}
+  <a href="{{ url_for('panel_institucional', grado=grado.id, periodo=loop.index0) }}" class="chip-periodo {{ 'activo' if periodo==loop.index0 else '' }}">{{ p }}</a>
+  {% endfor %}
+</div>
+<div class="panel">
+  <h3>Notas consolidadas — {{ PERIODOS[periodo] }}</h3>
+  <div class="tabla-scroll"><table>
+    <thead><tr><th>Estudiante</th>{% for mt in materias %}<th>{{ mt.nombre }}</th>{% endfor %}</tr></thead>
+    <tbody>
+      {% for fila in tabla %}
+      <tr><td>{{ fila.estudiante.nombre }}</td>{% for v in fila.notas %}<td>{{ m.badge_nivel(v) }}</td>{% endfor %}</tr>
+      {% endfor %}
+    </tbody>
+  </table></div>
+</div>
+<div class="panel">
+  <h3>Asistencia acumulada</h3>
+  <div class="tabla-scroll"><table>
+    <thead><tr><th>Estudiante</th><th>Presente</th><th>Ausente</th><th>Excusa</th></tr></thead>
+    <tbody>
+      {% for r in asistencia_resumen %}
+      <tr><td>{{ r.estudiante.nombre }}</td><td>{{ r.presente }}</td><td>{{ r.ausente }}</td><td>{{ r.excusa }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table></div>
+</div>
+<div class="panel">
+  <h3>Directorio de contacto</h3>
+  <ul class="lista-simple">
+    {% for est in estudiantes %}
+    <li><span>{{ est.nombre }}</span><span class="pista">WhatsApp: {{ est.whatsapp or "—" }} · Correo: {{ est.correo or "—" }}</span></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
