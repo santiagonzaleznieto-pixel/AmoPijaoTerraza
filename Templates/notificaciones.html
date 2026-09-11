@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Notificaciones{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion">
+  <h2>Notificaciones</h2>
+  {% if lista|selectattr('leida', 'equalto', 0)|list %}
+  <form method="post" action="{{ url_for('notificaciones') }}"><button type="submit" class="btn btn-fantasma btn-pequeno">Marcar todas como leídas</button></form>
+  {% endif %}
+</div>
+<div class="panel">
+  {% if not lista %}
+    <div class="vacio">No tienes notificaciones todavía.</div>
+  {% else %}
+    {% for n in lista %}
+    <div class="notif-item {{ '' if n.leida else 'no-leida' }}">
+      <div class="punto {{ 'leida' if n.leida else '' }}"></div>
+      <div class="n-texto">{{ n.texto }}<div class="n-fecha">{{ formato_fecha(n.fecha) }}</div></div>
+    </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

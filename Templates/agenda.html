@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block titulo %}Agenda{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion"><h2>Agenda</h2></div>
+{% if not solo_general %}
+<div class="subtoggle">
+  <a href="{{ url_for('agenda', tipo='general') }}" class="{{ 'activo' if tipo=='general' else '' }}">General (todos)</a>
+  <a href="{{ url_for('agenda', tipo='directivos') }}" class="{{ 'activo' if tipo=='directivos' else '' }}">Directivos</a>
+</div>
+{% endif %}
+{% if puede_crear %}
+<div class="panel">
+  <h3>Programar actividad</h3>
+  <form method="post" action="{{ url_for('agenda') }}">
+    <input type="hidden" name="tipo" value="{{ tipo }}">
+    <div class="form-inline">
+      <div class="campo" style="min-width:200px;"><label>Título</label><input name="titulo" placeholder="Ej: Reunión de profesores" required></div>
+      <div class="campo" style="max-width:170px;"><label>Fecha</label><input type="date" name="fecha" value="{{ hoy }}" required></div>
+    </div>
+    <div class="campo"><label>Descripción</label><textarea name="descripcion" rows="2" placeholder="Detalles de la actividad"></textarea></div>
+    <button type="submit" class="btn btn-terracota">Programar en agenda {{ 'general' if tipo=='general' else 'de directivos' }}</button>
+  </form>
+  <p class="pista" style="margin-top:8px;">Un día antes, quienes tengan acceso a esta agenda recibirán una notificación dentro del sistema.</p>
+</div>
+{% endif %}
+<div class="panel">
+  <h3>Próximas actividades — agenda {{ 'general' if tipo=='general' else 'de directivos' }}</h3>
+  {% if not lista %}
+    <div class="vacio">No hay actividades programadas.</div>
+  {% else %}
+    {% for ev in lista %}
+    <div class="evento-item {{ 'pasado' if ev.fecha < hoy else '' }}">
+      <div class="ev-tipo">{{ 'Agenda general' if ev.tipo=='general' else 'Agenda de directivos' }}</div>
+      <div class="ev-fecha">{{ formato_fecha(ev.fecha) }} — {{ ev.titulo }}</div>
+      {% if ev.descripcion %}<div class="ev-desc">{{ ev.descripcion }}</div>{% endif %}
+    </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

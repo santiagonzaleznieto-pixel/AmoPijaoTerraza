@@ -1,0 +1,15 @@
+{% macro badge_nivel(valor) %}
+  <span class="badge {{ valor if valor else 'sin-nota' }}">{{ NIVEL_LABEL.get(valor, 'Sin nota') }}</span>
+{% endmacro %}
+
+{% macro selector_nivel(form_action, hidden_fields, campo_valor='valor', texto_boton=None) %}
+  <div class="selector-desempeno">
+    {% for v in NIVELES %}
+    <form method="post" action="{{ form_action }}" class="form-nivel">
+      {% for k, val in hidden_fields.items() %}<input type="hidden" name="{{ k }}" value="{{ val }}">{% endfor %}
+      <input type="hidden" name="{{ campo_valor }}" value="{{ v }}">
+      <button type="submit" class="btn-nivel nivel-{{ v }}">{{ NIVEL_LABEL[v] }}</button>
+    </form>
+    {% endfor %}
+  </div>
+{% endmacro %}

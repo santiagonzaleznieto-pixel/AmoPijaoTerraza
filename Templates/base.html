@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block titulo %}I.E. Instituto Pijao{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% if session_user %}
+<div class="barra-superior">
+  <img class="escudo-barra" src="{{ url_for('static', filename='escudo_pijao.png') }}" alt="">
+  <div class="id-cole">
+    <div class="nombre-cole">I.E. Instituto Pijao</div>
+    <div class="rol-usr">
+      {% if session_user.rol == 'estudiante' %}Estudiante · {{ nombre_grado(session_user.grado_id) }}
+      {% elif session_user.rol == 'profesor' %}{% if session_user.es_director_de %}Profesor · Director de {{ nombre_grado(session_user.es_director_de) }}{% else %}Profesor{% endif %}
+      {% elif session_user.rol == 'coordinadora' %}Coordinación académica
+      {% elif session_user.rol == 'rectora' %}Rectoría
+      {% else %}Administrador del sistema{% endif %}
+    </div>
+  </div>
+  <div class="usr-info">{{ session_user.nombre }}</div>
+  <a class="btn-campana" href="{{ url_for('notificaciones') }}" title="Notificaciones">🔔{% if unread_count > 0 %}<span class="conteo">{{ unread_count if unread_count <= 9 else '9+' }}</span>{% endif %}</a>
+  <a class="btn-salir" href="{{ url_for('logout') }}">Salir</a>
+</div>
+<div class="contenedor">
+  <div class="tabs" role="tablist">
+    {% for id, label, endpoint in tabs %}
+      <a href="{{ url_for(endpoint) }}" class="tab {% if tab_activo == id %}activo{% endif %}">{{ label }}</a>
+    {% endfor %}
+  </div>
+  {% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% if mensajes %}
+    <div class="flash-lista">
+      {% for categoria, mensaje in mensajes %}
+        <div class="flash-msg flash-{{ categoria }}">{{ mensaje }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endwith %}
+  {% block contenido %}{% endblock %}
+</div>
+{% else %}
+  {% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% if mensajes %}
+    <div class="contenedor" style="max-width:400px;padding-top:20px;">
+      {% for categoria, mensaje in mensajes %}
+        <div class="flash-msg flash-{{ categoria }}">{{ mensaje }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endwith %}
+  {% block contenido_publico %}{% endblock %}
+{% endif %}
+</body>
+</html>

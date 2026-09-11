@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block titulo %}Mi perfil{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion"><h2>Mi perfil</h2></div>
+<div class="panel">
+  <h3>{{ user.nombre }}</h3>
+  <form method="post" action="{{ url_for('perfil') }}">
+    <div class="campo"><label>WhatsApp</label><input name="whatsapp" placeholder="Ej: 3001234567" value="{{ user.whatsapp or '' }}"></div>
+    <div class="campo"><label>Correo electrónico</label><input name="correo" type="email" placeholder="nombre@correo.com" value="{{ user.correo or '' }}"></div>
+    <button type="submit" class="btn btn-terracota">Guardar datos</button>
+  </form>
+  <p class="pista" style="margin-top:10px;">Estos datos se usarán para recordatorios de la agenda cuando el colegio conecte un servicio de envío real.</p>
+</div>
+{% endblock %}

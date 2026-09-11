@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block titulo %}Iniciar sesión — I.E. Instituto Pijao{% endblock %}
+{% block contenido_publico %}
+<div class="login-page">
+  <div class="login-hero">
+    <div class="login-hero-inner">
+      <img class="escudo-login" src="{{ url_for('static', filename='escudo_pijao.png') }}" alt="Escudo Instituto Pijao">
+      <h1>{{ inst.nombre }}</h1>
+      <div class="lema">"{{ inst.lema }}"</div>
+      <div class="subt">{{ inst.municipio }} · Fundado en {{ inst.fundacion }}</div>
+    </div>
+    <svg class="colinas" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,220 L0,140 L160,95 L340,150 L520,70 L720,130 L900,85 L1080,145 L1200,110 L1200,220 Z" fill="#3F6B4A" opacity="0.55"/>
+      <path d="M0,220 L0,175 L220,130 L430,170 L640,110 L860,155 L1050,120 L1200,150 L1200,220 Z" fill="#2C4E35" opacity="0.75"/>
+      <path d="M0,220 L0,200 L260,182 L520,205 L780,178 L1000,200 L1200,188 L1200,220 Z" fill="#BD5B2E" opacity="0.85"/>
+    </svg>
+  </div>
+  <div class="login-panel-wrap">
+    <div class="login-panel">
+      <h2>Iniciar sesión</h2>
+      <div class="ayuda">Estudiantes, profesores, coordinación y rectoría</div>
+      <form method="post" action="{{ url_for('login') }}">
+        <div class="campo"><label for="in-usuario">Usuario</label><input id="in-usuario" name="usuario" autocomplete="username" required autofocus></div>
+        <div class="campo"><label for="in-clave">Contraseña</label><input id="in-clave" name="clave" type="password" autocomplete="current-password" required></div>
+        <button type="submit" class="btn btn-primario">Ingresar</button>
+      </form>
+      <div class="demo-box">
+        <strong>Acceso de prueba</strong>
+        Contraseña para todas las cuentas: <code>{{ password_demo }}</code>
+        <ul>
+          <li><code>mateo.vargas</code> — estudiante de 1°</li>
+          <li><code>c.gomez</code> — director de grupo de 1°</li>
+          <li><code>coordinadora</code> / <code>rectora</code> — vista institucional completa</li>
+          <li><code>admin</code> — Administrador: profesores, materias y asignaciones</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
