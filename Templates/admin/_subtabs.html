@@ -1,0 +1,8 @@
+{% macro subtabs_admin(activo) %}
+<div class="encabezado-seccion"><h2>Administración</h2></div>
+<div class="tabs">
+  <a href="{{ url_for('admin_profesores') }}" class="tab {{ 'activo' if activo=='profesores' else '' }}">Profesores</a>
+  <a href="{{ url_for('admin_materias') }}" class="tab {{ 'activo' if activo=='materias' else '' }}">Materias</a>
+  <a href="{{ url_for('admin_asignaciones') }}" class="tab {{ 'activo' if activo=='asignaciones' else '' }}">Asignaciones</a>
+</div>
+{% endmacro %}

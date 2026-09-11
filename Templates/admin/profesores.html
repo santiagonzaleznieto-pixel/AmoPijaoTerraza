@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import "admin/_subtabs.html" as st with context %}
+{% block titulo %}Administración — Profesores{% endblock %}
+{% block contenido %}
+{{ st.subtabs_admin('profesores') }}
+<div class="panel">
+  <h3>Agregar profesor</h3>
+  <form method="post" action="{{ url_for('admin_profesores') }}">
+    <input type="hidden" name="accion" value="agregar">
+    <div class="form-inline">
+      <div class="campo"><label>Nombre completo</label><input name="nombre" placeholder="Nombres y apellidos" required></div>
+      <button type="submit" class="btn btn-terracota">Agregar</button>
+    </div>
+  </form>
+  <p class="pista">El usuario se genera automáticamente y la contraseña inicial es <code>{{ password_demo }}</code>. Luego asígnale materias en "Asignaciones" para autorizarlo a poner notas.</p>
+</div>
+<div class="panel">
+  <h3>Profesores ({{ profesores|length }})</h3>
+  {% if not profesores %}
+    <div class="vacio">Aún no hay profesores.</div>
+  {% else %}
+    <ul class="lista-simple">
+      {% for p in profesores %}
+      <li style="display:block;">
+        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;">
+          <span><strong>{{ p.nombre }}</strong> <span class="pista">(usuario: {{ p.usuario }})</span>
+            {% if p.dirige_nombre %}<span class="tag-rol">Director {{ p.dirige_nombre }}</span>{% endif %}
+          </span>
+          <div style="display:flex;gap:6px;">
+            <form method="post" action="{{ url_for('admin_profesores') }}" onsubmit="return confirm('¿Restablecer la contraseña de '+{{ p.nombre|tojson }}+' a la contraseña por defecto?');">
+              <input type="hidden" name="accion" value="restablecer_clave"><input type="hidden" name="usuario" value="{{ p.usuario }}">
+              <button type="submit" class="btn btn-secundario btn-pequeno">Restablecer clave</button>
+            </form>
+            <form method="post" action="{{ url_for('admin_profesores') }}" onsubmit="return confirm('¿Eliminar a '+{{ p.nombre|tojson }}+' del sistema?');">
+              <input type="hidden" name="accion" value="eliminar"><input type="hidden" name="usuario" value="{{ p.usuario }}">
+              <button type="submit" class="btn btn-peligro btn-pequeno">Eliminar</button>
+            </form>
+          </div>
+        </div>
+        <div class="fila-est-contacto">
+          {% if dicta_por_profesor[p.usuario] %}
+            Dicta: {% for d in dicta_por_profesor[p.usuario] %}{{ d.materia_nombre }} ({{ d.grado_nombre }}){{ ", " if not loop.last }}{% endfor %}
+          {% else %}
+            Sin materias asignadas todavía.
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+{% endblock %}

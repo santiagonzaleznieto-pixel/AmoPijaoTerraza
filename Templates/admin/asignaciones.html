@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% import "admin/_subtabs.html" as st with context %}
+{% block titulo %}Administración — Asignaciones{% endblock %}
+{% block contenido %}
+{{ st.subtabs_admin('asignaciones') }}
+<form method="get" action="{{ url_for('admin_asignaciones') }}" class="form-inline">
+  <div class="campo">
+    <label>Grado</label>
+    <select name="grado" onchange="this.form.submit()">
+      {% for g in grados_todos %}<option value="{{ g.id }}" {{ 'selected' if g.id==grado.id else '' }}>{{ g.nombre }}</option>{% endfor %}
+    </select>
+  </div>
+</form>
+<div class="panel">
+  <h3>Director(a) de grupo de {{ grado.nombre }}</h3>
+  <form method="post" action="{{ url_for('admin_asignaciones', grado=grado.id) }}" class="form-inline">
+    <input type="hidden" name="accion" value="asignar_director">
+    <div class="campo">
+      <select name="profesor">
+        <option value="">— Sin asignar —</option>
+        {% for p in profesores %}<option value="{{ p.usuario }}" {{ 'selected' if p.usuario==grado.director_usuario else '' }}>{{ p.nombre }}</option>{% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-terracota">Guardar director</button>
+  </form>
+  <p class="pista" style="margin-top:8px;">Quien dirige el grupo puede agregar/quitar estudiantes, tomar asistencia, ver el consolidado y publicar comunicados de {{ grado.nombre }}.</p>
+</div>
+<div class="panel">
+  <h3>Profesor autorizado por materia en {{ grado.nombre }}</h3>
+  {% if not materias %}
+    <div class="vacio">Este grado no tiene materias asignadas todavía (créalas en "Materias").</div>
+  {% endif %}
+  {% for m in materias %}
+  <form method="post" action="{{ url_for('admin_asignaciones', grado=grado.id) }}" class="form-inline" style="border-bottom:1px solid var(--gris-borde);padding-bottom:10px;">
+    <input type="hidden" name="accion" value="asignar_materia">
+    <input type="hidden" name="materia_id" value="{{ m.id }}">
+    <div class="campo" style="min-width:160px;"><label>{{ m.nombre }}</label>
+      <select name="profesor">
+        <option value="">— Sin asignar —</option>
+        {% for p in profesores %}<option value="{{ p.usuario }}" {{ 'selected' if p.usuario==asignaciones[m.id] else '' }}>{{ p.nombre }}</option>{% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-secundario btn-pequeno">Guardar</button>
+  </form>
+  {% endfor %}
+  <p class="pista" style="margin-top:10px;">Asignar aquí a un profesor es lo que lo autoriza a registrar y poner la nota final de esa materia para {{ grado.nombre }}.</p>
+</div>
+{% endblock %}

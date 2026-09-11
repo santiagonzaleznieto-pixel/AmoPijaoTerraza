@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% import "admin/_subtabs.html" as st with context %}
+{% block titulo %}Administración — Materias{% endblock %}
+{% block contenido %}
+{{ st.subtabs_admin('materias') }}
+<div class="panel">
+  <h3>Crear materia</h3>
+  <form method="post" action="{{ url_for('admin_materias') }}">
+    <input type="hidden" name="accion" value="agregar">
+    <div class="campo"><label>Nombre</label><input name="nombre" placeholder="Ej: Emprendimiento" required></div>
+    <div class="campo">
+      <label>Grados en los que aplica</label>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        {% for g in grados_todos %}
+        <label style="font-weight:400;font-size:.85rem;"><input type="checkbox" name="grados" value="{{ g.id }}"> {{ g.nombre }}</label>
+        {% endfor %}
+      </div>
+    </div>
+    <button type="submit" class="btn btn-terracota">Crear materia</button>
+  </form>
+</div>
+<div class="panel">
+  <h3>Materias existentes ({{ materias|length }})</h3>
+  {% for m in materias %}
+  <details style="border-bottom:1px solid var(--gris-borde);padding:10px 0;">
+    <summary style="cursor:pointer;font-weight:600;color:var(--azul-oscuro);">{{ m.nombre }}</summary>
+    <form method="post" action="{{ url_for('admin_materias') }}" style="margin-top:10px;">
+      <input type="hidden" name="accion" value="actualizar_grados">
+      <input type="hidden" name="materia_id" value="{{ m.id }}">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+        {% for g in grados_todos %}
+        <label style="font-weight:400;font-size:.85rem;">
+          <input type="checkbox" name="grados" value="{{ g.id }}" {{ 'checked' if g.id in grados_de_materia[m.id] else '' }}> {{ g.nombre }}
+        </label>
+        {% endfor %}
+      </div>
+      <button type="submit" class="btn btn-secundario btn-pequeno">Guardar grados</button>
+    </form>
+    <form method="post" action="{{ url_for('admin_materias') }}" style="margin-top:8px;" onsubmit="return confirm('¿Eliminar la materia {{ m.nombre }}? Las notas ya puestas quedan en el historial pero sin materia asociada visible.');">
+      <input type="hidden" name="accion" value="eliminar"><input type="hidden" name="materia_id" value="{{ m.id }}">
+      <button type="submit" class="btn btn-peligro btn-pequeno">Eliminar materia</button>
+    </form>
+  </details>
+  {% endfor %}
+</div>
+{% endblock %}
