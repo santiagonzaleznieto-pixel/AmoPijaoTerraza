@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block titulo %}Mis materias{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion"><h2>Mis materias</h2></div>
+{% if session_user.es_director_de %}
+<div class="banner-director">Eres <strong>director(a) de grupo de {{ nombre_grado(session_user.es_director_de) }}</strong>. En "Mi grupo" gestionas la lista y ves el consolidado.</div>
+{% endif %}
+<div class="lista-cursos">
+  {% for c in lista %}
+  <a class="curso-btn" href="{{ url_for('curso_notas', materia_id=c.materia_id, grado_id=c.grado_id) }}">
+    <span><span class="cb-materia">{{ c.materia_nombre }}</span><br><span class="cb-grado">{{ c.grado_nombre }}</span></span>
+    <span class="cb-flecha">›</span>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

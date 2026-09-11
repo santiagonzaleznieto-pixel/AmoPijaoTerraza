@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block titulo %}Anotaciones{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion"><h2>Anotaciones</h2></div>
+<p class="pista" style="margin-bottom:14px;">Visibles solo para el estudiante anotado, todos los profesores, coordinación y rectoría.</p>
+<div class="panel">
+  <h3>Registrar anotación</h3>
+  <form method="post" action="{{ url_for('anotaciones_profesor') }}" id="form-anot">
+    <div class="form-inline">
+      <div class="campo">
+        <label>Grado</label>
+        <select name="grado_id" id="sel-grado" onchange="mostrarEstudiantes(this.value)">
+          {% for g in grados_prof %}<option value="{{ g.id }}">{{ g.nombre }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="campo">
+        <label>Estudiante</label>
+        {% for g in grados_prof %}
+        <select name="estudiante" class="sel-est-grupo" data-grado="{{ g.id }}" style="{{ '' if loop.first else 'display:none;' }}">
+          {% for est in estudiantes_por_grado[g.id] %}<option value="{{ est.usuario }}">{{ est.nombre }}</option>{% endfor %}
+        </select>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="campo"><label>Anotación</label><textarea name="texto" rows="3" placeholder="Describe la situación con el estudiante" required></textarea></div>
+    <button type="submit" class="btn btn-terracota">Guardar anotación</button>
+  </form>
+</div>
+<div class="panel">
+  <h3>Todas las anotaciones de la institución</h3>
+  {% if not todas %}
+    <div class="vacio">Aún no hay anotaciones registradas.</div>
+  {% else %}
+    {% for o in todas %}
+    <div class="obs-item"><div class="obs-meta">{{ formato_fecha(o.fecha) }} · {{ o.estudiante_nombre }} ({{ o.grado_nombre }}) · registró: {{ o.autor_nombre }}</div>{{ o.texto }}</div>
+    {% endfor %}
+  {% endif %}
+</div>
+<script>
+  function mostrarEstudiantes(gradoId){
+    document.querySelectorAll('.sel-est-grupo').forEach(sel => {
+      const activo = sel.dataset.grado === gradoId;
+      sel.style.display = activo ? '' : 'none';
+      sel.disabled = !activo;
+    });
+  }
+  mostrarEstudiantes(document.getElementById('sel-grado').value);
+</script>
+{% endblock %}

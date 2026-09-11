@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% import "profesor/_grupo_subtabs.html" as st with context %}
+{% block titulo %}Mi grupo — Asistencia{% endblock %}
+{% block contenido %}
+{{ st.subtabs_grupo('asistencia') }}
+<div class="panel">
+  <h3>Tomar asistencia</h3>
+  <form method="get" action="{{ url_for('grupo_asistencia') }}" class="form-inline">
+    <div class="campo"><label>Fecha</label><input type="date" name="fecha" value="{{ fecha }}" onchange="this.form.submit()"></div>
+  </form>
+  <form method="post" action="{{ url_for('grupo_asistencia') }}">
+    <input type="hidden" name="fecha" value="{{ fecha }}">
+    {% for est in estudiantes %}
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--gris-borde);gap:10px;flex-wrap:wrap;">
+      <span>{{ est.nombre }}</span>
+      <div class="toggle-asis" data-grupo="{{ est.usuario }}">
+        <input type="hidden" id="campo_{{ est.usuario }}" name="estado_{{ est.usuario }}" value="{{ estados[est.usuario] }}">
+        <button type="button" class="sel-presente {{ 'activo' if estados[est.usuario]=='presente' else '' }}" onclick="marcar('{{ est.usuario }}','presente',this)">Presente</button>
+        <button type="button" class="sel-ausente {{ 'activo' if estados[est.usuario]=='ausente' else '' }}" onclick="marcar('{{ est.usuario }}','ausente',this)">Ausente</button>
+        <button type="button" class="sel-excusa {{ 'activo' if estados[est.usuario]=='excusa' else '' }}" onclick="marcar('{{ est.usuario }}','excusa',this)">Excusa</button>
+      </div>
+    </div>
+    {% endfor %}
+    <div style="margin-top:14px;"><button type="submit" class="btn btn-terracota">Guardar asistencia del día</button></div>
+  </form>
+</div>
+<script>
+  function marcar(usuario, estado, btn){
+    document.getElementById('campo_' + usuario).value = estado;
+    btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('activo'));
+    btn.classList.add('activo');
+  }
+</script>
+{% endblock %}

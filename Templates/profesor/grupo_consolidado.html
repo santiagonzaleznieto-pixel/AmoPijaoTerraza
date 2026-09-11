@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import "profesor/_grupo_subtabs.html" as st with context %}
+{% import "macros.html" as m with context %}
+{% block titulo %}Mi grupo — Consolidado{% endblock %}
+{% block contenido %}
+{{ st.subtabs_grupo('consolidado') }}
+<div class="selector-periodos">
+  {% for p in PERIODOS %}
+  <a href="{{ url_for('grupo_consolidado', periodo=loop.index0) }}" class="chip-periodo {{ 'activo' if periodo==loop.index0 else '' }}">{{ p }}</a>
+  {% endfor %}
+</div>
+<div class="panel">
+  <h3>Consolidado — {{ PERIODOS[periodo] }}</h3>
+  <div class="tabla-scroll"><table>
+    <thead><tr><th>Estudiante</th>{% for mt in materias %}<th>{{ mt.nombre }}</th>{% endfor %}</tr></thead>
+    <tbody>
+      {% for fila in tabla %}
+      <tr><td>{{ fila.estudiante.nombre }}</td>{% for v in fila.notas %}<td>{{ m.badge_nivel(v) }}</td>{% endfor %}</tr>
+      {% endfor %}
+    </tbody>
+  </table></div>
+  <p class="pista" style="margin-top:10px;">Cada área la actualiza el profesor que la dicta; esta vista es de solo lectura.</p>
+</div>
+{% endblock %}

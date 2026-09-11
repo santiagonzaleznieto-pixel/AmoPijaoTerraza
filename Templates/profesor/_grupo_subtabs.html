@@ -1,0 +1,9 @@
+{% macro subtabs_grupo(activo) %}
+<div class="encabezado-seccion"><h2>Mi grupo — {{ grado.nombre }}</h2></div>
+<div class="tabs">
+  <a href="{{ url_for('grupo_estudiantes') }}" class="tab {{ 'activo' if activo=='estudiantes' else '' }}">Estudiantes</a>
+  <a href="{{ url_for('grupo_consolidado') }}" class="tab {{ 'activo' if activo=='consolidado' else '' }}">Notas consolidadas</a>
+  <a href="{{ url_for('grupo_asistencia') }}" class="tab {{ 'activo' if activo=='asistencia' else '' }}">Asistencia</a>
+  <a href="{{ url_for('grupo_comunicados') }}" class="tab {{ 'activo' if activo=='comunicados' else '' }}">Comunicados</a>
+</div>
+{% endmacro %}

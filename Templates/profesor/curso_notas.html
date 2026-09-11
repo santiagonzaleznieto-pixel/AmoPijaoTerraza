@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% import "macros.html" as m with context %}
+{% block titulo %}{{ materia.nombre }} — {{ grado.nombre }}{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion">
+  <h2>{{ materia.nombre }} — {{ grado.nombre }}</h2>
+  <a class="btn btn-fantasma btn-pequeno" href="{{ url_for('cursos') }}">← Mis materias</a>
+</div>
+<div class="selector-periodos">
+  {% for p in PERIODOS %}
+  <a href="{{ url_for('curso_notas', materia_id=materia.id, grado_id=grado.id, periodo=loop.index0) }}" class="chip-periodo {{ 'activo' if periodo==loop.index0 else '' }}">{{ p }}</a>
+  {% endfor %}
+</div>
+<div class="panel">
+  <h3>{{ PERIODOS[periodo] }} · {{ filas|length }} estudiante(s)</h3>
+  {% if not filas %}
+    <div class="vacio">Este grupo aún no tiene estudiantes.</div>
+  {% endif %}
+  {% for f in filas %}
+  <div class="fila-estudiante-notas">
+    <div class="nombre-est"><span>{{ f.estudiante.nombre }}</span>{{ m.badge_nivel(f.final) }}</div>
+    <div>
+      {% for p in f.parciales %}
+      <span class="chip-parcial">{{ p.nombre }}: {{ NIVEL_LABEL[p.valor] }}
+        <form method="post" action="{{ url_for('curso_notas', materia_id=materia.id, grado_id=grado.id, periodo=periodo) }}" style="display:inline;" onsubmit="return confirm('¿Quitar esta nota?');">
+          <input type="hidden" name="accion" value="quitar_parcial">
+          <input type="hidden" name="estudiante" value="{{ f.estudiante.usuario }}">
+          <input type="hidden" name="parcial_id" value="{{ p.id }}">
+          <button type="submit" title="Quitar">×</button>
+        </form>
+      </span>
+      {% endfor %}
+    </div>
+    <form method="post" action="{{ url_for('curso_notas', materia_id=materia.id, grado_id=grado.id, periodo=periodo) }}" class="agregar-parcial">
+      <input type="hidden" name="accion" value="agregar_parcial">
+      <input type="hidden" name="estudiante" value="{{ f.estudiante.usuario }}">
+      <input type="text" name="nombre_nota" placeholder="Nombre de la nota (ej: Taller 1)" required>
+      <div class="selector-desempeno">
+        {% for v in NIVELES %}<button type="submit" name="valor" value="{{ v }}" class="btn-nivel nivel-{{ v }}">{{ NIVEL_LABEL[v] }}</button>{% endfor %}
+      </div>
+    </form>
+    <div class="bloque-final">
+      <span class="titulo-final">Nota final del período</span>
+      {% if ventana.abierta %}
+      <form method="post" action="{{ url_for('curso_notas', materia_id=materia.id, grado_id=grado.id, periodo=periodo) }}">
+        <input type="hidden" name="accion" value="nota_final">
+        <input type="hidden" name="estudiante" value="{{ f.estudiante.usuario }}">
+        <div class="selector-desempeno">
+          {% for v in NIVELES %}<button type="submit" name="valor" value="{{ v }}" class="btn-nivel nivel-{{ v }} {{ 'activo' if f.final==v else '' }}">{{ NIVEL_LABEL[v] }}</button>{% endfor %}
+        </div>
+      </form>
+      {% if ventana.motivo == 'sin_fecha' %}<div class="pista" style="margin-top:6px;">Rectoría aún no definió la fecha de cierre de este período; por ahora puedes asignarla igual.</div>{% endif %}
+      {% else %}
+      <div class="aviso-bloqueo">
+        {% if ventana.motivo == 'muy_pronto' %}Se habilitará el {{ formato_fecha(ventana.fecha) }} (una semana antes del cierre).
+        {% else %}Este período cerró el {{ formato_fecha(ventana.fecha) }}. Para corregirla, contacta a Rectoría.{% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

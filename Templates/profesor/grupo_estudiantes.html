@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import "profesor/_grupo_subtabs.html" as st with context %}
+{% block titulo %}Mi grupo — Estudiantes{% endblock %}
+{% block contenido %}
+{{ st.subtabs_grupo('estudiantes') }}
+<div class="panel">
+  <h3>Agregar estudiante al grupo</h3>
+  <form method="post" action="{{ url_for('grupo_estudiantes') }}">
+    <input type="hidden" name="accion" value="agregar">
+    <div class="form-inline">
+      <div class="campo"><label>Nombre completo</label><input name="nombre" placeholder="Nombres y apellidos" required></div>
+      <div class="campo"><label>WhatsApp</label><input name="whatsapp" placeholder="Ej: 3001234567"></div>
+      <div class="campo"><label>Correo</label><input name="correo" type="email" placeholder="acudiente@correo.com"></div>
+      <button type="submit" class="btn btn-terracota">Agregar</button>
+    </div>
+  </form>
+  {% if credencial %}
+  <div class="credencial-generada">Estudiante agregado. Usuario: <strong>{{ credencial.usuario }}</strong> · Contraseña inicial: <strong>{{ credencial.password }}</strong></div>
+  {% endif %}
+</div>
+<div class="panel">
+  <h3>Estudiantes de {{ grado.nombre }} ({{ estudiantes|length }})</h3>
+  {% if not estudiantes %}
+    <div class="vacio">Aún no hay estudiantes.</div>
+  {% else %}
+    <ul class="lista-simple">
+      {% for est in estudiantes %}
+      <li style="display:block;">
+        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;">
+          <span>{{ est.nombre }} <span class="pista">(usuario: {{ est.usuario }})</span></span>
+          <form method="post" action="{{ url_for('grupo_estudiantes') }}" onsubmit="return confirm('¿Quitar a este estudiante del grupo?');">
+            <input type="hidden" name="accion" value="quitar">
+            <input type="hidden" name="estudiante" value="{{ est.usuario }}">
+            <button type="submit" class="btn btn-peligro btn-pequeno">Quitar del grupo</button>
+          </form>
+        </div>
+        <details>
+          <summary class="fila-est-contacto" style="cursor:pointer;">WhatsApp: {{ est.whatsapp or "—" }} · Correo: {{ est.correo or "—" }} (editar)</summary>
+          <form method="post" action="{{ url_for('grupo_estudiantes') }}" class="form-inline" style="margin-top:8px;">
+            <input type="hidden" name="accion" value="editar_contacto">
+            <input type="hidden" name="estudiante" value="{{ est.usuario }}">
+            <div class="campo"><label>WhatsApp</label><input name="whatsapp" value="{{ est.whatsapp or '' }}"></div>
+            <div class="campo"><label>Correo</label><input name="correo" type="email" value="{{ est.correo or '' }}"></div>
+            <button type="submit" class="btn btn-secundario btn-pequeno">Guardar contacto</button>
+          </form>
+        </details>
+      </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+{% endblock %}

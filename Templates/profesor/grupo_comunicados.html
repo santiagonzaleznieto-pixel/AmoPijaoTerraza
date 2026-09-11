@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import "profesor/_grupo_subtabs.html" as st with context %}
+{% block titulo %}Mi grupo — Comunicados{% endblock %}
+{% block contenido %}
+{{ st.subtabs_grupo('comunicados') }}
+<div class="panel">
+  <h3>Publicar comunicado</h3>
+  <form method="post" action="{{ url_for('grupo_comunicados') }}">
+    <div class="campo"><label>Título</label><input name="titulo" placeholder="Ej: Reunión de padres" required></div>
+    <div class="campo"><label>Mensaje</label><textarea name="texto" rows="3" required></textarea></div>
+    <button type="submit" class="btn btn-terracota">Publicar</button>
+  </form>
+</div>
+<div class="panel">
+  <h3>Publicados</h3>
+  {% if not lista %}
+    <div class="vacio">Aún no hay comunicados.</div>
+  {% else %}
+    {% for c in lista %}
+    <div class="com-item"><h4>{{ c.titulo }}</h4><div class="com-meta">{{ formato_fecha(c.fecha) }}</div><div>{{ c.texto }}</div></div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}
