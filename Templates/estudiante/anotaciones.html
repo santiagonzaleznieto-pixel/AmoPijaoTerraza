@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block titulo %}Mis anotaciones{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion"><h2>Mis anotaciones</h2></div>
+<div class="panel">
+  {% if not lista %}
+    <div class="vacio">No tienes anotaciones registradas.</div>
+  {% else %}
+    {% for o in lista %}
+    <div class="obs-item"><div class="obs-meta">{{ formato_fecha(o.fecha) }} · {{ o.autor_nombre }}</div>{{ o.texto }}</div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

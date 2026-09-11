@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block titulo %}Mi asistencia{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion"><h2>Mi asistencia</h2></div>
+<div class="resumen-grid">
+  <div class="resumen-tarjeta"><div class="num">{{ totales.presente }}</div><div class="etq">Días presente</div></div>
+  <div class="resumen-tarjeta"><div class="num">{{ totales.ausente }}</div><div class="etq">Inasistencias</div></div>
+  <div class="resumen-tarjeta"><div class="num">{{ totales.excusa }}</div><div class="etq">Con excusa</div></div>
+</div>
+<div class="panel">
+  <h3>Historial</h3>
+  {% if not registros %}
+    <div class="vacio">Todavía no hay registros.</div>
+  {% else %}
+    <ul class="lista-simple">
+      {% for r in registros %}
+      <li><span>{{ formato_fecha(r.fecha) }}</span>
+        <span class="badge {{ 'superior' if r.estado=='presente' else ('bajo' if r.estado=='ausente' else 'basico') }}">
+          {{ 'Presente' if r.estado=='presente' else ('Ausente' if r.estado=='ausente' else 'Con excusa') }}
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+{% endblock %}

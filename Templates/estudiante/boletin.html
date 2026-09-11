@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% import "macros.html" as m with context %}
+{% block titulo %}Mi boletín{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion no-imprimir">
+  <h2>Mi boletín — {{ nombre_grado(session_user.grado_id) }}</h2>
+  <button class="btn btn-secundario btn-pequeno" onclick="window.print()">Imprimir boletín</button>
+</div>
+<div class="selector-periodos no-imprimir">
+  {% for p in PERIODOS %}
+  <a href="{{ url_for('boletin', periodo=loop.index0) }}" class="chip-periodo {{ 'activo' if periodo==loop.index0 else '' }}">{{ p }}</a>
+  {% endfor %}
+</div>
+<div class="panel">
+  <h3>{{ PERIODOS[periodo] }}</h3>
+  {% for f in filas %}
+  <div class="fila-materia">
+    <div>
+      <div class="nombre-mat">{{ f.materia.nombre }}</div>
+      <div class="detalle-parciales">
+        {% if f.parciales %}{% for p in f.parciales %}{{ p.nombre }}: {{ NIVEL_LABEL[p.valor] }}{{ " · " if not loop.last }}{% endfor %}{% else %}Aún sin notas parciales{% endif %}
+      </div>
+    </div>
+    {{ m.badge_nivel(f.final) }}
+  </div>
+  {% endfor %}
+</div>
+<div class="panel">
+  <h3>Resumen del año por área</h3>
+  <div class="tabla-scroll"><table>
+    <thead><tr><th>Área</th>{% for p in PERIODOS %}<th>{{ p }}</th>{% endfor %}</tr></thead>
+    <tbody>
+      {% for r in resumen_anual %}
+      <tr><td>{{ r.materia.nombre }}</td>{% for v in r.finales %}<td>{{ m.badge_nivel(v) }}</td>{% endfor %}</tr>
+      {% endfor %}
+    </tbody>
+  </table></div>
+</div>
+{% endblock %}

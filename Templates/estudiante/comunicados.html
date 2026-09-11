@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block titulo %}Comunicados{% endblock %}
+{% block contenido %}
+<div class="encabezado-seccion"><h2>Comunicados de {{ nombre_grado(session_user.grado_id) }}</h2></div>
+{% if not lista %}
+  <div class="panel"><div class="vacio">Sin comunicados todavía.</div></div>
+{% else %}
+  {% for c in lista %}
+  <div class="com-item"><h4>{{ c.titulo }}</h4><div class="com-meta">{{ formato_fecha(c.fecha) }} · {{ c.autor }}</div><div>{{ c.texto }}</div></div>
+  {% endfor %}
+{% endif %}
+{% endblock %}
