@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="color-scheme" content="light dark">
+<title>Panel · Amo Pijao Terraza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,480;9..144,600&family=Work+Sans:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FBF3E3;--deep:#F1E1BE;--line:rgba(107,42,32,.14);--mar:#6B2A20;--dk:#3E170F;--ink:#2E211B;--gold:#AD7C3F;--paper:#FFFCF6;--arch:50% 50% 4% 4%/26% 26% 2% 2%;color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root{--cream:#2E2515;--deep:#3C311B;--line:rgba(255,244,230,.14);--mar:#C65240;--dk:#EDCAC4;--ink:#ECE1D2;--gold:#C19054}}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 15px/1.5 'Work Sans',system-ui,sans-serif}
+h2{font:600 26px Fraunces,Georgia,serif;color:var(--dk);margin:0 0 8px}
+.eyebrow{font:11px 'Space Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--mar);display:flex;align-items:center;gap:8px}.eyebrow:before{content:"";width:22px;height:1px;background:var(--gold)}
+header{position:sticky;top:0;z-index:9;background:rgba(251,243,227,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar,.tabs,main{max-width:900px;margin:0 auto}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:40px;height:40px;border-radius:50%;background:var(--mar);color:var(--paper);display:grid;place-items:center;font:600 15px Fraunces,serif}
+.brand b{font:600 18px Fraunces,serif;color:var(--dk);display:block;line-height:1.15}
+.hb{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.st{font:12px 'Space Mono',monospace;color:var(--mar)}.st.bad{color:#B3261E}
+.btn{border:0;border-radius:999px;padding:10px 20px;background:var(--mar);color:var(--paper);font:600 14px 'Work Sans',sans-serif;cursor:pointer}
+.btn:hover{background:var(--dk)}.btn.ghost{background:none;color:var(--mar);border:1px solid var(--line);padding:8px 14px;font-size:13px}.btn.ghost:hover{background:var(--paper)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:0 20px 12px}
+.tab{white-space:nowrap;border:1px solid var(--line);background:none;border-radius:999px;padding:8px 18px;font:500 14px 'Work Sans',sans-serif;color:var(--ink);cursor:pointer}
+.tab.on{background:var(--mar);color:var(--paper);border-color:var(--mar)}
+main{padding:18px 20px 60px}.note{font-size:13px;color:var(--mar);margin:0 0 16px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px;margin:0 0 14px;box-shadow:0 18px 40px -28px rgba(62,23,15,.35)}
+label{display:block;font:11.5px 'Space Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mar);margin:12px 0 5px}
+label.chk{display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font:14px 'Work Sans',sans-serif;color:var(--ink)}
+input[type=checkbox]{width:18px;height:18px;accent-color:var(--mar)}
+input:not([type=checkbox]):not([type=file]):not([type=color]):not([type=range]),textarea,select{width:100%;border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px 12px;font:15px 'Work Sans',sans-serif;color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--gold)}textarea{min-height:88px;resize:vertical}
+summary{cursor:pointer;display:flex;justify-content:space-between;gap:10px;font:600 17px Fraunces,serif;color:var(--dk)}summary span{font:12px 'Space Mono',monospace;color:var(--mar)}
+.cat{display:flex;gap:8px;margin:14px 0 6px}.cat input:first-child{width:64px;text-align:center}
+.it{display:grid;grid-template-columns:1.3fr 1.6fr .8fr auto;gap:8px;margin:8px 0;align-items:center}
+.it.b{grid-template-columns:1.6fr repeat(3,.8fr) auto}
+.x{border:0;background:none;color:#B3261E;font:600 18px sans-serif;cursor:pointer;padding:4px 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-bottom:14px}
+label.ph{aspect-ratio:4/3;margin:0 0 6px;border-radius:var(--arch);overflow:hidden;background:var(--deep);border:1px dashed var(--gold);display:grid;place-items:center;cursor:pointer;color:var(--mar);text-align:center;font:13px 'Work Sans',sans-serif;text-transform:none;letter-spacing:0;padding:0}
+label.ph span{padding:10px}.ph img{width:100%;height:100%;object-fit:cover}.ph input{display:none}
+.lock{max-width:380px;margin:40px auto}
+.row2{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.swrap{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12.5px;text-align:center}input[type=color]{width:48px;height:40px;padding:2px;border-radius:10px}
+.uli{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:8px 0;font-size:14px}
+.uli[data-a]{cursor:pointer}.uli.on{color:var(--mar);font-weight:600}
+.crop-bg{position:fixed;inset:0;background:rgba(46,33,27,.6);z-index:20;display:flex;align-items:center;justify-content:center;padding:16px}
+.crop-box{background:var(--paper);border-radius:18px;padding:16px;max-width:420px;width:100%}
+.crop-frame{position:relative;overflow:hidden;background:#000;border-radius:12px;margin:10px 0;touch-action:none}
+.crop-frame img{position:absolute;left:0;top:0;user-select:none;-webkit-user-drag:none;will-change:transform}
+.pal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(122px,1fr));gap:10px}
+.pal{border:2px solid var(--line);border-radius:12px;padding:10px 8px;cursor:pointer;text-align:center;background:#fff}
+.pal.on{border-color:var(--mar);background:var(--deep)}
+.pal span{display:inline-block;width:17px;height:17px;border-radius:50%;margin:0 1px;border:1px solid rgba(0,0,0,.12);vertical-align:middle}
+.pal b{display:block;font:600 12px 'Work Sans',sans-serif;margin-top:7px;font-weight:600}
+.pal i,.fcard i{display:block;font:11px 'Space Mono',monospace;color:var(--mar);font-style:normal;margin-top:2px}
+.f-grid{display:flex;flex-direction:column;gap:6px;max-height:280px;overflow:auto;padding-right:2px}
+.fcard{border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;font-size:16px;background:#fff}
+.fcard.on{border-color:var(--mar);background:var(--deep)}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{border:1px solid var(--line);border-radius:999px;padding:8px 16px;background:#fff;cursor:pointer;font:500 14px 'Work Sans',sans-serif}
+.pill.on{background:var(--mar);color:var(--paper);border-color:var(--mar)}
+@media(max-width:640px){.it,.it.b{grid-template-columns:1fr 1fr}.it .nm,.it .ds{grid-column:1/-1}.row2{grid-template-columns:1fr 1fr 1fr}}
+</style></head><body>
+<header>
+<div class="bar"><div class="brand"><div class="logo">AP</div><div><b>Amo Pijao Terraza</b><div class="eyebrow">Panel de administración</div></div></div>
+<div class="hb" id="hb" hidden><span class="st" id="st"></span><span class="st" id="whoami"></span><button class="btn ghost" data-a="rl">Actualizar</button><button class="btn ghost" data-a="ou">Salir</button></div></div>
+<nav class="tabs" id="tb" hidden><button class="tab" data-t="textos">Textos y avisos</button><button class="tab" data-t="menu">Menú y precios</button><button class="tab" data-t="tienda">Tienda</button><button class="tab" data-t="fotos">Fotos</button><button class="tab" data-t="estilo">Apariencia</button><button class="tab" data-t="usuarios">Usuarios</button></nav>
+</header>
+<main></main>
+<script>
+const U='https://suvqsjloaoovaxjusini.supabase.co',K='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1dnFzamxvYW9vdmF4anVzaW5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NTI0MDIsImV4cCI6MjEwNjEyODQwMn0.3HC7MK3TCSEIWkpgHApObsgo6a5oyUjMv_511AwG0iU',DOM='amopijaoterraza.local',SEED={"texts": {"tagline": "\"Un menú hecho con amor\"", "lede": "Café de especialidad, comida casera y una terraza con vista al parque principal de Pijao. Un lugar para amar a Pijao, un café a la vez.", "aboutTitle": "Un rincón para amar a Pijao", "aboutText": "En el corazón de Pijao, uno de los pueblos más coloridos del Eje Cafetero, Amo Pijao Terraza es un rincón pensado para disfrutar el buen café con calma. Desde nuestra terraza, con vista al parque principal, invitamos a compartir una tarde tranquila, una buena conversación y una carta preparada con cuidado en cada detalle. Un espacio cálido y acogedor, ideal para parejas, familias y quienes buscan una pausa con sabor a Quindío.", "hours": "Todos los días\n1:00 p.m. – 10:00 p.m.", "address": "Cra. 4 #12-12\nPijao, Quindío", "phone": "+57 310 433 7667", "notice": "", "noticeOn": false}, "menu": [{"name": "Bebidas de Café", "emoji": "☕", "order": 0, "items": [{"n": "Espresso", "d": "", "p": "$4.000"}, {"n": "Café Carajillo", "d": "Espresso, aguardiente amarillo, panela", "p": "$9.000"}, {"n": "Latte", "d": "", "p": "$5.000"}, {"n": "Café Americano", "d": "", "p": "$4.000"}, {"n": "Cappuccino Tradicional", "d": "", "p": "$7.000"}, {"n": "Cappuccino con Licor", "d": "Brandy, amaretto, aguardiente, ron", "p": "$12.000"}, {"n": "Cappuccino Vienés", "d": "Con crema chantilly", "p": "$11.000"}, {"n": "Cappuccino Montañero", "d": "Panela, canela", "p": "$8.000"}, {"n": "Mocca", "d": "Café, chocolate, leche", "p": "$9.000"}, {"n": "Mocca con Chantilly", "d": "", "p": "$10.500"}, {"n": "Espresso Amaretto", "d": "", "p": "$8.500"}, {"n": "Espresso Baileys", "d": "", "p": "$10.000"}, {"n": "Café Bombón", "d": "Leche condensada, café, crema chantilly", "p": "$8.000"}]}, {"name": "Aromáticas", "emoji": "🍵", "order": 1, "items": [{"n": "Aromática Tradicional", "d": "", "p": "$2.000"}, {"n": "Aromática de Panelita", "d": "", "p": "$3.000"}, {"n": "Aromática de Hierbabuena", "d": "", "p": "$3.000"}, {"n": "Té Chai", "d": "", "p": "$8.500"}, {"n": "Aromática de Frutas", "d": "", "p": "$7.000"}]}, {"name": "Bebidas Frías", "emoji": "🥤", "order": 2, "items": [{"n": "Limonada Natural", "d": "", "p": "$7.000"}, {"n": "Limonada Hierbabuena", "d": "", "p": "$9.000"}, {"n": "Limonada Cerezada", "d": "", "p": "$8.000"}, {"n": "Limonada de Coco", "d": "", "p": "$10.000"}, {"n": "Frappé de Fruta", "d": "", "p": "$10.000"}, {"n": "Milo Frío", "d": "", "p": "$9.000"}, {"n": "Jugo Natural en Agua", "d": "", "p": "$7.000"}, {"n": "Jugo Natural en Leche", "d": "", "p": "$8.000"}, {"n": "Soda", "d": "", "p": "$5.000"}, {"n": "Tamarindo", "d": "", "p": "$5.000"}, {"n": "Sodas Italianas", "d": "Frutos rojos o amarillos", "p": "$12.000"}]}, {"name": "Con Café y Más", "emoji": "☕", "order": 3, "items": [{"n": "Granizado de Café", "d": "", "p": "$14.000"}, {"n": "Granizado de Mango Biche", "d": "", "p": "$14.000"}, {"n": "Latte Frío", "d": "", "p": "$8.500"}, {"n": "Té Chai Frío", "d": "", "p": "$11.000"}, {"n": "Malteada de Oreo", "d": "", "p": "$15.000"}, {"n": "Malteada de Café", "d": "", "p": "$15.000"}, {"n": "Malteada de Milo", "d": "", "p": "$15.000"}, {"n": "Café en las Rocas", "d": "", "p": "$8.000"}]}, {"name": "Bebidas Calientes", "emoji": "🍫", "order": 4, "items": [{"n": "Chocolate en Agua", "d": "", "p": "$4.000"}, {"n": "Chocolate en Leche", "d": "", "p": "$6.000"}, {"n": "Colada de Café", "d": "", "p": "$9.000"}, {"n": "Chocolate con Queso", "d": "", "p": "$9.000"}, {"n": "Colada de la Abuela", "d": "Tradicional", "p": "$8.000"}, {"n": "Milo Caliente", "d": "", "p": "$5.000"}, {"n": "Aguapanela con Queso", "d": "", "p": "$8.000"}, {"n": "Canelazo Amo Pijao", "d": "Canela, panela, brandy, maracuyá", "p": "$10.000"}, {"n": "Chocolate con Masmelos", "d": "", "p": "$8.000"}, {"n": "Migao", "d": "Chocolate en leche o agua, buñuelo, almojábana, queso, galletas ducales", "p": "$14.000"}]}, {"name": "Helados", "emoji": "🍦", "order": 5, "items": [{"n": "Cono Sencillo / Doble", "d": "", "p": "$6.000 / 8.500"}, {"n": "Brownie Caliente", "d": "", "p": "$12.000"}, {"n": "Fresas con Crema", "d": "", "p": "$12.000"}, {"n": "Copa Feliz", "d": "Con fresas, chantilly", "p": "$11.000"}, {"n": "Affogato", "d": "Espresso con helado", "p": "$8.500"}]}, {"name": "Antojitos para Ser", "emoji": "🧁", "order": 6, "items": [{"n": "Almojábanas", "d": "", "p": "$2.500"}, {"n": "Torta de Zanahoria", "d": "", "p": "$12.000"}, {"n": "Ensalada de Frutas", "d": "", "p": "$14.000"}, {"n": "Cheesecake de Frutos Rojos", "d": "", "p": "$12.000"}, {"n": "Torta de Almojábana", "d": "", "p": "$12.000"}, {"n": "Torta de Chocolate", "d": "", "p": "$12.000"}, {"n": "Torta de Café", "d": "", "p": "$12.000"}]}, {"name": "Entraditas y Sandwiches", "emoji": "🥪", "order": 7, "items": [{"n": "Empanadas x 6", "d": "", "p": "$18.000"}, {"n": "Sandwich Tradicional", "d": "Jamón y queso", "p": "$7.000"}, {"n": "Sandwich Hawaiano", "d": "Jamón, queso gratinado, piña", "p": "$15.000"}, {"n": "Sandwich Gratinado", "d": "Jamón, pollo, queso, tocineta, champiñones, crema de leche", "p": "$16.000"}]}, {"name": "Hamburguesas y Perritos", "emoji": "🍔", "order": 8, "items": [{"n": "Hamburguesa de Res", "d": "Carne de res, tomate, ripio, tocineta, jamón y queso", "p": "$18.000"}, {"n": "Hamburguesa de Pollo Apanado", "d": "Pollo apanado, tomate, ripio, tocineta, jamón y queso", "p": "$19.000"}, {"n": "Perro Especial", "d": "Ripio, tocineta, jamón y queso", "p": "$12.000"}, {"n": "Perra", "d": "Ripio, chorizo, piña, triple tocineta, jamón, triple queso", "p": "$19.000"}, {"n": "Salchipapas", "d": "Papa, salchichas, queso gratinado, ripio de papa, salsas", "p": "$12.000"}]}, {"name": "Comidas para el Corazón", "emoji": "🍳", "order": 9, "items": [{"n": "Patacón Mixto", "d": "Carne, pollo, chorizo picado, madurito, maicitos, queso gratinado", "p": "$26.000"}, {"n": "Patacón con Pollo", "d": "Pollo, chorizo picado, madurito, maicitos y queso gratinado", "p": "$24.000"}, {"n": "Cono Mixto", "d": "Carne, pollo, chorizo picado, madurito, maicitos, queso", "p": "$20.000"}, {"n": "Cono Loco", "d": "Pollo, chorizo picado, madurito, maicitos, queso", "p": "$19.000"}, {"n": "Cono Hawaiano", "d": "Pollo, piña, jamón y queso", "p": "$17.000"}, {"n": "Burrito Mixto", "d": "Carne, pollo, chorizo, madurito, maicitos y queso", "p": "$24.000"}, {"n": "Burrito de Pollo", "d": "Pollo, chorizo, madurito, maicitos, jamón y queso", "p": "$22.000"}, {"n": "Mazorcada Mixta", "d": "Pollo, carne, maicitos, ripio de papa y queso gratinado", "p": "$19.000"}]}, {"name": "Cervezas", "emoji": "🍻", "order": 10, "items": [{"n": "Corona", "d": "", "p": "$9.000"}, {"n": "Club Colombia Dorada", "d": "", "p": "$6.000"}, {"n": "Águila Light", "d": "", "p": "$5.000"}, {"n": "Coronita", "d": "", "p": "$5.000"}, {"n": "Poker", "d": "", "p": "$5.000"}, {"n": "3 Cordilleras Rosada", "d": "", "p": "$9.000"}]}, {"name": "Cócteles y Vinos", "emoji": "🍸", "order": 11, "items": [{"n": "Margarita", "d": "", "p": "$22.000"}, {"n": "Mojito Tradicional / Frutas", "d": "", "p": "$22.000 / 25.000"}, {"n": "Copa de Vino Tinto", "d": "Gato Negro", "p": "$20.000"}, {"n": "Atardecer Terraza", "d": "Vodka, vino, limón, notas de vainilla", "p": "$25.000"}, {"n": "Gama Terraza", "d": "Maracuyá, mango, ron, vodka de lulo, triple sec y limón", "p": "$25.000"}]}, {"name": "Botellas y Medias", "emoji": "🍾", "order": 12, "cols": ["Shot", "Media", "Botella"], "items": [{"n": "Aguardiente Antioqueño", "v": ["$6.000", "$45.000", "$90.000"]}, {"n": "Aguardiente Amarillo", "v": ["$6.000", "$45.000", "$90.000"]}, {"n": "Ron Viejo de Caldas", "v": ["$7.000", "$50.000", "$100.000"]}, {"n": "Brandy Domecq", "v": ["$7.000", "$50.000", "$100.000"]}, {"n": "Old Parr o Buchanan's", "v": ["$17.000", "$135.000", "$240.000"]}]}]};
+const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const hexEq=(a,b)=>String(a||'').toLowerCase()==String(b||'').toLowerCase();
+const PAL=[
+ {n:'Vinotinto Clásico',m:'#6B2A20',c:'#FBF3E3',g:'#AD7C3F',def:true,d:{m:'#C65240',c:'#2D2516',g:'#BF8E50'}},
+ {n:'Verde Cafetal',m:'#2F4A34',c:'#F6F1E4',g:'#C9A227',d:{m:'#5F9569',c:'#2D2616',g:'#D9B33B'}},
+ {n:'Terracota',m:'#B5502E',c:'#FBEFE0',g:'#D99A45',d:{m:'#D67B5C',c:'#2D2216',g:'#DFAA63'}},
+ {n:'Azul Añil',m:'#2B3A55',c:'#F3F1E9',g:'#B08D57',d:{m:'#5471A6',c:'#2B2717',g:'#BB9D6F'}},
+ {n:'Chocolate',m:'#4A2E22',c:'#F5E9D8',g:'#C68642',d:{m:'#9E6249',c:'#2D2316',g:'#CE985D'}},
+ {n:'Mostaza Cálida',m:'#8A5A20',c:'#FDF6E8',g:'#D8B14A',d:{m:'#D6994E',c:'#2D2516',g:'#DEBE67'}},
+ {n:'Rosa Palo',m:'#7A4B54',c:'#FBF1EE',g:'#C9A0A6',d:{m:'#B1818A',c:'#2D1B16',g:'#D6B7BB'}},
+ {n:'Uva',m:'#4B2140',c:'#F6EEF2',g:'#A9769A',d:{m:'#A04689',c:'#2B1721',g:'#B78CAA'}},
+ {n:'Caribe',m:'#1F5E5B',c:'#F1F6F0',g:'#CDA25F',d:{m:'#3DBAB4',c:'#1C2919',g:'#D5B27A'}},
+ {n:'Gris Piedra',m:'#3A3A3A',c:'#F5F3EE',g:'#B8A88A',d:{m:'#777777',c:'#2A2519',g:'#C5B9A0'}}];
+const CF=[['Fraunces','Fraunces:opsz,wght@9..144,600'],['Playfair Display','Playfair+Display:wght@700'],['DM Serif Display','DM+Serif+Display'],['Cormorant Garamond','Cormorant+Garamond:wght@600'],['Lora','Lora:wght@600'],['Libre Baskerville','Libre+Baskerville:wght@700'],['Crimson Pro','Crimson+Pro:wght@600'],['Prata','Prata'],['Marcellus','Marcellus'],['Abril Fatface','Abril+Fatface'],['Bodoni Moda','Bodoni+Moda:wght@700'],['Spectral','Spectral:wght@600'],['EB Garamond','EB+Garamond:wght@600'],['Domine','Domine:wght@600'],['Piazzolla','Piazzolla:wght@600'],['Zilla Slab','Zilla+Slab:wght@600']];
+const BF=[['Work Sans','Work+Sans:wght@400;500;600'],['Inter','Inter:wght@400;500;600'],['Nunito Sans','Nunito+Sans:wght@400;600'],['Poppins','Poppins:wght@400;500;600'],['Mulish','Mulish:wght@400;600'],['Karla','Karla:wght@400;600'],['Rubik','Rubik:wght@400;500;600'],['Manrope','Manrope:wght@400;600'],['Sora','Sora:wght@400;600'],['Jost','Jost:wght@400;500;600'],['Outfit','Outfit:wght@400;500;600'],['Figtree','Figtree:wght@400;500;600'],['Public Sans','Public+Sans:wght@400;500;600'],['Albert Sans','Albert+Sans:wght@400;500;600'],['Plus Jakarta Sans','Plus+Jakarta+Sans:wght@400;500;600'],['Urbanist','Urbanist:wght@400;500;600']];
+const MICRO=[['navHome','Inicio (menú de navegación)'],['navAbout','Nosotros (menú de navegación)'],['navMenu','Menú (menú de navegación)'],['navLoc','Ubicación (menú de navegación)'],['eyebrowAbout','Etiqueta sobre “Nuestra historia”'],['eyebrowMenu','Etiqueta sobre la carta'],['eyebrowLoc','Etiqueta sobre ubicación'],['eyebrowShop','Etiqueta sobre la tienda'],['menuTitle','Título de la sección del menú'],['locTitle','Título de la sección de ubicación'],['shopTitle','Título de la tienda'],['btnReserve','Texto del botón Reservar'],['btnMenu','Texto del botón Ver el menú'],['btnCall','Texto del botón Llamar'],['btnMaps','Texto del botón de Google Maps'],['heroBadge','Insignia sobre el título']];
+const MLAY=[['tabs','Pestañas'],['accordion','Acordeón'],['list','Lista completa']];
+const MSCALE=[['small','Pequeño'],['normal','Normal'],['large','Grande']];
+const MDEF={navHome:'Inicio',navAbout:'Nosotros',navMenu:'Menú',navLoc:'Ubicación',eyebrowAbout:'Nuestra historia',eyebrowMenu:'La Carta',eyebrowLoc:'Visítanos',eyebrowShop:'Tienda',menuTitle:'Un menú hecho con amor',locTitle:'En el centro de Pijao',shopTitle:'Llévate un pedacito de Pijao',btnReserve:'Reservar',btnMenu:'Ver el menú',btnCall:'Llamar',btnMaps:'Ver en Google Maps →',heroBadge:'YO ♥ PIJAO'};
+let S=null,SPLACE='local',T={},IM={},M=[],SH=[],AD=[],tab='textos',OP=new Set,ME='',RESET=null,colorMode='light';
+try{S=JSON.parse(localStorage.getItem('ap_s'));if(S)SPLACE='local'}catch(e){}
+if(!S){try{S=JSON.parse(sessionStorage.getItem('ap_s'));if(S)SPLACE='session'}catch(e){}}
+const nid=()=>Date.now().toString(36),st=(m,b)=>{const e=$('#st');e.textContent=m;e.className='st'+(b?' bad':'')};
+const slug=u=>String(u||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'.').replace(/^\.+|\.+$/g,'');
+const toMail=u=>slug(u)+'@'+DOM;
+const H=(t,x)=>({apikey:K,Authorization:'Bearer '+(t||K),...x});
+function login(m){S=null;localStorage.removeItem('ap_s');sessionStorage.removeItem('ap_s');$('#hb').hidden=$('#tb').hidden=true;$('main').innerHTML=`<div class="card lock"><h2>Ingresar</h2><p class="note">Solo para dueños y administradores.</p><label>Usuario</label><input id="em" autocomplete="username"><label>Contraseña</label><input id="pw" type="password" autocomplete="current-password"><label class="chk" style="margin-top:14px"><input type="checkbox" id="rm"> Recordar este dispositivo</label><p class="note" style="margin:4px 0 0">Si no lo marcas, tendrás que iniciar sesión de nuevo cada vez que vuelvas a entrar.</p><p class="st bad">${m||''}</p><button class="btn" data-a="in" style="margin-top:10px">Entrar</button></div>`}
+const store=()=>SPLACE=='local'?localStorage:sessionStorage;
+const saveSess=()=>{try{store().setItem('ap_s',JSON.stringify(S))}catch(e){}};
+async function tok(b,g,remember){const r=await fetch(U+'/auth/v1/token?grant_type='+g,{method:'POST',headers:H(0,{'Content-Type':'application/json'}),body:JSON.stringify(b)}),j=await r.json();if(!r.ok)throw j;S={a:j.access_token,r:j.refresh_token,t:Date.now(),u:(j.user&&j.user.email)||(S&&S.u)||''};if(remember!=null)SPLACE=remember?'local':'session';saveSess()}
+async function fresh(){if(S&&Date.now()-(S.t||0)>3e6)try{await tok({refresh_token:S.r},'refresh_token')}catch(e){login('Tu sesión venció. Vuelve a entrar.');throw e}}
+async function api(p,o={}){await fresh();const r=await fetch(U+p,{...o,headers:H(S&&S.a,o.headers)});if(!r.ok)throw await r.text();const t=await r.text();return t?JSON.parse(t):null}
+const upsert=rows=>api('/rest/v1/content?on_conflict=col,id',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)});
+const put=async(col,id,position,data)=>{try{st('Guardando…');await upsert([{col,id,position,data,updated_at:new Date().toISOString()}]);st('Guardado ✓ (ya se ve en el sitio)')}catch(e){st('No se pudo guardar',1)}};
+const sv=(col,o)=>{const{id,position,...d}=o;return put(col,id,position,d)};
+const del=async(col,id)=>{try{await api('/rest/v1/content?col=eq.'+col+'&id=eq.'+encodeURIComponent(id),{method:'DELETE'});st('Eliminado ✓');await load()}catch(e){st('No se pudo eliminar',1)}};
+const upl=async b=>{await fresh();const n='f'+Date.now()+Math.random().toString(36).slice(2,6)+'.jpg',r=await fetch(U+'/storage/v1/object/fotos/'+n,{method:'POST',headers:H(S.a,{'Content-Type':'image/jpeg'}),body:b});if(!r.ok)throw await r.text();return U+'/storage/v1/object/public/fotos/'+n};
+const money=v=>{v=String(v).trim();return/^\$?\s*[\d.,]+$/.test(v)?'$'+v.replace(/\D/g,'').replace(/\B(?=(\d{3})+(?!\d))/g,'.'):v};
+const sure=t=>{if(t.dataset.arm)return 1;const o=t.textContent;t.dataset.arm=1;t.textContent='¿Seguro?';setTimeout(()=>{delete t.dataset.arm;t.textContent=o},3000)};
+const loadFont=n=>{const f=[...CF,...BF].find(x=>x[0]==n);if(!f||document.querySelector('link[data-f="'+n+'"]'))return;const l=document.createElement('link');l.rel='stylesheet';l.dataset.f=n;l.href='https://fonts.googleapis.com/css2?family='+f[1]+'&display=swap';document.head.appendChild(l)};
+
+/* ---------- recorte de fotos ---------- */
+function cropFile(file,ratio,shape){return new Promise(resolve=>{
+ const rd=new FileReader();
+ rd.onload=()=>{
+  const im=new Image();
+  im.onload=()=>{
+  const bg=document.createElement('div');bg.className='crop-bg';
+  const fw=Math.min(360,window.innerWidth-64),fh=fw/ratio;
+  bg.innerHTML=`<div class="crop-box"><h2 style="font-size:18px">Ajusta la foto</h2><p class="note">Arrastra para mover, usa la barra para acercar. Así se verá en la página.</p><div class="crop-frame" style="width:${fw}px;height:${fh}px;border-radius:${shape=='circle'?'50%':'var(--arch)'}"><img></div><input type="range" min="100" max="300" value="100" id="zm"><div style="display:flex;gap:8px;margin-top:12px"><button class="btn ghost" id="cc" style="flex:1">Cancelar</button><button class="btn" id="ok" style="flex:1">Usar esta foto</button></div></div>`;
+  document.body.appendChild(bg);
+  const frame=bg.querySelector('.crop-frame'),img=bg.querySelector('img'),zm=bg.querySelector('#zm');
+  const base=Math.max(fw/im.width,fh/im.height);let s=base,x=(fw-im.width*s)/2,y=(fh-im.height*s)/2;
+  const clamp=()=>{const w=im.width*s,h=im.height*s;x=Math.min(0,Math.max(fw-w,x));y=Math.min(0,Math.max(fh-h,y))};
+  const draw=()=>{clamp();img.style.width=(im.width*s)+'px';img.style.height=(im.height*s)+'px';img.style.transform=`translate(${x}px,${y}px)`};
+  img.src=rd.result;draw();
+  let drag=null;
+  frame.addEventListener('pointerdown',e=>{drag={sx:e.clientX-x,sy:e.clientY-y};frame.setPointerCapture(e.pointerId)});
+  frame.addEventListener('pointermove',e=>{if(!drag)return;x=e.clientX-drag.sx;y=e.clientY-drag.sy;draw()});
+  frame.addEventListener('pointerup',()=>drag=null);
+  zm.oninput=()=>{const ns=base*(zm.value/100),cx=fw/2-x,cy=fh/2-y,r=ns/s;s=ns;x=fw/2-cx*r;y=fh/2-cy*r;draw()};
+  bg.querySelector('#cc').onclick=()=>{bg.remove();resolve(null)};
+  bg.querySelector('#ok').onclick=()=>{
+   const OW=ratio>=1?900:Math.round(900*ratio),OH=Math.round(OW/ratio),c=document.createElement('canvas');c.width=OW;c.height=OH;
+   const ctx=c.getContext('2d'),k=OW/fw;
+   ctx.drawImage(im,x*k,y*k,im.width*s*k,im.height*s*k);
+   c.toBlob(b=>{bg.remove();resolve(b)},'image/jpeg',.82)};
+  };
+  im.src=rd.result;
+ };
+ rd.readAsDataURL(file);
+})}
+
+/* ---------- vistas ---------- */
+const F=[['tagline','Frase principal','i'],['lede','Presentación (debajo del título)','t'],['aboutTitle','Título de “Nuestra historia”','i'],['aboutText','Texto de “Nuestra historia”','t'],['hours','Horario (un renglón por línea)','t'],['address','Dirección','t'],['phone','Teléfono y WhatsApp','i']];
+const vT=()=>`<div class="card"><label class="chk"><input type="checkbox" data-k="noticeOn" ${T.noticeOn?'checked':''}> Mostrar aviso destacado en la parte de arriba del sitio</label><label>Mensaje del aviso</label><input data-k="notice" value="${E(T.notice)}" placeholder="Ej. Hoy abrimos desde las 3:00 p.m."></div><div class="card">`+F.map(([k,l,t])=>`<label>${l}</label>`+(t=='t'?`<textarea data-k="${k}">${E(T[k])}</textarea>`:`<input data-k="${k}" value="${E(T[k])}">`)).join('')+`</div><details class="card" ${OP.has('micro')?'open':''} data-id="micro"><summary>Textos pequeños (menú, botones, secciones)<span>${MICRO.length}</span></summary><p class="note">Si dejas alguno vacío, el sitio usa el texto original.</p>`+MICRO.map(([k,l])=>`<label>${l}</label><input data-k="${k}" value="${E(T[k]!=null&&T[k]!==''?T[k]:MDEF[k])}">`).join('')+`</details>`;
+const vM=()=>M.map((c,i)=>{const cs=c.cols;return`<details class="card" data-id="${c.id}" ${OP.has(c.id)?'open':''}><summary>${E(c.emoji)} ${E(c.name)}<span>${(c.items||[]).length} ítems</span></summary><div class="cat"><input data-c="${i}" data-f="emoji" value="${E(c.emoji)}"><input data-c="${i}" data-f="name" value="${E(c.name)}"><button class="x" data-a="dc" data-c="${i}" title="Eliminar categoría">🗑</button></div>`+(c.items||[]).map((it,j)=>`<div class="it${cs?' b':''}"><input class="nm" data-c="${i}" data-j="${j}" data-f="n" value="${E(it.n)}" placeholder="Nombre">`+(cs?cs.map((x,k)=>`<input data-c="${i}" data-j="${j}" data-v="${k}" value="${E((it.v||[])[k])}" placeholder="${x}">`).join(''):`<input class="ds" data-c="${i}" data-j="${j}" data-f="d" value="${E(it.d)}" placeholder="Descripción (opcional)"><input data-c="${i}" data-j="${j}" data-f="p" value="${E(it.p)}" placeholder="$0" inputmode="numeric">`)+`<button class="x" data-a="di" data-c="${i}" data-j="${j}">×</button></div>`).join('')+`<button class="btn ghost" data-a="ai" data-c="${i}">＋ Agregar ${cs?'fila':'plato'}</button></details>`}).join('')+`<button class="btn" data-a="ac">＋ Nueva categoría</button>`;
+const vS=()=>`<p class="note">Aquí publicas lo que vendes (imanes, tazas, etc.). Solo los productos marcados como “Publicado” aparecen en el sitio.</p><div class="grid">`+SH.map((p,i)=>`<div class="card"><label class="ph" data-crop="shop" data-s="${i}" data-ratio="1">${p.img?`<img src="${E(p.img)}" alt="">`:'<span>📷 Toca para agregar la foto</span>'}<input type="file" accept="image/*"></label><label>Nombre</label><input data-s="${i}" data-f="name" value="${E(p.name)}" placeholder="Imán de Pijao, Taza…"><label>Precio</label><input data-s="${i}" data-f="price" value="${E(p.price)}" inputmode="numeric" placeholder="$0"><label>Descripción</label><textarea data-s="${i}" data-f="desc">${E(p.desc)}</textarea><label class="chk"><input type="checkbox" data-s="${i}" data-f="on" ${p.on?'checked':''}> Publicado en el sitio</label><label class="chk"><input type="checkbox" data-s="${i}" data-f="out" ${p.out?'checked':''}> Agotado</label><button class="btn ghost" style="margin-top:12px;color:#B3261E" data-a="ds" data-s="${i}">Eliminar producto</button></div>`).join('')+`</div><button class="btn" data-a="as">＋ Nuevo producto</button>`;
+const vF=()=>[['hero','Foto principal (portada)',.8],['about','Foto de “Nuestra historia”',1]].map(([k,l,r])=>`<div class="card" style="max-width:420px"><label style="margin-top:0">${l}</label><label class="ph" data-crop="${k}" data-ratio="${r}" style="aspect-ratio:${r}">${IM[k]?`<img src="${E(IM[k])}" alt="">`:'<span>📷 Toca para cambiarla y ajustar el encuadre</span>'}<input type="file" accept="image/*"></label></div>`).join('');
+const vE=()=>{const th=T._theme||{};
+ const lightSrc=th.light||{maroon:th.maroon,cream:th.cream,gold:th.gold},darkSrc=th.dark||{};
+ const dfl={maroon:'#6B2A20',cream:'#FBF3E3',gold:'#AD7C3F'},dfd={maroon:'#C65240',cream:'#2D2516',gold:'#BF8E50'};
+ const src=colorMode=='dark'?darkSrc:lightSrc,dflt=colorMode=='dark'?dfd:dfl;
+ const cm=src.maroon||dflt.maroon,cc=src.cream||dflt.cream,cg=src.gold||dflt.gold;
+ const modeBtns=`<div class="pills" style="margin-bottom:12px"><button class="pill${colorMode=='light'?' on':''}" data-a="cm" data-v="light">☀️ Modo claro</button><button class="pill${colorMode=='dark'?' on':''}" data-a="cm" data-v="dark">🌙 Modo oscuro</button></div>`;
+ const pal=PAL.map(p=>{const v=colorMode=='dark'?p.d:p;const on=hexEq(v.m,cm)&&hexEq(v.c,cc)&&hexEq(v.g,cg);return`<div class="pal${on?' on':''}" data-a="pal" data-pal='${JSON.stringify(p)}'><span style="background:${v.m}"></span><span style="background:${v.c}"></span><span style="background:${v.g}"></span><b>${E(p.n)}</b>${p.def?'<i>Predeterminado</i>':''}</div>`}).join('');
+ const fcard=(arr,cur,kind,def)=>arr.map(([n])=>{loadFont(n);const on=hexEq(n,cur||arr[0][0]);return`<div class="fcard${on?' on':''}" data-a="fc" data-f="${kind}" data-n="${n}" style="font-family:'${n}'">${E(n)}${n==def?'<i>Predeterminado</i>':''}</div>`}).join('');
+ const sizes=[['small','Pequeño'],['normal','Normal'],['large','Grande']],scur=th.scale||'normal';
+ const spills=sizes.map(([v,l])=>`<button class="pill${v==scur?' on':''}" data-a="sz" data-v="${v}">${l}${v=='normal'?' · Predeterminado':''}</button>`).join('');
+ const mlCur=th.menuLayout||'tabs',msCur=th.menuScale||'normal';
+ const mlPills=MLAY.map(([v,l])=>`<button class="pill${v==mlCur?' on':''}" data-a="ml" data-v="${v}">${l}${v=='tabs'?' · Predeterminado':''}</button>`).join('');
+ const mscPills=MSCALE.map(([v,l])=>`<button class="pill${v==msCur?' on':''}" data-a="msc" data-v="${v}">${l}${v=='normal'?' · Predeterminado':''}</button>`).join('');
+ return`${modeBtns}<div class="card"><label style="margin-top:0">Colores — ${colorMode=='dark'?'modo oscuro':'modo claro'}</label><p class="note" style="margin:0 0 10px">Se guardan por separado: cada visitante ve el de modo claro u oscuro según su teléfono. Toca una paleta para aplicar las 3 a la vez, o ajusta cada una abajo.</p><div class="pal-grid">${pal}</div><div class="row2" style="margin-top:14px"><div class="swrap"><input type="color" data-th="maroon" value="${cm}"><span>Color principal</span></div><div class="swrap"><input type="color" data-th="cream" value="${cc}"><span>Fondo</span></div><div class="swrap"><input type="color" data-th="gold" value="${cg}"><span>Detalles / dorado</span></div></div></div><div class="card"><label style="margin-top:0">Letra de títulos</label><div class="f-grid">${fcard(CF,th.headFont,'headFont','Fraunces')}</div></div><div class="card"><label style="margin-top:0">Letra de texto</label><div class="f-grid">${fcard(BF,th.bodyFont,'bodyFont','Work Sans')}</div></div><div class="card"><label style="margin-top:0">Tamaño del texto</label><div class="pills">${spills}</div></div><div class="card"><label style="margin-top:0">Estilo de la carta</label><p class="note" style="margin:0 0 10px">Cómo se ven las categorías del menú en la vista de la carta. En “Acordeón”, al tocar una categoría sus platos se despliegan justo debajo de ella. En “Lista completa” se ve todo de una vez, sin tocar nada.</p><div class="pills">${mlPills}</div></div><div class="card"><label style="margin-top:0">Tamaño de la carta</label><p class="note" style="margin:0 0 10px">Solo afecta el tamaño del texto dentro de la carta (letra de títulos y texto ya elegidas arriba).</p><div class="pills">${mscPills}</div></div>`};
+const vU=()=>`<div class="card"><label style="margin-top:0">Con acceso</label><p class="note" style="margin:0 0 10px">Toca un nombre para restablecerle la contraseña.</p>`+AD.map(a=>a.username==ME?`<div class="uli"><span>${E(a.username||'—')}</span><span class="st">(tú)</span></div>`:`<div class="uli${RESET&&RESET.id==a.user_id?' on':''}" data-a="pk" data-id="${a.user_id}" data-u="${E(a.username)}"><span>${E(a.username||'—')}</span><span class="st">Restablecer ›</span></div>`).join('')+`</div>`+
+(RESET?`<div class="card"><label style="margin-top:0">Restablecer la contraseña de ${E(RESET.u)}</label><p class="note" style="margin:0 0 4px">Por seguridad, confirma primero tu propia contraseña.</p><label>Tu contraseña actual</label><input id="rc" type="password"><label>Nueva contraseña para ${E(RESET.u)}</label><input id="rn" type="password" placeholder="Mínimo 6 caracteres"><p class="st bad" id="rerr"></p><div style="display:flex;gap:8px;margin-top:10px"><button class="btn ghost" data-a="rx" style="flex:1">Cancelar</button><button class="btn" data-a="rs" style="flex:1">Guardar</button></div></div>`:'')+
+`<div class="card"><label style="margin-top:0">Cambiar mi contraseña</label><label>Nueva contraseña</label><input id="mp" type="password" placeholder="Mínimo 6 caracteres"><p class="st bad" id="merr"></p><button class="btn" data-a="mc" style="margin-top:10px">Guardar</button></div><div class="card"><label style="margin-top:0">Crear nuevo acceso</label><label>Usuario</label><input id="nu" placeholder="Ej. María"><label>Contraseña</label><input id="np" type="password" placeholder="Mínimo 6 caracteres"><p class="st bad" id="uerr"></p><button class="btn" data-a="cu" style="margin-top:10px">Crear usuario</button></div>`;
+function render(){const a=document.activeElement,typing=a&&a.closest('main')&&(a.tagName=='TEXTAREA'||(a.tagName=='INPUT'&&!['file','checkbox','color','range'].includes(a.type)));if(!S||typing)return;document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.t==tab));$('main').innerHTML='<p class="note">Los cambios se guardan solos y se ven de inmediato en la página principal.</p>'+{textos:vT,menu:vM,tienda:vS,fotos:vF,estilo:vE,usuarios:vU}[tab]()}
+async function load(){const R=await api('/rest/v1/content?select=col,id,position,data&order=position');if(!R.some(r=>r.col=='meta'))return seed();
+T=(R.find(r=>r.col=='site'&&r.id=='texts')||{}).data||{};T._theme=(R.find(r=>r.col=='site'&&r.id=='theme')||{}).data||{};IM={};M=[];SH=[];R.forEach(r=>{if(r.col=='img')IM[r.id]=r.data.src;else if(r.col=='menu')M.push({id:r.id,position:r.position,...r.data});else if(r.col=='shop')SH.push({id:r.id,position:r.position,...r.data})});
+try{AD=await api('/rest/v1/admins?select=user_id,username&order=username')}catch(e){AD=[]}
+render()}
+async function seed(){st('Cargando el menú actual…');await upsert([{col:'site',id:'texts',position:0,data:SEED.texts},...SEED.menu.map((c,i)=>{const{order,...d}=c;return{col:'menu',id:'c'+String(i).padStart(2,'0'),position:i,data:d}}),{col:'meta',id:'seeded',position:0,data:{}}]);return load()}
+async function start(){$('#hb').hidden=$('#tb').hidden=false;st('Conectado');$('#whoami').textContent=ME?('· '+ME):'';try{await load()}catch(e){if(!S)return;st('Sin conexión',1);$('main').innerHTML='<div class="card lock"><h2>Sin conexión</h2><p>No se pudo leer la información. Revisa el internet y pulsa «Actualizar».</p></div>'}}
+document.addEventListener('toggle',e=>{const d=e.target;if(d.dataset&&d.dataset.id)d.open?OP.add(d.dataset.id):OP.delete(d.dataset.id)},true);
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.id=='pw')$('[data-a=in]').click();if(e.key=='Enter'&&e.target.id=='np')$('[data-a=cu]').click()});
+document.addEventListener('change',async e=>{const t=e.target;if(!S||!t.closest('main'))return;const D=(t.type=='file'?t.closest('label'):t).dataset;
+if(D.k){T[D.k]=t.type=='checkbox'?t.checked:t.value;return put('site','texts',0,{...T,_theme:undefined})}
+if(D.th){const k=colorMode=='dark'?'dark':'light';T._theme={...T._theme,[k]:{...T._theme[k],[D.th]:t.value}};return put('site','theme',0,T._theme)}
+if(D.crop){const f=t.files[0];if(!f)return;const b=await cropFile(f,+D.ratio,D.crop=='about'?'circle':'arch');if(!b)return;try{st('Subiendo foto…');const u=await upl(b);if(D.crop=='shop'){const p=SH[D.s];p.img=u;await sv('shop',p)}else{IM[D.crop]=u;await put('img',D.crop,0,{src:u})}render()}catch(x){st('No se pudo subir la foto',1)}return}
+if(D.c!=null){const c=M[D.c];if(D.j==null)c[D.f]=t.value;else{const it=c.items[D.j];if(D.v!=null){it.v=it.v||[];it.v[D.v]=money(t.value)}else it[D.f]=D.f=='p'?money(t.value):t.value}return sv('menu',c)}
+if(D.s!=null){const p=SH[D.s],f=D.f;p[f]=t.type=='checkbox'?t.checked:f=='price'?money(t.value):t.value;sv('shop',p)}});
+document.addEventListener('click',async e=>{const t=e.target.closest('[data-a],[data-t]');if(!t)return;const D=t.dataset,c=M[D.c],a=D.a;
+if(a=='in'){try{st('Entrando…');await tok({email:toMail($('#em').value),password:$('#pw').value},'password',$('#rm').checked);ME=$('#em').value.trim();start()}catch(x){login('Usuario o contraseña incorrectos')}return}
+if(!S)return;
+if(D.t){tab=D.t;return render()}
+if(a=='ou')return login();
+if(a=='rl')return load();
+if(a=='pal'){const p=JSON.parse(t.dataset.pal),k=colorMode=='dark'?'dark':'light',v=colorMode=='dark'?p.d:p;T._theme={...T._theme,[k]:{maroon:v.m,cream:v.c,gold:v.g}};await put('site','theme',0,T._theme);return render()}
+if(a=='cm'){colorMode=D.v;return render()}
+if(a=='fc'){T._theme={...T._theme,[D.f]:D.n};await put('site','theme',0,T._theme);return render()}
+if(a=='sz'){T._theme={...T._theme,scale:D.v};await put('site','theme',0,T._theme);return render()}
+if(a=='ml'){T._theme={...T._theme,menuLayout:D.v};await put('site','theme',0,T._theme);return render()}
+if(a=='msc'){T._theme={...T._theme,menuScale:D.v};await put('site','theme',0,T._theme);return render()}
+if(a=='ai'){(c.items=c.items||[]).push(c.cols?{n:'',v:['','','']}:{n:'',d:'',p:''});OP.add(c.id);await sv('menu',c);render()}
+if(a=='di'&&sure(t)){c.items.splice(D.j,1);await sv('menu',c);render()}
+if(a=='dc'&&sure(t))del('menu',c.id);
+if(a=='ac'){const id='c'+nid();OP.add(id);await put('menu',id,Math.max(-1,...M.map(m=>m.position))+1,{name:'Nueva categoría',emoji:'🍽️',items:[]});await load()}
+if(a=='as'){await put('shop','p'+nid(),Date.now(),{name:'',price:'',desc:'',img:'',on:false,out:false});await load()}
+if(a=='ds'&&sure(t))del('shop',SH[D.s].id);
+if(a=='pk'){RESET={id:D.id,u:D.u};return render()}
+if(a=='rx'){RESET=null;return render()}
+if(a=='rs'){const cp=$('#rc').value,np=$('#rn').value,er=$('#rerr');er.textContent='';
+ if(np.length<6)return er.textContent='La nueva contraseña debe tener al menos 6 caracteres.';
+ try{await api('/rest/v1/rpc/reset_admin_password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({target_user_id:RESET.id,new_password:np,my_current_password:cp})});
+ st('Contraseña de '+RESET.u+' actualizada ✓');RESET=null;render()}
+ catch(x){const s=String(x||'');er.textContent=s.includes('wrong_current_password')?'Tu contraseña actual no es correcta.':s.includes('password_too_short')?'La nueva contraseña es muy corta.':'No se pudo restablecer.'}return}
+if(a=='mc'){const np=$('#mp').value,er=$('#merr');er.textContent='';
+ if(np.length<6)return er.textContent='Debe tener al menos 6 caracteres.';
+ try{await fresh();const rr=await fetch(U+'/auth/v1/user',{method:'PUT',headers:H(S.a,{'Content-Type':'application/json'}),body:JSON.stringify({password:np})});if(!rr.ok)throw 0;$('#mp').value='';st('Tu contraseña se actualizó ✓')}
+ catch(x){er.textContent='No se pudo cambiar la contraseña.'}return}
+if(a=='cu'){const u=$('#nu').value,p=$('#np').value,er=$('#uerr');er.textContent='';
+ if(slug(u).length<2)return er.textContent='Escribe un nombre de usuario.';
+ if(p.length<6)return er.textContent='La contraseña debe tener al menos 6 caracteres.';
+ try{const r=await fetch(U+'/auth/v1/signup',{method:'POST',headers:H(0,{'Content-Type':'application/json'}),body:JSON.stringify({email:toMail(u),password:p})});
+ const j=await r.json();if(!r.ok)throw j;const uid=(j.user&&j.user.id)||j.id;
+ await api('/rest/v1/admins',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({user_id:uid,username:u.trim()})});
+ $('#nu').value='';$('#np').value='';st('Usuario creado ✓');AD=await api('/rest/v1/admins?select=user_id,username&order=username');render()}
+ catch(x){er.textContent=(x&&(x.msg||x.message)||'').includes('registered')?'Ese usuario ya existe.':'No se pudo crear el usuario.'}}});
+if(S){ME=S.u?S.u.split('@')[0]:'';start()}else login();
+</script></body></html>
