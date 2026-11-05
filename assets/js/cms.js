@@ -59,12 +59,9 @@
 
   function applyTheme(TH) {
     var r = document.documentElement.style;
-    if (isHex(TH.maroon)) { r.setProperty('--brand', TH.maroon); r.setProperty('--brand-deep', withL(TH.maroon, .16)); }
-    if (isHex(TH.cream)) {
-      r.setProperty('--wall', TH.cream); r.setProperty('--wall-2', shiftL(TH.cream, -.05));
-      var meta = $('meta[name="theme-color"]'); if (meta) meta.content = TH.cream;
-    }
-    if (isHex(TH.gold)) { r.setProperty('--mostaza', TH.gold); r.setProperty('--accent', TH.gold); }
+    if (isHex(TH.maroon)) { r.setProperty('--vino', TH.maroon); r.setProperty('--vino-deep', withL(TH.maroon, .14)); }
+    if (isHex(TH.cream)) { r.setProperty('--crema', TH.cream); r.setProperty('--paper', TH.cream); }
+    if (isHex(TH.gold)) { r.setProperty('--oro', TH.gold); }
 
     // tipografías permitidas por el panel
     var FONTS = {
@@ -84,8 +81,8 @@
       document.head.appendChild(l);
       r.setProperty(cssVar, '"' + name + '", ' + getComputedStyle(document.documentElement).getPropertyValue(cssVar));
     };
-    useFont(TH.headFont, '--f-display', 'Bricolage Grotesque');
-    useFont(TH.bodyFont, '--f-body', 'Instrument Sans');
+    useFont(TH.headFont, '--f-display', 'Cormorant Garamond');
+    useFont(TH.bodyFont, '--f-body', 'Jost');
     var scale = { small: '93.75%', large: '112.5%' }[TH.scale];
     if (scale) r.fontSize = scale;
   }
@@ -131,7 +128,7 @@
       // textos principales
       var tagline = changed(T, 'tagline'); if (tagline) setText('tagline', tagline.replace(/^["“«]+|["”»]+$/g, ''));
       ['lede', 'aboutTitle', 'aboutText'].forEach(function (k) { if (T[k] && String(T[k]).trim()) setText(k, String(T[k]).trim()); });
-      if (T.address && T.address.trim()) { setText('address', T.address); setText('plaque', lines(T.address)[0].replace(/\./g, '').replace(/#\s*/, '# ')); }
+      if (T.address && T.address.trim()) { setText('address', T.address); setText('addressLine', lines(T.address).slice(0, 2).join(', ')); }
       if (T.hours && T.hours.trim()) {
         setText('hours', T.hours);
         var parsed = APT.parseHours(T.hours);
@@ -150,7 +147,7 @@
       // fotos
       if (images.hero) {
         var h = $('[data-cms-img="hero"]');
-        if (h) { h.src = images.hero; h.classList.add('is-photo'); h.alt = 'Amo Pijao Terraza'; }
+        if (h) { h.src = images.hero; h.classList.add('is-photo'); h.alt = 'Amo Pijao Terraza'; h.removeAttribute('width'); h.removeAttribute('height'); }
       }
       if (images.about) {
         var a = $('[data-cms-img="about"]');
@@ -160,7 +157,19 @@
       applyTheme(TH);
 
       var cats = menu.filter(function (c) { return c && c.name && c.items && c.items.length; });
-      if (cats.length) APT.renderMenu(cats, { scale: TH.menuScale });
+      if (cats.length) {
+        APT.renderMenu(cats, { scale: TH.menuScale });
+        // creaciones de la casa en la portada: precio y descripción al día; se ocultan si ya no están en la carta
+        var all = {};
+        cats.forEach(function (c) { (c.items || []).forEach(function (it) { all[APT.norm(it.n)] = it; }); });
+        $$('[data-dish]').forEach(function (el) {
+          var it = all[APT.norm(el.dataset.dish)];
+          if (!it) { el.hidden = true; return; }
+          var p = $('[data-dish-price]', el), d = $('[data-dish-desc]', el);
+          if (p && it.p) p.textContent = APT.formatPrice(it.p);
+          if (d) { d.textContent = it.d || ''; d.hidden = !it.d; }
+        });
+      }
 
       renderShop(shop.filter(function (p) { return p && p.on && p.name; }));
     })

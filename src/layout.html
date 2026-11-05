@@ -6,7 +6,7 @@
 <title>{{TITLE}}</title>
 <meta name="description" content="{{DESCRIPTION}}">
 <link rel="canonical" href="{{SITE}}{{PATH}}">
-<meta name="theme-color" content="#FAF9F6">
+<meta name="theme-color" content="#140F0D">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CO">
 <meta property="og:site_name" content="Amo Pijao Terraza">
@@ -22,7 +22,7 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Instrument+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
 <link rel="stylesheet" href="/assets/css/styles.css?v={{VERSION}}">
 <script>document.documentElement.classList.add('js')</script>
 {{HEAD_EXTRA}}
@@ -35,7 +35,7 @@
   <symbol id="i-instagram" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></g></symbol>
   <symbol id="i-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5 2.6 2.6 0 0 1 0-5.2c.27 0 .53.04.78.12V9.66a5.73 5.73 0 0 0-.78-.05 5.75 5.75 0 1 0 5.75 5.75V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.3 4.3 0 0 1-3.31-1.48Z"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></g></symbol>
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.3" d="M3 12h18M15 6l6 6-6 6"/></symbol>
 </svg>
 
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -50,25 +50,25 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="/" aria-label="Amo Pijao Terraza, inicio">
-      <img src="/assets/img/logo-96.webp" width="44" height="44" alt="">
-      <span>Amo Pijao<br>Terraza</span>
+      <img src="/assets/img/emblema-crema-96.webp" width="38" height="42" alt="">
+      <span class="brand__text"><span class="brand__name">Amo Pijao</span><span class="brand__sub">Terraza</span></span>
     </a>
     <nav class="nav" aria-label="Principal">
 {{NAV}}
     </nav>
     <div class="header-cta">
-      <a class="icon-btn" href="https://www.instagram.com/amopijaocafe" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>
-      <a class="btn btn--brand btn--sm" href="/reservas" data-cms="btnReserve">Reservar mesa</a>
-      <button class="icon-btn menu-toggle" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú">
-        <svg class="i-open" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
-        <svg class="i-close" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      <a class="btn btn--ghost btn--sm" href="/reservas" data-cms="btnReserve">Reservar</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú">
+        <svg class="i-open" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.3" d="M4 8h16M4 16h16"/></svg>
+        <svg class="i-close" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.3" d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
     </div>
   </div>
   <nav class="mobile-nav" id="menu-movil" aria-label="Principal (móvil)" hidden>
     <div class="wrap">
+      <a class="mobile-nav__link" href="/">Inicio</a>
 {{NAV_MOBILE}}
-      <a class="btn btn--brand btn--block" href="/reservas">Reservar mesa</a>
+      <a class="btn" href="/reservas">Reservar mesa</a>
     </div>
   </nav>
 </header>
@@ -78,36 +78,32 @@
 </main>
 
 <footer class="site-footer">
-  <div class="footer-tiles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-  <div class="wrap footer-main">
-    <div>
-      <a class="footer-brand" href="/"><img src="/assets/img/logo-96.webp" width="56" height="56" alt="" loading="lazy"><span>Amo Pijao<br>Terraza</span></a>
-      <p>Tu nuevo lugar favorito con la mejor vista cafetera de Pijao, Quindío.</p>
-      <div class="footer-social">
-        <a href="https://www.instagram.com/amopijaocafe" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>
-        <a href="https://www.tiktok.com/@amopijaoterraza" target="_blank" rel="noopener" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tiktok"/></svg></a>
-        <a href="https://wa.me/573104337667" data-wa target="_blank" rel="noopener" aria-label="WhatsApp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
-      </div>
+  <div class="wrap footer-top">
+    <img src="/assets/img/logo-crema-240.webp" width="96" height="102" alt="Amo Pijao Terraza" loading="lazy">
+    <p>La mejor vista cafetera de Pijao, Quindío.</p>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/amopijaocafe" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>
+      <a href="https://www.tiktok.com/@amopijaoterraza" target="_blank" rel="noopener" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tiktok"/></svg></a>
+      <a href="https://wa.me/573104337667" data-wa target="_blank" rel="noopener" aria-label="WhatsApp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
     </div>
-    <div>
-      <h2>Páginas</h2>
-      <ul>
-        <li><a href="/carta">La carta</a></li>
-        <li><a href="/reservas">Reservas</a></li>
-        <li><a href="/nosotros">Nosotros</a></li>
-        <li><a href="/visitanos">Visítanos</a></li>
-        <li><a href="/tienda" data-shop-link hidden>Tienda</a></li>
-      </ul>
-    </div>
+  </div>
+  <div class="wrap footer-cols">
     <div>
       <h2>Horario</h2>
       <p data-cms="hours" data-cms-mode="lines">Todos los días<br>1:00 p.m. – 10:00 p.m.</p>
     </div>
     <div>
-      <h2>Contacto</h2>
+      <h2>Visítenos</h2>
+      <p data-cms="address" data-cms-mode="lines">Cra. 4 #12-12<br>Pijao, Quindío</p>
+      <p><a href="tel:+573104337667" data-tel data-phone-text>+57 310 433 7667</a></p>
+    </div>
+    <div>
+      <h2>La casa</h2>
       <ul>
-        <li data-cms="address" data-cms-mode="lines">Cra. 4 #12-12<br>Pijao, Quindío</li>
-        <li><a href="tel:+573104337667" data-tel data-phone-text>+57 310 433 7667</a></li>
+        <li><a href="/carta">La carta</a></li>
+        <li><a href="/reservas">Reservas</a></li>
+        <li><a href="/nosotros">Nuestra historia</a></li>
+        <li><a href="/tienda" data-shop-link hidden>Tienda</a></li>
       </ul>
     </div>
   </div>
@@ -120,7 +116,7 @@
 <nav class="action-bar" aria-label="Acciones rápidas">
   <a href="tel:+573104337667" data-tel><svg aria-hidden="true"><use href="#i-phone"/></svg>Llamar</a>
   <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Amo+Pijao+Terraza&amp;destination_place_id=ChIJOdWQoNL_OI4RkX3Yi5Fuy54" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-route"/></svg>Llegar</a>
-  <a class="is-primary" href="/reservas"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Reservar</a>
+  <a class="is-primary" href="/reservas">Reservar</a>
 </nav>
 
 <script src="/assets/js/main.js?v={{VERSION}}" defer></script>

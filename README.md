@@ -5,23 +5,24 @@ Publicado en Vercel: <https://amopijaoterraza.vercel.app>
 
 ## Páginas
 
-| URL          | Archivo          | Fachada  | Contenido                                               |
-|--------------|------------------|----------|---------------------------------------------------------|
-| `/`          | `index.html`     | vinotinto | Portada, estado abierto/cerrado, puertas a cada sección |
-| `/carta`     | `carta.html`     | verde    | Carta por categorías (una a la vez) y buscador          |
-| `/reservas`  | `reservas.html`  | añil     | Formulario que arma la reserva y abre WhatsApp          |
-| `/nosotros`  | `nosotros.html`  | teja     | Historia de la casa                                     |
-| `/visitanos` | `visitanos.html` | mostaza  | Dirección, horario de la semana, mapa y contacto        |
-| `/tienda`    | `tienda.html`    | rosa     | Productos publicados desde el panel                     |
-| `/admin`     | `admin.html`     | —        | Panel de administración (Supabase)                      |
+| URL          | Archivo          | Contenido                                                   |
+|--------------|------------------|-------------------------------------------------------------|
+| `/`          | `index.html`     | Portada, estado abierto/cerrado, creaciones de la casa      |
+| `/carta`     | `carta.html`     | Carta por categorías (una a la vez) y buscador              |
+| `/reservas`  | `reservas.html`  | Formulario que arma la solicitud y abre WhatsApp            |
+| `/nosotros`  | `nosotros.html`  | Historia de la casa                                         |
+| `/visitanos` | `visitanos.html` | Dirección, horario de la semana, mapa y contacto            |
+| `/tienda`    | `tienda.html`    | Productos publicados desde el panel                         |
+| `/admin`     | `admin.html`     | Panel de administración (Supabase)                          |
 
-## Diseño: "Fachadas de Pijao"
+## Diseño: "Noche en la terraza"
 
-Cada página es una fachada pintada de bahareque: banda de color arriba, zócalo oscuro al pie,
-la baranda de madera de la terraza como separador, la placa de nomenclatura con la dirección
-y puertas de colores para pasar de una sección a otra. Tipografías: Bricolage Grotesque
-(letreros) e Instrument Sans (texto). Los colores están como variables al inicio de
-`assets/css/styles.css`.
+Identidad tomada del logo: vinotinto `#742B1E` y crema `#F2EAD6`, sobre un fondo espresso
+casi negro, con dorado champaña `#BF9B62` solo en filetes y detalles. Tipografías Cormorant
+Garamond (títulos) y Jost (texto y etiquetas). Piezas gráficas propias en `assets/img/`:
+el logo y el emblema en crema para fondos oscuros, y el grabado de la torre de la iglesia.
+Los colores y tipografías están como variables al inicio de `assets/css/styles.css`, y el
+panel (`/admin` → Apariencia) puede cambiarlos.
 
 ## Cómo editar
 

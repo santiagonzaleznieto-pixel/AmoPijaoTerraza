@@ -17,12 +17,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SITE = 'https://amopijaoterraza.vercel.app'
 
-NAV = [  # (página, texto, clave del panel, color de la puerta)
-    ('carta', 'Carta', 'navMenu', 'var(--cafetal)'),
-    ('reservas', 'Reservas', None, 'var(--anil)'),
-    ('nosotros', 'Nosotros', 'navAbout', 'var(--teja)'),
-    ('visitanos', 'Visítanos', 'navLoc', 'var(--mostaza)'),
-    ('tienda', 'Tienda', 'navShop', 'var(--rosa)'),
+NAV = [  # (página, texto, clave del panel)
+    ('carta', 'La carta', 'navMenu'),
+    ('reservas', 'Reservas', None),
+    ('nosotros', 'Nosotros', 'navAbout'),
+    ('visitanos', 'Visítenos', 'navLoc'),
+    ('tienda', 'Tienda', 'navShop'),
 ]
 
 PAGES = {
@@ -32,13 +32,13 @@ PAGES = {
     'carta': dict(out='carta.html', path='/carta', title='La carta · Amo Pijao Terraza',
                   desc='Carta completa con precios: café, aromáticas, bebidas frías, malteadas, postres, patacones, hamburguesas, cervezas y cócteles en Pijao, Quindío.'),
     'reservas': dict(out='reservas.html', path='/reservas', title='Reservas · Amo Pijao Terraza',
-                     desc='Reserva tu mesa en la terraza de Amo Pijao, frente al parque principal de Pijao. Te confirmamos por WhatsApp.'),
+                     desc='Reserve su mesa en la terraza de Amo Pijao, frente al parque principal de Pijao. Le confirmamos por WhatsApp.'),
     'nosotros': dict(out='nosotros.html', path='/nosotros', title='Nuestra historia · Amo Pijao Terraza',
                      desc='Un rincón para tomarse el café con calma en Pijao, Quindío, el primer pueblo Cittaslow de Latinoamérica.'),
-    'visitanos': dict(out='visitanos.html', path='/visitanos', title='Cómo llegar · Amo Pijao Terraza',
+    'visitanos': dict(out='visitanos.html', path='/visitanos', title='Visítenos · Amo Pijao Terraza',
                       desc='Cra. 4 #12-12, Pijao, Quindío. Horario, mapa, teléfono y WhatsApp de Amo Pijao Terraza.'),
     'tienda': dict(out='tienda.html', path='/tienda', title='Tienda · Amo Pijao Terraza',
-                   desc='Recuerdos de Pijao hechos con amor. Pídelos por WhatsApp.'),
+                   desc='Recuerdos de Pijao hechos con amor. Pídalos por WhatsApp.'),
 }
 
 JSON_LD = {
@@ -102,13 +102,13 @@ def menu_html(cats, ind='        '):
 
 def nav_html(current, mobile=False):
     out = []
-    for page, text, key, color in NAV:
+    for page, text, key in NAV:
         attrs = f'href="/{page}"'
         if key: attrs += f' data-cms="{key}"'
         if page == 'tienda': attrs += ' data-shop-link hidden'
         if page == current: attrs += ' aria-current="page"'
         if mobile:
-            out.append(f'      <a class="mobile-nav__link" style="--c:{color}" {attrs}>{text}</a>')
+            out.append(f'      <a class="mobile-nav__link" {attrs}>{text}</a>')
         else:
             out.append(f'      <a {attrs}>{text}</a>')
     return '\n'.join(out)
@@ -142,15 +142,13 @@ def main():
         (ROOT / meta['out']).write_text(render(page, meta, content, extra), encoding='utf-8')
         print('ok', meta['out'])
 
-    notfound = '''<section class="facade" aria-labelledby="page-title">
+    notfound = '''<section class="page-hero" aria-labelledby="page-title">
   <div class="wrap">
-    <div>
-      <span class="label">Error 404</span>
-      <h1 id="page-title">Esta puerta no abre</h1>
-      <p class="facade__lede">La página que buscas no existe o cambió de dirección. La carta y la terraza siguen aquí.</p>
-      <div class="hero__ctas"><a class="btn btn--on-page" href="/">Ir al inicio</a><a class="btn btn--on-page-line" href="/carta">Ver la carta</a></div>
-    </div>
-    <div class="windows" aria-hidden="true"><span class="window"><i></i><i></i></span><span class="window"><i></i><i></i></span></div>
+    <span class="label">Error 404</span>
+    <h1 id="page-title">Página <em>no encontrada</em></h1>
+    <div class="ornament" aria-hidden="true"><i></i></div>
+    <p class="page-hero__lede">La dirección que busca no existe o cambió. La carta y la terraza lo esperan.</p>
+    <div class="hero__ctas"><a class="btn" href="/">Ir al inicio</a><a class="btn btn--ghost" href="/carta">Ver la carta</a></div>
   </div>
 </section>'''
     (ROOT / '404.html').write_text(render('nosotros', dict(path='/', title='Página no encontrada · Amo Pijao Terraza',

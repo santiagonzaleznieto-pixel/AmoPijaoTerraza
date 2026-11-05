@@ -1,16 +1,14 @@
-<section class="facade" aria-labelledby="page-title">
+<section class="page-hero" aria-labelledby="page-title">
   <div class="wrap">
-    <div>
-      <span class="label">{{MENU_TOTAL}} productos · precios en pesos colombianos</span>
-      <h1 id="page-title" data-cms="menuTitle">La carta</h1>
-      <p class="facade__lede">Café del Quindío, bebidas frías y calientes, antojos dulces, comida para compartir y bar. Elige una categoría o busca un producto.</p>
-      <div class="menu-search" role="search" style="margin-top:28px">
-        <svg aria-hidden="true"><use href="#i-search"/></svg>
-        <label class="visually-hidden" for="menu-search">Buscar en la carta</label>
-        <input id="menu-search" type="search" placeholder="Buscar: cappuccino, patacón…" autocomplete="off" enterkeyhint="search">
-      </div>
+    <span class="label" data-menu-total>{{MENU_TOTAL}} preparaciones · precios en pesos colombianos</span>
+    <h1 id="page-title" data-cms="menuTitle">La carta</h1>
+    <div class="ornament" aria-hidden="true"><i></i></div>
+    <p class="page-hero__lede">Café de la región, bebidas frías y calientes, postres de la casa, cocina para compartir y bar.</p>
+    <div class="menu-search" role="search">
+      <svg aria-hidden="true"><use href="#i-search"/></svg>
+      <label class="visually-hidden" for="menu-search">Buscar en la carta</label>
+      <input id="menu-search" type="search" placeholder="Buscar en la carta" autocomplete="off" enterkeyhint="search">
     </div>
-    <div class="windows" aria-hidden="true"><span class="window"><i></i><i></i></span><span class="window"><i></i><i></i></span></div>
   </div>
 </section>
 
@@ -27,13 +25,13 @@
         </div>
         <div class="menu-empty" data-menu-empty hidden>
           <strong>No encontramos «<span data-menu-query></span>»</strong>
-          <p>Revisa cómo lo escribiste o pregúntanos por <a href="https://wa.me/573104337667" data-wa target="_blank" rel="noopener">WhatsApp</a>.</p>
+          <p>Revise la ortografía o consúltenos por <a href="https://wa.me/573104337667" data-wa target="_blank" rel="noopener">WhatsApp</a>.</p>
         </div>
         <div class="menu-pager" data-menu-pager>
           <button type="button" data-prev hidden><span>← Anterior</span><b></b></button>
           <button type="button" data-next hidden><span>Siguiente →</span><b></b></button>
         </div>
-        <p class="menu-foot">¿Tienes una alergia o una petición especial? Cuéntanos al momento de pedir.</p>
+        <p class="menu-foot">Si tiene alguna alergia o preferencia, por favor indíquelo al momento de ordenar.</p>
       </div>
     </div>
   </div>

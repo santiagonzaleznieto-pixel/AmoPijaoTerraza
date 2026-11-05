@@ -196,7 +196,7 @@
     $('[data-menu-cats]', menu).innerHTML = h.tabs;
     $('[data-menu-panels]', menu).innerHTML = h.panels;
     var total = cats.reduce(function (a, c) { return a + (c.items || []).length; }, 0);
-    var lbl = $('.page-carta .facade .label'); if (lbl) lbl.textContent = total + ' productos · precios en pesos colombianos';
+    var lbl = $('[data-menu-total]'); if (lbl) lbl.textContent = total + ' preparaciones · precios en pesos colombianos';
     if (opts && opts.scale) menu.style.fontSize = { small: '.94em', large: '1.08em' }[opts.scale] || '';
     setupMenu();
   };
@@ -324,7 +324,7 @@
     if (!timeSelect) return;
     var H = APT.hours && APT.hours.open != null ? APT.hours : { open: 13 * 60, close: 22 * 60 };
     var prev = timeSelect.value, now = bogotaNow(), isToday = dateInput.value === now.date;
-    var html = '<option value="">Elige una hora</option>', last = Math.min(H.close - 60, 1410);
+    var html = '<option value="">Seleccione</option>', last = Math.min(H.close - 60, 1410);
     for (var m = H.open; m <= last; m += 30) {
       var past = isToday && m < now.minutes + 30;
       html += '<option value="' + fmtTime(m) + '"' + (past ? ' disabled' : '') + '>' + fmtTime(m) + (past ? ' (ya pasó)' : '') + '</option>';
@@ -347,10 +347,10 @@
 
   function validate() {
     var first = null;
-    [['nombre', function (v) { return v.trim().length >= 2 ? '' : 'Escribe tu nombre.'; }],
-     ['telefono', function (v) { return v.replace(/\D/g, '').length >= 7 ? '' : 'Escribe un número de contacto válido.'; }],
-     ['fecha', function (v) { return !v ? 'Elige la fecha.' : v < bogotaNow().date ? 'Elige una fecha de hoy en adelante.' : ''; }],
-     ['hora', function (v) { return v ? '' : 'Elige la hora.'; }]
+    [['nombre', function (v) { return v.trim().length >= 2 ? '' : 'Por favor escriba su nombre.'; }],
+     ['telefono', function (v) { return v.replace(/\D/g, '').length >= 7 ? '' : 'Por favor escriba un número de contacto válido.'; }],
+     ['fecha', function (v) { return !v ? 'Seleccione la fecha.' : v < bogotaNow().date ? 'Seleccione una fecha de hoy en adelante.' : ''; }],
+     ['hora', function (v) { return v ? '' : 'Seleccione la hora.'; }]
     ].forEach(function (c) {
       var input = form.elements[c[0]], msg = c[1](input.value);
       fieldError(input, msg);
@@ -377,9 +377,9 @@
       e.preventDefault();
       if (!validate()) return;
       var d = Object.fromEntries(new FormData(form));
-      var msg = 'Hola, quiero reservar una mesa en Amo Pijao Terraza:\n\n' +
+      var msg = 'Buen día, quisiera reservar una mesa en Amo Pijao Terraza:\n\n' +
         '• Nombre: ' + d.nombre.trim() + '\n• Celular: ' + d.telefono.trim() + '\n• Fecha: ' + prettyDate(d.fecha) +
-        '\n• Hora: ' + d.hora + '\n• Personas: ' + (d.personas || '2 personas') +
+        '\n• Hora: ' + d.hora + '\n• Invitados: ' + (d.personas || '2 personas') +
         (d.notas && d.notas.trim() ? '\n• Notas: ' + d.notas.trim() : '');
       var link = waLink(msg);
       // WhatsApp en el mismo gesto del usuario (sin 'noopener', que hace que window.open devuelva null)

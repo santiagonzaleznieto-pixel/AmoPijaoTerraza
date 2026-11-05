@@ -1,92 +1,130 @@
 <section class="hero" aria-labelledby="hero-title">
   <div class="wrap">
-    <div>
+    <div class="hero__copy">
       <p class="status" data-status data-state="unknown" aria-live="polite">
         <span class="status__dot" aria-hidden="true"></span>
         <span data-status-text>Todos los días · 1:00 p.m. – 10:00 p.m.</span>
       </p>
-      <h1 id="hero-title">
-        <span class="visually-hidden">Amo Pijao Terraza</span>
-        <span aria-hidden="true">
-          <span class="tiles"><span class="tile" style="--c:var(--teja)">A</span><span class="tile" style="--c:var(--cafetal)">M</span><span class="tile tile--ink" style="--c:var(--mostaza)">O</span><span class="tile tile--heart">♥</span></span>
-          <span class="tiles"><span class="tile" style="--c:var(--anil)">P</span><span class="tile" style="--c:var(--rosa)">I</span><span class="tile" style="--c:var(--cafetal)">J</span><span class="tile tile--ink" style="--c:var(--mostaza)">A</span><span class="tile" style="--c:var(--teja)">O</span></span>
-          <span class="hero__word">Terraza</span>
-        </span>
-      </h1>
+      <h1 id="hero-title"><span>Amo Pijao</span> <em>Terraza</em></h1>
       <p class="hero__tagline" data-cms="tagline">La mejor vista cafetera de Pijao.</p>
-      <p class="hero__lede" data-cms="lede">Café de especialidad, comida casera y una terraza con vista al parque principal de Pijao. Un lugar para amar a Pijao, un café a la vez.</p>
+      <p class="hero__lede" data-cms="lede">Café de especialidad, cocina de la casa y coctelería en una terraza frente al parque principal de Pijao, Quindío.</p>
       <div class="hero__ctas">
-        <a class="btn btn--brand" href="/carta" data-cms="btnMenu">Ver la carta</a>
-        <a class="btn btn--line" href="/reservas">Reservar mesa</a>
+        <a class="btn" href="/reservas" data-cms="btnReserve">Reservar mesa</a>
+        <a class="link" href="/carta" data-cms="btnMenu">Ver la carta <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
-    <div class="shutter-window">
-      <div class="shutter-window__frame">
-        <img data-cms-img="hero" src="/assets/img/yo-amo-pijao.webp" width="862" height="791" alt="Ilustración del letrero «Yo ♥ Pijao» frente a la iglesia del parque principal" fetchpriority="high">
-      </div>
-      <span class="shutter shutter--l" aria-hidden="true"></span>
-      <span class="shutter shutter--r" aria-hidden="true"></span>
-      <p class="shutter-window__caption" data-cms="heroBadge">Frente al parque principal</p>
-    </div>
+    <figure class="hero__art">
+      <img data-cms-img="hero" src="/assets/img/iglesia-grabado.webp" width="508" height="493" alt="Grabado de la torre de la iglesia de Pijao, frente a la terraza" fetchpriority="high">
+      <figcaption data-cms="heroBadge">Frente al parque principal</figcaption>
+    </figure>
   </div>
 </section>
 
-<div class="railing" role="presentation"></div>
-
-<section class="facts-bar" aria-label="Datos de contacto">
+<section class="facts" aria-label="Información de la casa">
   <div class="wrap">
-    <a class="plaque" href="/visitanos" aria-label="Dirección: Carrera 4 número 12-12, Pijao. Ver cómo llegar">
-      <small>Pijao · Quindío</small>
-      <b data-cms="plaque">Cra 4 # 12-12</b>
-    </a>
     <div class="fact"><span class="label">Horario</span><span class="v" data-cms="hoursShort">Todos los días, 1:00 p.m. – 10:00 p.m.</span></div>
-    <div class="fact"><span class="label">Reservas y pedidos</span><a class="v" href="https://wa.me/573104337667" data-wa target="_blank" rel="noopener"><span data-phone-text>+57 310 433 7667</span> · WhatsApp</a></div>
+    <div class="fact"><span class="label">Dirección</span><a class="v" href="/visitanos" data-cms="addressLine">Cra. 4 #12-12, Pijao</a></div>
+    <div class="fact"><span class="label">Reservas</span><a class="v" href="https://wa.me/573104337667" data-wa target="_blank" rel="noopener" data-phone-text>+57 310 433 7667</a></div>
   </div>
 </section>
 
-<section class="doors-section" aria-labelledby="doors-title">
+<section class="statement" aria-labelledby="statement-title">
   <div class="wrap">
-    <div class="section-title">
-      <h2 id="doors-title">Siga, pase adelante</h2>
-      <p>Escoge una puerta: la carta completa, una mesa para hoy, cómo llegar o la historia de la casa.</p>
+    <div>
+      <span class="label" id="statement-title">La casa</span>
+      <blockquote>Un rincón para amar a Pijao, <em>un café a la vez.</em></blockquote>
     </div>
-    <div class="doors">
-      <a class="door door--carta" href="/carta">
-        <span class="door__leaf">
-          <h3>La carta</h3>
-          <p>Cafés, aromáticas, malteadas, patacones, hamburguesas y cócteles de la casa.</p>
-          <span class="door__go">Ver precios <span class="door__knob" aria-hidden="true"></span></span>
-        </span>
-      </a>
-      <a class="door door--reservas" href="/reservas">
-        <span class="door__leaf">
-          <h3>Reservar mesa</h3>
-          <p>Cumpleaños, planes en pareja o una tarde con amigos en la baranda.</p>
-          <span class="door__go">Reservar <span class="door__knob" aria-hidden="true"></span></span>
-        </span>
-      </a>
-      <a class="door door--visitanos" href="/visitanos">
-        <span class="door__leaf">
-          <h3>Cómo llegar</h3>
-          <p>A un paso del parque principal. Horario, mapa y contacto.</p>
-          <span class="door__go">Ver el mapa <span class="door__knob" aria-hidden="true"></span></span>
-        </span>
-      </a>
-      <a class="door door--nosotros" href="/nosotros">
-        <span class="door__leaf">
-          <h3>Nuestra historia</h3>
-          <p>Un rincón pensado para tomarse el café con calma, en uno de los pueblos más coloridos del Eje Cafetero.</p>
-          <span class="door__go">Conocernos <span class="door__knob" aria-hidden="true"></span></span>
-        </span>
-      </a>
+    <div>
+      <p>En el corazón de uno de los pueblos más coloridos del Eje Cafetero, nuestra terraza mira al parque principal. Aquí el café se toma con calma, la conversación se alarga y cada preparación se sirve con el cuidado de la casa.</p>
+      <a class="link" href="/nosotros">Nuestra historia <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
   </div>
 </section>
 
-<section class="slow" aria-label="Pijao, pueblo sin afán">
+<section class="pillars" aria-labelledby="pillars-title">
   <div class="wrap">
-    <svg class="slow__snail" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 50h40c8 0 12-5 12-11"/><path d="M14 50c-4-4-5-9-5-14a19 19 0 0 1 38 0c0 8-6 14-14 14s-13-6-13-12 4-10 9-10 8 3 8 7-3 6-5 6"/><path d="M52 39l2-14M58 39l3-12"/></g></svg>
-    <p>Pijao fue el primer pueblo de Latinoamérica con el sello <span>Cittaslow</span>. Aquí el café se toma sin afán.</p>
-    <a class="btn btn--on-page" style="--page-ink:#fff;--page:var(--brand)" href="/nosotros">Nuestra historia</a>
+    <div class="section-head">
+      <span class="label">La experiencia</span>
+      <h2 id="pillars-title">Café, terraza <em>y bar</em></h2>
+      <div class="ornament" aria-hidden="true"><i></i></div>
+    </div>
+    <div class="pillars__grid">
+      <article class="pillar">
+        <span class="label">Por la tarde</span>
+        <h3>El café</h3>
+        <p>Espresso, cappuccinos y preparaciones de autor con café de la región, del montañero con panela y canela al carajillo con aguardiente.</p>
+      </article>
+      <article class="pillar">
+        <span class="label">Al atardecer</span>
+        <h3>La terraza</h3>
+        <p>Una mesa frente al parque principal y las montañas de Pijao, para la pausa larga que merece el paisaje cafetero.</p>
+      </article>
+      <article class="pillar">
+        <span class="label">En la noche</span>
+        <h3>La cocina y el bar</h3>
+        <p>Patacones, hamburguesas y postres de la casa, con cócteles de autor y una selección de licores para cerrar el día.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="signature" aria-labelledby="signature-title">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="label">De la carta</span>
+      <h2 id="signature-title">Creaciones <em>de la casa</em></h2>
+      <div class="ornament" aria-hidden="true"><i></i></div>
+    </div>
+    <ul class="signature__list">
+      <li class="signature__item" data-dish="Atardecer Terraza"><h3>Atardecer Terraza</h3><p data-dish-desc>Vodka, vino, limón, notas de vainilla</p><span class="signature__price" data-dish-price>$25.000</span></li>
+      <li class="signature__item" data-dish="Gama Terraza"><h3>Gama Terraza</h3><p data-dish-desc>Maracuyá, mango, ron, vodka de lulo, triple sec y limón</p><span class="signature__price" data-dish-price>$25.000</span></li>
+      <li class="signature__item" data-dish="Canelazo Amo Pijao"><h3>Canelazo Amo Pijao</h3><p data-dish-desc>Canela, panela, brandy, maracuyá</p><span class="signature__price" data-dish-price>$10.000</span></li>
+      <li class="signature__item" data-dish="Cappuccino Montañero"><h3>Cappuccino Montañero</h3><p data-dish-desc>Panela, canela</p><span class="signature__price" data-dish-price>$8.000</span></li>
+    </ul>
+    <div class="signature__more"><a class="btn btn--ghost" href="/carta">Ver la carta completa</a></div>
+  </div>
+</section>
+
+<section class="rooms" aria-labelledby="rooms-title">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="label">Bienvenidos</span>
+      <h2 id="rooms-title">Siga, <em>pase adelante</em></h2>
+    </div>
+    <div class="rooms__grid">
+      <a class="room" href="/carta">
+        <span class="label">{{MENU_TOTAL}} preparaciones</span>
+        <h3>La carta</h3>
+        <p>Café, bebidas, cocina, postres y bar, con precios.</p>
+        <span class="link">Ver la carta <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="room" href="/reservas">
+        <span class="label">Por WhatsApp</span>
+        <h3>Reservas</h3>
+        <p>Celebraciones, cenas en pareja y tardes con amigos.</p>
+        <span class="link">Reservar <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="room" href="/visitanos">
+        <span class="label">Cra. 4 #12-12</span>
+        <h3>Cómo llegar</h3>
+        <p>Horario de la semana, mapa y contacto.</p>
+        <span class="link">Ver el mapa <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="room" href="/nosotros">
+        <span class="label">Pijao, Quindío</span>
+        <h3>Nuestra historia</h3>
+        <p>Una casa pensada para el buen café sin afán.</p>
+        <span class="link">Conocernos <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" aria-labelledby="cta-title">
+  <div class="wrap">
+    <span class="label">Reservas</span>
+    <h2 id="cta-title">Su mesa en la terraza</h2>
+    <p>Indíquenos la fecha, la hora y el número de invitados. Le confirmamos por WhatsApp.</p>
+    <a class="btn" href="/reservas">Reservar mesa</a>
   </div>
 </section>
