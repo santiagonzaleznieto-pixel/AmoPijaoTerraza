@@ -1,0 +1,561 @@
+[
+ {
+  "name": "Bebidas de Café",
+  "emoji": "☕",
+  "items": [
+   {
+    "n": "Espresso",
+    "d": "",
+    "p": "$4.000"
+   },
+   {
+    "n": "Café Carajillo",
+    "d": "Espresso, aguardiente amarillo, panela",
+    "p": "$9.000"
+   },
+   {
+    "n": "Latte",
+    "d": "",
+    "p": "$5.000"
+   },
+   {
+    "n": "Café Americano",
+    "d": "",
+    "p": "$4.000"
+   },
+   {
+    "n": "Cappuccino Tradicional",
+    "d": "",
+    "p": "$7.000"
+   },
+   {
+    "n": "Cappuccino con Licor",
+    "d": "Brandy, amaretto, aguardiente, ron",
+    "p": "$12.000"
+   },
+   {
+    "n": "Cappuccino Vienés",
+    "d": "Con crema chantilly",
+    "p": "$11.000"
+   },
+   {
+    "n": "Cappuccino Montañero",
+    "d": "Panela, canela",
+    "p": "$8.000"
+   },
+   {
+    "n": "Mocca",
+    "d": "Café, chocolate, leche",
+    "p": "$9.000"
+   },
+   {
+    "n": "Mocca con Chantilly",
+    "d": "",
+    "p": "$10.500"
+   },
+   {
+    "n": "Espresso Amaretto",
+    "d": "",
+    "p": "$8.500"
+   },
+   {
+    "n": "Espresso Baileys",
+    "d": "",
+    "p": "$10.000"
+   },
+   {
+    "n": "Café Bombón",
+    "d": "Leche condensada, café, crema chantilly",
+    "p": "$8.000"
+   }
+  ]
+ },
+ {
+  "name": "Aromáticas",
+  "emoji": "🍵",
+  "items": [
+   {
+    "n": "Aromática Tradicional",
+    "d": "",
+    "p": "$2.000"
+   },
+   {
+    "n": "Aromática de Panelita",
+    "d": "",
+    "p": "$3.000"
+   },
+   {
+    "n": "Aromática de Hierbabuena",
+    "d": "",
+    "p": "$3.000"
+   },
+   {
+    "n": "Té Chai",
+    "d": "",
+    "p": "$8.500"
+   },
+   {
+    "n": "Aromática de Frutas",
+    "d": "",
+    "p": "$7.000"
+   }
+  ]
+ },
+ {
+  "name": "Bebidas Frías",
+  "emoji": "🥤",
+  "items": [
+   {
+    "n": "Limonada Natural",
+    "d": "",
+    "p": "$7.000"
+   },
+   {
+    "n": "Limonada Hierbabuena",
+    "d": "",
+    "p": "$9.000"
+   },
+   {
+    "n": "Limonada Cerezada",
+    "d": "",
+    "p": "$8.000"
+   },
+   {
+    "n": "Limonada de Coco",
+    "d": "",
+    "p": "$10.000"
+   },
+   {
+    "n": "Frappé de Fruta",
+    "d": "",
+    "p": "$10.000"
+   },
+   {
+    "n": "Milo Frío",
+    "d": "",
+    "p": "$9.000"
+   },
+   {
+    "n": "Jugo Natural en Agua",
+    "d": "",
+    "p": "$7.000"
+   },
+   {
+    "n": "Jugo Natural en Leche",
+    "d": "",
+    "p": "$8.000"
+   },
+   {
+    "n": "Soda",
+    "d": "",
+    "p": "$5.000"
+   },
+   {
+    "n": "Tamarindo",
+    "d": "",
+    "p": "$5.000"
+   },
+   {
+    "n": "Sodas Italianas",
+    "d": "Frutos rojos o amarillos",
+    "p": "$12.000"
+   }
+  ]
+ },
+ {
+  "name": "Con Café y Más",
+  "emoji": "☕",
+  "items": [
+   {
+    "n": "Granizado de Café",
+    "d": "",
+    "p": "$14.000"
+   },
+   {
+    "n": "Granizado de Mango Biche",
+    "d": "",
+    "p": "$14.000"
+   },
+   {
+    "n": "Latte Frío",
+    "d": "",
+    "p": "$8.500"
+   },
+   {
+    "n": "Té Chai Frío",
+    "d": "",
+    "p": "$11.000"
+   },
+   {
+    "n": "Malteada de Oreo",
+    "d": "",
+    "p": "$15.000"
+   },
+   {
+    "n": "Malteada de Café",
+    "d": "",
+    "p": "$15.000"
+   },
+   {
+    "n": "Malteada de Milo",
+    "d": "",
+    "p": "$15.000"
+   },
+   {
+    "n": "Café en las Rocas",
+    "d": "",
+    "p": "$8.000"
+   }
+  ]
+ },
+ {
+  "name": "Bebidas Calientes",
+  "emoji": "🍫",
+  "items": [
+   {
+    "n": "Chocolate en Agua",
+    "d": "",
+    "p": "$4.000"
+   },
+   {
+    "n": "Chocolate en Leche",
+    "d": "",
+    "p": "$6.000"
+   },
+   {
+    "n": "Colada de Café",
+    "d": "",
+    "p": "$9.000"
+   },
+   {
+    "n": "Chocolate con Queso",
+    "d": "",
+    "p": "$9.000"
+   },
+   {
+    "n": "Colada de la Abuela",
+    "d": "Tradicional",
+    "p": "$8.000"
+   },
+   {
+    "n": "Milo Caliente",
+    "d": "",
+    "p": "$5.000"
+   },
+   {
+    "n": "Aguapanela con Queso",
+    "d": "",
+    "p": "$8.000"
+   },
+   {
+    "n": "Canelazo Amo Pijao",
+    "d": "Canela, panela, brandy, maracuyá",
+    "p": "$10.000"
+   },
+   {
+    "n": "Chocolate con Masmelos",
+    "d": "",
+    "p": "$8.000"
+   },
+   {
+    "n": "Migao",
+    "d": "Chocolate en leche o agua, buñuelo, almojábana, queso, galletas ducales",
+    "p": "$14.000"
+   }
+  ]
+ },
+ {
+  "name": "Helados",
+  "emoji": "🍦",
+  "items": [
+   {
+    "n": "Cono Sencillo / Doble",
+    "d": "",
+    "p": "$6.000 / 8.500"
+   },
+   {
+    "n": "Brownie Caliente",
+    "d": "",
+    "p": "$12.000"
+   },
+   {
+    "n": "Fresas con Crema",
+    "d": "",
+    "p": "$12.000"
+   },
+   {
+    "n": "Copa Feliz",
+    "d": "Con fresas, chantilly",
+    "p": "$11.000"
+   },
+   {
+    "n": "Affogato",
+    "d": "Espresso con helado",
+    "p": "$8.500"
+   }
+  ]
+ },
+ {
+  "name": "Antojitos para Ser",
+  "emoji": "🧁",
+  "items": [
+   {
+    "n": "Almojábanas",
+    "d": "",
+    "p": "$2.500"
+   },
+   {
+    "n": "Torta de Zanahoria",
+    "d": "",
+    "p": "$12.000"
+   },
+   {
+    "n": "Ensalada de Frutas",
+    "d": "",
+    "p": "$14.000"
+   },
+   {
+    "n": "Cheesecake de Frutos Rojos",
+    "d": "",
+    "p": "$12.000"
+   },
+   {
+    "n": "Torta de Almojábana",
+    "d": "",
+    "p": "$12.000"
+   },
+   {
+    "n": "Torta de Chocolate",
+    "d": "",
+    "p": "$12.000"
+   },
+   {
+    "n": "Torta de Café",
+    "d": "",
+    "p": "$12.000"
+   }
+  ]
+ },
+ {
+  "name": "Entraditas y Sandwiches",
+  "emoji": "🥪",
+  "items": [
+   {
+    "n": "Empanadas x 6",
+    "d": "",
+    "p": "$18.000"
+   },
+   {
+    "n": "Sandwich Tradicional",
+    "d": "Jamón y queso",
+    "p": "$7.000"
+   },
+   {
+    "n": "Sandwich Hawaiano",
+    "d": "Jamón, queso gratinado, piña",
+    "p": "$15.000"
+   },
+   {
+    "n": "Sandwich Gratinado",
+    "d": "Jamón, pollo, queso, tocineta, champiñones, crema de leche",
+    "p": "$16.000"
+   }
+  ]
+ },
+ {
+  "name": "Hamburguesas y Perritos",
+  "emoji": "🍔",
+  "items": [
+   {
+    "n": "Hamburguesa de Res",
+    "d": "Carne de res, tomate, ripio, tocineta, jamón y queso",
+    "p": "$18.000"
+   },
+   {
+    "n": "Hamburguesa de Pollo Apanado",
+    "d": "Pollo apanado, tomate, ripio, tocineta, jamón y queso",
+    "p": "$19.000"
+   },
+   {
+    "n": "Perro Especial",
+    "d": "Ripio, tocineta, jamón y queso",
+    "p": "$12.000"
+   },
+   {
+    "n": "Perra",
+    "d": "Ripio, chorizo, piña, triple tocineta, jamón, triple queso",
+    "p": "$19.000"
+   },
+   {
+    "n": "Salchipapas",
+    "d": "Papa, salchichas, queso gratinado, ripio de papa, salsas",
+    "p": "$12.000"
+   }
+  ]
+ },
+ {
+  "name": "Comidas para el Corazón",
+  "emoji": "🍳",
+  "items": [
+   {
+    "n": "Patacón Mixto",
+    "d": "Carne, pollo, chorizo picado, madurito, maicitos, queso gratinado",
+    "p": "$26.000"
+   },
+   {
+    "n": "Patacón con Pollo",
+    "d": "Pollo, chorizo picado, madurito, maicitos y queso gratinado",
+    "p": "$24.000"
+   },
+   {
+    "n": "Cono Mixto",
+    "d": "Carne, pollo, chorizo picado, madurito, maicitos, queso",
+    "p": "$20.000"
+   },
+   {
+    "n": "Cono Loco",
+    "d": "Pollo, chorizo picado, madurito, maicitos, queso",
+    "p": "$19.000"
+   },
+   {
+    "n": "Cono Hawaiano",
+    "d": "Pollo, piña, jamón y queso",
+    "p": "$17.000"
+   },
+   {
+    "n": "Burrito Mixto",
+    "d": "Carne, pollo, chorizo, madurito, maicitos y queso",
+    "p": "$24.000"
+   },
+   {
+    "n": "Burrito de Pollo",
+    "d": "Pollo, chorizo, madurito, maicitos, jamón y queso",
+    "p": "$22.000"
+   },
+   {
+    "n": "Mazorcada Mixta",
+    "d": "Pollo, carne, maicitos, ripio de papa y queso gratinado",
+    "p": "$19.000"
+   }
+  ],
+  "note": "Patacones, burritos, mazorcadas y conos"
+ },
+ {
+  "name": "Cervezas",
+  "emoji": "🍻",
+  "items": [
+   {
+    "n": "Corona",
+    "d": "",
+    "p": "$9.000"
+   },
+   {
+    "n": "Club Colombia Dorada",
+    "d": "",
+    "p": "$6.000"
+   },
+   {
+    "n": "Águila Light",
+    "d": "",
+    "p": "$5.000"
+   },
+   {
+    "n": "Coronita",
+    "d": "",
+    "p": "$5.000"
+   },
+   {
+    "n": "Poker",
+    "d": "",
+    "p": "$5.000"
+   },
+   {
+    "n": "3 Cordilleras Rosada",
+    "d": "",
+    "p": "$9.000"
+   }
+  ]
+ },
+ {
+  "name": "Cócteles y Vinos",
+  "emoji": "🍸",
+  "items": [
+   {
+    "n": "Margarita",
+    "d": "",
+    "p": "$22.000"
+   },
+   {
+    "n": "Mojito Tradicional / Frutas",
+    "d": "",
+    "p": "$22.000 / 25.000"
+   },
+   {
+    "n": "Copa de Vino Tinto",
+    "d": "Gato Negro",
+    "p": "$20.000"
+   },
+   {
+    "n": "Atardecer Terraza",
+    "d": "Vodka, vino, limón, notas de vainilla",
+    "p": "$25.000"
+   },
+   {
+    "n": "Gama Terraza",
+    "d": "Maracuyá, mango, ron, vodka de lulo, triple sec y limón",
+    "p": "$25.000"
+   }
+  ]
+ },
+ {
+  "name": "Botellas y Medias",
+  "emoji": "🍾",
+  "cols": [
+   "Shot",
+   "Media",
+   "Botella"
+  ],
+  "items": [
+   {
+    "n": "Aguardiente Antioqueño",
+    "v": [
+     "$6.000",
+     "$45.000",
+     "$90.000"
+    ]
+   },
+   {
+    "n": "Aguardiente Amarillo",
+    "v": [
+     "$6.000",
+     "$45.000",
+     "$90.000"
+    ]
+   },
+   {
+    "n": "Ron Viejo de Caldas",
+    "v": [
+     "$7.000",
+     "$50.000",
+     "$100.000"
+    ]
+   },
+   {
+    "n": "Brandy Domecq",
+    "v": [
+     "$7.000",
+     "$50.000",
+     "$100.000"
+    ]
+   },
+   {
+    "n": "Old Parr o Buchanan's",
+    "v": [
+     "$17.000",
+     "$135.000",
+     "$240.000"
+    ]
+   }
+  ]
+ }
+]

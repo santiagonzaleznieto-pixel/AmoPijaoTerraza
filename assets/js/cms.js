@@ -22,7 +22,7 @@
   // Valores originales con los que se sembró el panel: si siguen iguales, se respeta el texto del sitio.
   var SEEDED = {
     tagline: '"Un menú hecho con amor"',
-    navHome: 'Inicio', navAbout: 'Nosotros', navMenu: 'Menú', navLoc: 'Ubicación',
+    navHome: 'Inicio', navAbout: 'Nosotros', navMenu: 'Menú', navLoc: 'Ubicación', navShop: 'Tienda',
     eyebrowAbout: 'Nuestra historia', eyebrowMenu: 'La Carta', eyebrowLoc: 'Visítanos', eyebrowShop: 'Tienda',
     menuTitle: 'Un menú hecho con amor', locTitle: 'En el centro de Pijao', shopTitle: 'Llévate un pedacito de Pijao',
     btnReserve: 'Reservar', btnMenu: 'Ver el menú', btnCall: 'Llamar', btnMaps: 'Ver en Google Maps →', heroBadge: 'YO ♥ PIJAO'
@@ -55,23 +55,16 @@
   }
   var withL = function (hex, l) { var c = hex2rgb(hex), x = rgb2hsl(c[0], c[1], c[2]); return rgb2hex(hsl2rgb(x[0], x[1], l)); };
   var shiftL = function (hex, d) { var c = hex2rgb(hex), x = rgb2hsl(c[0], c[1], c[2]); return rgb2hex(hsl2rgb(x[0], x[1], Math.max(0, Math.min(1, x[2] + d)))); };
-  var rgba = function (hex, a) { var c = hex2rgb(hex).map(function (v) { return Math.round(v * 255); }); return 'rgba(' + c.join(',') + ',' + a + ')'; };
   var isHex = function (h) { return /^#[0-9a-f]{6}$/i.test(h || ''); };
 
   function applyTheme(TH) {
     var r = document.documentElement.style;
-    if (isHex(TH.maroon)) {
-      r.setProperty('--brand', TH.maroon);
-      r.setProperty('--brand-deep', withL(TH.maroon, .16));
-      r.setProperty('--brand-tint', rgba(TH.maroon, .07));
-      var meta = $('meta[name="theme-color"]'); if (meta) meta.content = withL(TH.maroon, .16);
-    }
+    if (isHex(TH.maroon)) { r.setProperty('--brand', TH.maroon); r.setProperty('--brand-deep', withL(TH.maroon, .16)); }
     if (isHex(TH.cream)) {
-      r.setProperty('--bg', TH.cream);
-      r.setProperty('--bg-alt', shiftL(TH.cream, -.06));
-      r.setProperty('--on-dark', TH.cream);
+      r.setProperty('--wall', TH.cream); r.setProperty('--wall-2', shiftL(TH.cream, -.05));
+      var meta = $('meta[name="theme-color"]'); if (meta) meta.content = TH.cream;
     }
-    if (isHex(TH.gold)) { r.setProperty('--accent', TH.gold); r.setProperty('--accent-soft', rgba(TH.gold, .16)); }
+    if (isHex(TH.gold)) { r.setProperty('--mostaza', TH.gold); r.setProperty('--accent', TH.gold); }
 
     // tipografías permitidas por el panel
     var FONTS = {
@@ -91,28 +84,28 @@
       document.head.appendChild(l);
       r.setProperty(cssVar, '"' + name + '", ' + getComputedStyle(document.documentElement).getPropertyValue(cssVar));
     };
-    useFont(TH.headFont, '--font-display', 'Fraunces');
-    useFont(TH.bodyFont, '--font-body', 'Work Sans');
+    useFont(TH.headFont, '--f-display', 'Bricolage Grotesque');
+    useFont(TH.bodyFont, '--f-body', 'Instrument Sans');
     var scale = { small: '93.75%', large: '112.5%' }[TH.scale];
     if (scale) r.fontSize = scale;
   }
 
   /* ---------- tienda ---------- */
   function renderShop(items) {
-    var sec = $('#tienda'), grid = $('[data-shop-grid]');
-    if (!sec || !grid || !items.length) return;
+    if (!items.length) return;
+    $$('[data-shop-link]').forEach(function (a) { a.hidden = false; });
+    var grid = $('[data-shop-grid]'), empty = $('[data-shop-empty]');
+    if (!grid) return;
+    if (empty) empty.hidden = true;
     grid.innerHTML = items.map(function (p) {
       var wa = APT.waLink('Hola, quiero pedir: ' + p.name);
       return '<article class="product' + (p.out ? ' is-out' : '') + '">' +
         (p.img ? '<img src="' + esc(p.img) + '" alt="' + esc(p.name) + '" loading="lazy" width="480" height="480">' : '') +
-        '<div class="product__body"><h3>' + esc(p.name) + '</h3>' + (p.desc ? '<p>' + esc(p.desc) + '</p>' : '') +
-        '<p class="product__price">' + esc(p.price) + (p.out ? '<span class="product__badge">Agotado</span>' : '') + '</p>' +
-        (p.out ? '' : '<a class="btn btn--primary btn--sm" href="' + esc(wa) + '" target="_blank" rel="noopener">Pedir por WhatsApp</a>') +
-        '</div></article>';
+        '<h3>' + esc(p.name) + '</h3>' + (p.desc ? '<p>' + esc(p.desc) + '</p>' : '') +
+        '<p class="product__price">' + esc(p.price) + (p.out ? ' · Agotado' : '') + '</p>' +
+        (p.out ? '' : '<a class="btn btn--brand btn--sm" href="' + esc(wa) + '" target="_blank" rel="noopener">Pedir por WhatsApp</a>') +
+        '</article>';
     }).join('');
-    sec.hidden = false;
-    $$('a[href="#tienda"]').forEach(function (a) { a.hidden = false; });
-    APT.reveal($$('.product', grid));
   }
 
   /* ---------- carga ---------- */
@@ -138,11 +131,11 @@
       // textos principales
       var tagline = changed(T, 'tagline'); if (tagline) setText('tagline', tagline.replace(/^["“«]+|["”»]+$/g, ''));
       ['lede', 'aboutTitle', 'aboutText'].forEach(function (k) { if (T[k] && String(T[k]).trim()) setText(k, String(T[k]).trim()); });
-      if (T.address && T.address.trim()) { setText('address', T.address); setText('addressLine', lines(T.address).join(', ')); }
+      if (T.address && T.address.trim()) { setText('address', T.address); setText('plaque', lines(T.address)[0].replace(/\./g, '').replace(/#\s*/, '# ')); }
       if (T.hours && T.hours.trim()) {
         setText('hours', T.hours);
         var parsed = APT.parseHours(T.hours);
-        setText('hoursShort', parsed && parsed.daily && /todos/i.test(T.hours) ? 'Todos los días, ' + APT.fmtTime(parsed.open) + ' – ' + APT.fmtTime(parsed.close) : lines(T.hours).join(', '));
+        setText('hoursShort', parsed && parsed.daily ? 'Todos los días, ' + APT.fmtTime(parsed.open) + ' – ' + APT.fmtTime(parsed.close) : lines(T.hours).join(', '));
         APT.setHours(T.hours);
       }
       if (T.phone && T.phone.replace(/\D/g, '').length >= 10) {
@@ -150,14 +143,14 @@
         $$('[data-phone-text]').forEach(function (el) { el.textContent = T.phone.trim(); });
       }
       // textos pequeños (solo si el administrador los cambió)
-      ['navAbout', 'navMenu', 'navLoc', 'eyebrowAbout', 'eyebrowMenu', 'eyebrowLoc', 'eyebrowShop', 'menuTitle', 'locTitle', 'shopTitle', 'btnReserve', 'btnMenu', 'btnCall', 'btnMaps', 'heroBadge']
+      ['navAbout', 'navMenu', 'navLoc', 'navShop', 'eyebrowAbout', 'eyebrowMenu', 'eyebrowLoc', 'eyebrowShop', 'menuTitle', 'locTitle', 'shopTitle', 'btnReserve', 'btnMenu', 'btnCall', 'btnMaps', 'heroBadge']
         .forEach(function (k) { var v = changed(T, k); if (v) setText(k, v); });
       if (T.noticeOn && T.notice) APT.showNotice(String(T.notice).trim());
 
       // fotos
       if (images.hero) {
         var h = $('[data-cms-img="hero"]');
-        if (h) { h.src = images.hero; h.classList.remove('is-illustration'); h.alt = 'Amo Pijao Terraza'; h.removeAttribute('width'); h.removeAttribute('height'); }
+        if (h) { h.src = images.hero; h.classList.add('is-photo'); h.alt = 'Amo Pijao Terraza'; }
       }
       if (images.about) {
         var a = $('[data-cms-img="about"]');
@@ -167,7 +160,7 @@
       applyTheme(TH);
 
       var cats = menu.filter(function (c) { return c && c.name && c.items && c.items.length; });
-      if (cats.length) APT.renderMenu(cats, { layout: TH.menuLayout, scale: TH.menuScale });
+      if (cats.length) APT.renderMenu(cats, { scale: TH.menuScale });
 
       renderShop(shop.filter(function (p) { return p && p.on && p.name; }));
     })

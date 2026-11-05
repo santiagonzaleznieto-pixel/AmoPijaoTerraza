@@ -3,64 +3,69 @@
 Sitio oficial de **Amo Pijao Terraza**, café y terraza frente al parque principal de Pijao, Quindío.
 Publicado en Vercel: <https://amopijaoterraza.vercel.app>
 
-## Estructura
+## Páginas
+
+| URL          | Archivo          | Fachada  | Contenido                                               |
+|--------------|------------------|----------|---------------------------------------------------------|
+| `/`          | `index.html`     | vinotinto | Portada, estado abierto/cerrado, puertas a cada sección |
+| `/carta`     | `carta.html`     | verde    | Carta por categorías (una a la vez) y buscador          |
+| `/reservas`  | `reservas.html`  | añil     | Formulario que arma la reserva y abre WhatsApp          |
+| `/nosotros`  | `nosotros.html`  | teja     | Historia de la casa                                     |
+| `/visitanos` | `visitanos.html` | mostaza  | Dirección, horario de la semana, mapa y contacto        |
+| `/tienda`    | `tienda.html`    | rosa     | Productos publicados desde el panel                     |
+| `/admin`     | `admin.html`     | —        | Panel de administración (Supabase)                      |
+
+## Diseño: "Fachadas de Pijao"
+
+Cada página es una fachada pintada de bahareque: banda de color arriba, zócalo oscuro al pie,
+la baranda de madera de la terraza como separador, la placa de nomenclatura con la dirección
+y puertas de colores para pasar de una sección a otra. Tipografías: Bricolage Grotesque
+(letreros) e Instrument Sans (texto). Los colores están como variables al inicio de
+`assets/css/styles.css`.
+
+## Cómo editar
+
+Las páginas HTML de la raíz **se generan**: no las edites a mano.
 
 ```
-index.html            Página principal (contenido completo, funciona aunque falle el JavaScript)
-admin.html            Panel de administración (textos, carta, tienda, fotos, colores) → Supabase
-404.html              Página de "no encontrado"
-assets/css/styles.css Estilos (tokens de color y tipografía al inicio del archivo)
-assets/js/main.js     Navegación, estado "Abierto ahora", carta (índice + buscador), reservas
-assets/js/cms.js      Lee lo guardado en el panel y actualiza la página (tiempo límite: 4 s)
-assets/img/           Logo, íconos, ilustración principal e imagen para redes sociales
-vercel.json           Caché, cabeceras de seguridad, URLs limpias (/admin)
-robots.txt, sitemap.xml, site.webmanifest
+src/layout.html         Encabezado, navegación y pie comunes
+src/pages/*.html        Contenido de cada página
+data/menu.json          Carta por defecto (la que se ve si el panel no responde)
+tools/build.py          Generador
 ```
 
-No hay paso de compilación: Vercel publica los archivos tal cual en cada `git push`.
+Después de cambiar algo en `src/`, `data/` o en el CSS/JS, ejecuta:
 
-## Cómo se actualiza el contenido
+```bash
+python3 tools/build.py
+```
 
-1. **Desde el panel** (`/admin`): textos, horario, teléfono, aviso superior, carta y precios,
-   productos de la tienda, fotos de portada y de "Nuestra historia", colores y tipografías.
-   Los cambios se ven en la página sin volver a publicar.
-2. **Desde el código**: el HTML trae una copia completa de la carta y los textos, que es lo que
-   se muestra si el panel no responde. Si cambias precios solo en el panel, la página igual mostrará
-   los del panel; conviene actualizar ambos de vez en cuando.
+y publica los archivos generados junto con tus cambios (Vercel sirve la raíz tal cual, sin
+compilar). El generador también pone la versión de CSS y JS en las URLs para que los
+visitantes reciban siempre la última.
+
+## Panel de administración
+
+Desde `/admin` se cambian textos, horario, teléfono, aviso superior, carta y precios, tienda,
+fotos de portada y de "Nuestra historia", colores y tipografías. La página los aplica al
+cargar (`assets/js/cms.js`, con un tiempo límite de 4 s: si el panel no responde, se ve el
+contenido del HTML).
 
 > ⚠️ El proyecto de Supabase (`amo-pijao-terraza`) estaba **pausado** al momento de esta
-> revisión (los proyectos gratuitos se pausan tras una semana sin uso). Mientras esté pausado,
-> el panel no guarda cambios y la página muestra el contenido del HTML.
-> Se reactiva desde <https://supabase.com/dashboard/project/suvqsjloaoovaxjusini>.
-
-## Fotos reales (recomendado)
-
-La portada usa por ahora la ilustración «Yo ♥ Pijao». Para que el sitio se vea al nivel de las
-redes sociales, sube fotos reales desde el panel → **Fotos**:
-
-- **Portada**: la terraza con vista al parque, idealmente al atardecer (vertical 4:5).
-- **Nuestra historia**: el local, el equipo o una bebida insignia (cuadrada).
-- **Tienda**: productos sobre fondo limpio (cuadradas).
-
-El panel recorta y comprime las fotos automáticamente.
+> revisión. Se reactiva desde <https://supabase.com/dashboard/project/suvqsjloaoovaxjusini>.
 
 ## Reservas
 
-El formulario arma un mensaje con los datos y abre **WhatsApp** (+57 310 433 7667) para que el
-cliente lo envíe. En paralelo manda una copia por correo a través de Formspree
-(`formspree.io/f/xrpbrlpw`). Si cambias el teléfono en el panel, todos los botones de llamada y
-WhatsApp se actualizan solos.
-
-## Dominio
-
-Si se conecta un dominio propio, reemplaza `https://amopijaoterraza.vercel.app` en:
-`index.html` (canonical, Open Graph y datos estructurados), `robots.txt` y `sitemap.xml`.
+El formulario arma un mensaje con los datos y abre **WhatsApp** (+57 310 433 7667). En paralelo
+manda una copia por correo a través de Formspree (`formspree.io/f/xrpbrlpw`).
 
 ## Probar en local
 
+Vercel usa URLs limpias (`/carta` → `carta.html`). Para probar en local con esas URLs puedes usar
+`npx vercel dev`, o abrir directamente `http://localhost:8000/carta.html` con:
+
 ```bash
 python3 -m http.server 8000
-# abrir http://localhost:8000
 ```
 
 ---
