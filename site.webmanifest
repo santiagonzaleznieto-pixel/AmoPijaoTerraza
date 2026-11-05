@@ -1,0 +1,14 @@
+{
+  "name": "Amo Pijao Terraza",
+  "short_name": "Amo Pijao",
+  "description": "Café y terraza frente al parque principal de Pijao, Quindío.",
+  "lang": "es-CO",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBF3E3",
+  "theme_color": "#3E170F",
+  "icons": [
+    { "src": "/assets/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/img/logo-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
