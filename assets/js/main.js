@@ -53,43 +53,55 @@
   APT.fmtTime = fmtTime;
 
   /* ---------- horario y estado "abierto ahora" ---------- */
-  /** Interpreta textos como "Todos los días\n1:00 p.m. – 10:00 p.m." */
+  /** Interpreta textos como "Todos los días\n1:00 p.m. – 10:00 p.m.", "13:00 - 22:00", "12 m. a 10 pm". */
   APT.parseHours = function (text) {
     var t = norm(text).replace(/\s+/g, ' ');
-    var re = /(\d{1,2})(?:[:.](\d{2}))?\s*(a\.?\s?m\.?|p\.?\s?m\.?)?/g, found = [], m;
-    while ((m = re.exec(t)) && found.length < 2) {
-      if (!m[3] && !m[2]) continue;
-      var h = +m[1] % 12, mm = +(m[2] || 0);
-      if (m[3] && m[3].charAt(0) === 'p') h += 12;
-      if (!m[3] && +m[1] === 12) h = 12;
-      found.push(h * 60 + mm);
+    var re = /(\d{1,2})(?:[:.](\d{2}))?\s*(a\.?\s?m\.?|p\.?\s?m\.?|m\.?(?![a-z]))?/g, tok = [], m;
+    while ((m = re.exec(t)) && tok.length < 2) {
+      if (+m[1] > 24 || +(m[2] || 0) > 59) continue;
+      tok.push({ h: +m[1], m: +(m[2] || 0), mer: m[3] ? m[3].charAt(0) : '' });
     }
-    if (found.length < 2) return null;
+    if (tok.length < 2) return null;
+    // a = a.m., p = p.m., m = mediodía ("12 m."), '' = formato de 24 horas
+    var toMin = function (x, mer) {
+      var h = x.h;
+      if (mer === 'm') h = 12;
+      else if (mer === 'p') h = (h % 12) + 12;
+      else if (mer === 'a') h = h % 12;
+      return (h % 24) * 60 + x.m;
+    };
+    var o = tok[0], c = tok[1];
+    var close = toMin(c, c.mer || (o.mer === 'p' && c.h < 12 ? 'p' : ''));
+    var open = toMin(o, o.mer);
+    // "1 – 10 p.m.": la apertura sin a.m./p.m. toma la del cierre si así queda antes del cierre
+    if (!o.mer && o.h <= 12 && (c.mer === 'p' || c.mer === 'a')) {
+      var guess = toMin(o, c.mer);
+      if (guess < close) open = guess;
+    }
     var hasDays = /(lunes|martes|miercoles|jueves|viernes|sabado|domingo|festivo)/.test(t);
-    return { open: found[0], close: found[1] <= found[0] ? found[1] + 1440 : found[1], daily: !hasDays || /todos/.test(t) };
+    return { open: open, close: close <= open ? close + 1440 : close, daily: !hasDays || /todos/.test(t) };
   };
 
   function renderStatus() {
     var el = $('[data-status]'); if (!el) return;
     var txt = $('[data-status-text]', el), H = APT.hours;
+    var put = function (st, h) { el.dataset.state = st; if (txt.innerHTML !== h) txt.innerHTML = h; };
     if (!H || !H.daily) { el.dataset.state = 'unknown'; return; }
     var now = bogotaNow().minutes, open = H.open, close = H.close;
     var isOpen = (now >= open && now < close) || (close > 1440 && now < close - 1440);
     if (isOpen) {
       var left = (close > 1440 && now < open ? close - 1440 : close) - now;
-      el.dataset.state = 'open';
-      txt.innerHTML = left <= 45
+      put('open', left <= 45
         ? '<strong>Cierra pronto</strong> · ' + atTime(close)
-        : '<strong>Abierto ahora</strong> · hasta ' + atTime(close).replace(/^a /, '');
+        : '<strong>Abierto ahora</strong> · hasta ' + atTime(close).replace(/^a /, ''));
     } else {
-      el.dataset.state = 'closed';
-      txt.innerHTML = '<strong>Cerrado</strong> · abre ' + (now < open ? 'hoy ' : 'mañana ') + atTime(open);
+      put('closed', '<strong>Cerrado</strong> · abre ' + (now < open ? 'hoy ' : 'mañana ') + atTime(open));
     }
   }
   APT.setHours = function (text) {
     var parsed = APT.parseHours(text);
     APT.hours = parsed || { daily: false };
-    if (!parsed) { var t = $('[data-status-text]'); if (t) t.textContent = String(text).split('\n').map(function (s) { return s.trim(); }).filter(Boolean).join(' · '); }
+    if (!parsed || !parsed.daily) { var t = $('[data-status-text]'); if (t) t.textContent = String(text).split('\n').map(function (s) { return s.trim(); }).filter(Boolean).join(' · '); }
     renderStatus(); buildTimeOptions();
   };
 
@@ -206,6 +218,7 @@
     $('[data-menu-list]', menu).innerHTML = html.list;
     var total = cats.reduce(function (a, c) { return a + (c.items || []).length; }, 0);
     menuState.totalText = total + ' productos en ' + cats.length + ' categorías';
+    $('[data-menu-count]', menu).textContent = menuState.totalText;
     setupMenu((opts && opts.layout) || menuState.layout);
     if (opts && opts.scale) menu.style.fontSize = { small: '.92em', large: '1.1em' }[opts.scale] || '';
   };
@@ -339,7 +352,8 @@
     var H = APT.hours && APT.hours.daily !== undefined && APT.hours.open != null ? APT.hours : { open: 13 * 60, close: 22 * 60 };
     var prev = timeSelect.value, now = bogotaNow(), isToday = dateInput && dateInput.value === now.date;
     var html = '<option value="">Elige una hora</option>';
-    for (var m = H.open; m <= H.close - 60; m += 30) {
+    var last = Math.min(H.close - 60, 1410); // sin horarios después de medianoche (cambiarían el día)
+    for (var m = H.open; m <= last; m += 30) {
       var past = isToday && m < now.minutes + 30;
       html += '<option value="' + fmtTime(m) + '"' + (past ? ' disabled' : '') + '>' + fmtTime(m) + (past ? ' (ya pasó)' : '') + '</option>';
     }
@@ -371,6 +385,11 @@
     return ok;
   }
 
+  function addDays(iso, n) {
+    var p = iso.split('-'), d = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2] + n));
+    return d.toISOString().slice(0, 10);
+  }
+
   function prettyDate(iso) {
     try {
       var p = iso.split('-');
@@ -383,6 +402,7 @@
     dateInput.min = today;
     dateInput.value = today;
     buildTimeOptions();
+    if (!$('option[value]:not([value=""]):not([disabled])', timeSelect)) { dateInput.value = addDays(today, 1); buildTimeOptions(); }
     dateInput.addEventListener('change', buildTimeOptions);
     ['nombre', 'telefono', 'fecha', 'hora'].forEach(function (n) {
       form.elements[n].addEventListener('input', function () { if (this.getAttribute('aria-invalid') === 'true') fieldError(this, ''); });
@@ -394,7 +414,7 @@
       e.preventDefault();
       if (!validate()) return;
       var d = Object.fromEntries(new FormData(form));
-      var personas = /^\d+$/.test(d.personas) ? d.personas + (d.personas === '1' ? ' persona' : ' personas') : d.personas + ' personas';
+      var personas = form.elements.personas.selectedOptions[0].textContent;
       var msg = 'Hola, quiero reservar una mesa en Amo Pijao Terraza:\n\n' +
         '• Nombre: ' + d.nombre.trim() + '\n' +
         '• Celular: ' + d.telefono.trim() + '\n' +
@@ -424,6 +444,7 @@
 
     $('[data-reserve-again]').addEventListener('click', function () {
       form.reset(); dateInput.value = bogotaNow().date; buildTimeOptions();
+      if (!$('option[value]:not([value=""]):not([disabled])', timeSelect)) { dateInput.value = addDays(bogotaNow().date, 1); buildTimeOptions(); }
       success.hidden = true; form.hidden = false; form.elements.nombre.focus();
     });
   }
