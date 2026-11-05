@@ -1,0 +1,88 @@
+<section class="page-hero" aria-labelledby="page-title">
+  <div class="wrap">
+    <span class="label">Reservas</span>
+    <h1 id="page-title">Su mesa <em>en la terraza</em></h1>
+    <div class="ornament" aria-hidden="true"><i></i></div>
+    <p class="page-hero__lede">Celebraciones, cenas en pareja o una tarde con amigos frente al parque. Déjenos sus datos y le confirmamos por WhatsApp.</p>
+  </div>
+</section>
+
+<div class="page-body">
+  <div class="wrap reserve-grid">
+    <div>
+      <form class="form" id="reserva-form" novalidate data-endpoint="https://formspree.io/f/xrpbrlpw">
+        <div class="field field--full">
+          <label for="r-nombre">Nombre completo</label>
+          <input id="r-nombre" name="nombre" autocomplete="name" required aria-describedby="e-nombre">
+          <span class="field__error" id="e-nombre"></span>
+        </div>
+        <div class="field field--full">
+          <label for="r-telefono">Celular o WhatsApp</label>
+          <input id="r-telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required placeholder="310 000 0000" aria-describedby="e-telefono">
+          <span class="field__error" id="e-telefono"></span>
+        </div>
+        <div class="field">
+          <label for="r-fecha">Fecha</label>
+          <input id="r-fecha" name="fecha" type="date" required aria-describedby="e-fecha">
+          <span class="field__error" id="e-fecha"></span>
+        </div>
+        <div class="field">
+          <label for="r-hora">Hora</label>
+          <select id="r-hora" name="hora" required aria-describedby="e-hora"><option value="">Seleccione</option></select>
+          <span class="field__error" id="e-hora"></span>
+        </div>
+        <fieldset class="field field--full">
+          <legend>Invitados</legend>
+          <div class="party">
+            <input type="radio" name="personas" id="p1" value="1 persona"><label for="p1">1</label>
+            <input type="radio" name="personas" id="p2" value="2 personas" checked><label for="p2">2</label>
+            <input type="radio" name="personas" id="p3" value="3 personas"><label for="p3">3</label>
+            <input type="radio" name="personas" id="p4" value="4 personas"><label for="p4">4</label>
+            <input type="radio" name="personas" id="p5" value="5 personas"><label for="p5">5</label>
+            <input type="radio" name="personas" id="p6" value="6 personas"><label for="p6">6</label>
+            <input type="radio" name="personas" id="p7" value="7 personas"><label for="p7">7</label>
+            <input type="radio" name="personas" id="p8" value="8 personas"><label for="p8">8</label>
+            <input type="radio" name="personas" id="p9" value="9 o más personas"><label for="p9">9+</label>
+          </div>
+        </fieldset>
+        <div class="field field--full">
+          <label for="r-notas">Ocasión o peticiones <span class="opt">(opcional)</span></label>
+          <textarea id="r-notas" name="notas" placeholder="Cumpleaños, aniversario, mesa junto a la baranda…"></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn--block" type="submit"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Solicitar reserva</button>
+          <small>Se abrirá WhatsApp con su solicitud. La mesa queda confirmada cuando le respondamos.</small>
+        </div>
+      </form>
+
+      <div class="success" data-reserve-success hidden tabindex="-1">
+        <span class="label">Solicitud lista</span>
+        <h2>Gracias por elegirnos</h2>
+        <p>Abrimos WhatsApp con su solicitud. Envíe el mensaje y le confirmaremos la mesa en breve.</p>
+        <div class="actions">
+          <a class="btn" href="#" data-reserve-wa target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Abrir WhatsApp de nuevo</a>
+          <button class="btn btn--ghost" type="button" data-reserve-again>Nueva reserva</button>
+        </div>
+      </div>
+    </div>
+
+    <aside class="aside">
+      <div class="aside-block">
+        <h2>Cómo funciona</h2>
+        <ol class="steps">
+          <li><span><strong>Complete el formulario</strong>Fecha, hora y número de invitados.</span></li>
+          <li><span><strong>Envíe el mensaje</strong>WhatsApp se abre con su solicitud escrita.</span></li>
+          <li><span><strong>Reciba la confirmación</strong>Le respondemos para confirmar su mesa.</span></li>
+        </ol>
+      </div>
+      <div class="aside-block">
+        <h2>Atención directa</h2>
+        <div class="contact-list">
+          <a href="tel:+573104337667" data-tel><svg aria-hidden="true"><use href="#i-phone"/></svg><span data-phone-text>+57 310 433 7667</span></a>
+          <a href="https://wa.me/573104337667?text=Buen%20d%C3%ADa%2C%20quisiera%20hacer%20una%20reserva%20en%20Amo%20Pijao%20Terraza" data-wa target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Escribir por WhatsApp</a>
+        </div>
+        <p data-cms="hours" data-cms-mode="lines">Todos los días<br>1:00 p.m. – 10:00 p.m.</p>
+      </div>
+    </aside>
+  </div>
+</div>

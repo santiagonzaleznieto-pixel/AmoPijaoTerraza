@@ -1,6 +1,6 @@
 /* ==========================================================================
    Amo Pijao Terraza — conexión con el panel de administración (admin.html)
-   Lee lo guardado en Supabase y actualiza textos, fotos, carta, tienda y
+   Lee lo guardado en Supabase y actualiza textos, fotos, carta, productos y
    apariencia. Si Supabase no responde, la página se queda con el contenido
    del HTML (que siempre está completo): nunca se bloquea ni parpadea.
    ========================================================================== */
@@ -9,9 +9,7 @@
   var APT = window.APT;
   if (!APT || !window.fetch) return;
 
-  var SUPABASE_URL = 'https://suvqsjloaoovaxjusini.supabase.co';
-  // Clave pública "anon": es segura en el navegador; la protección real son las políticas RLS de la tabla.
-  var SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1dnFzamxvYW9vdmF4anVzaW5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NTI0MDIsImV4cCI6MjEwNjEyODQwMn0.3HC7MK3TCSEIWkpgHApObsgo6a5oyUjMv_511AwG0iU';
+  var SUPABASE_URL = APT.SB.url, SUPABASE_ANON = APT.SB.key; // definidos en main.js
   var TIMEOUT_MS = 4000;
 
   var $ = function (s, p) { return (p || document).querySelector(s); };
@@ -22,7 +20,7 @@
   // Valores originales con los que se sembró el panel: si siguen iguales, se respeta el texto del sitio.
   var SEEDED = {
     tagline: '"Un menú hecho con amor"',
-    navHome: 'Inicio', navAbout: 'Nosotros', navMenu: 'Menú', navLoc: 'Ubicación',
+    navHome: 'Inicio', navAbout: 'Nosotros', navMenu: 'Menú', navLoc: 'Ubicación', navShop: 'Tienda',
     eyebrowAbout: 'Nuestra historia', eyebrowMenu: 'La Carta', eyebrowLoc: 'Visítanos', eyebrowShop: 'Tienda',
     menuTitle: 'Un menú hecho con amor', locTitle: 'En el centro de Pijao', shopTitle: 'Llévate un pedacito de Pijao',
     btnReserve: 'Reservar', btnMenu: 'Ver el menú', btnCall: 'Llamar', btnMaps: 'Ver en Google Maps →', heroBadge: 'YO ♥ PIJAO'
@@ -55,34 +53,22 @@
   }
   var withL = function (hex, l) { var c = hex2rgb(hex), x = rgb2hsl(c[0], c[1], c[2]); return rgb2hex(hsl2rgb(x[0], x[1], l)); };
   var shiftL = function (hex, d) { var c = hex2rgb(hex), x = rgb2hsl(c[0], c[1], c[2]); return rgb2hex(hsl2rgb(x[0], x[1], Math.max(0, Math.min(1, x[2] + d)))); };
-  var rgba = function (hex, a) { var c = hex2rgb(hex).map(function (v) { return Math.round(v * 255); }); return 'rgba(' + c.join(',') + ',' + a + ')'; };
   var isHex = function (h) { return /^#[0-9a-f]{6}$/i.test(h || ''); };
 
   function applyTheme(TH) {
     var r = document.documentElement.style;
-    if (isHex(TH.maroon)) {
-      r.setProperty('--brand', TH.maroon);
-      r.setProperty('--brand-deep', withL(TH.maroon, .16));
-      r.setProperty('--brand-tint', rgba(TH.maroon, .07));
-      var meta = $('meta[name="theme-color"]'); if (meta) meta.content = withL(TH.maroon, .16);
-    }
-    if (isHex(TH.cream)) {
-      r.setProperty('--bg', TH.cream);
-      r.setProperty('--bg-alt', shiftL(TH.cream, -.06));
-      r.setProperty('--on-dark', TH.cream);
-    }
-    if (isHex(TH.gold)) { r.setProperty('--accent', TH.gold); r.setProperty('--accent-soft', rgba(TH.gold, .16)); }
+    if (isHex(TH.maroon)) { r.setProperty('--vino', TH.maroon); r.setProperty('--vino-deep', withL(TH.maroon, .14)); }
+    if (isHex(TH.cream)) { r.setProperty('--crema', TH.cream); r.setProperty('--paper', TH.cream); }
+    if (isHex(TH.gold)) { r.setProperty('--oro', TH.gold); }
 
     // tipografías permitidas por el panel
     var FONTS = {
-      'Fraunces': 'Fraunces:opsz,wght@9..144,400..640', 'Playfair Display': 'Playfair+Display:wght@500;700', 'DM Serif Display': 'DM+Serif+Display',
-      'Cormorant Garamond': 'Cormorant+Garamond:wght@500;600', 'Lora': 'Lora:wght@500;600', 'Libre Baskerville': 'Libre+Baskerville:wght@400;700',
-      'Crimson Pro': 'Crimson+Pro:wght@500;600', 'Prata': 'Prata', 'Marcellus': 'Marcellus', 'Abril Fatface': 'Abril+Fatface', 'Bodoni Moda': 'Bodoni+Moda:wght@500;700',
-      'Spectral': 'Spectral:wght@500;600', 'EB Garamond': 'EB+Garamond:wght@500;600', 'Domine': 'Domine:wght@500;600', 'Piazzolla': 'Piazzolla:wght@500;600', 'Zilla Slab': 'Zilla+Slab:wght@500;600',
-      'Work Sans': 'Work+Sans:wght@400;500;600', 'Inter': 'Inter:wght@400;500;600', 'Nunito Sans': 'Nunito+Sans:wght@400;600', 'Poppins': 'Poppins:wght@400;500;600',
-      'Mulish': 'Mulish:wght@400;600', 'Karla': 'Karla:wght@400;600', 'Rubik': 'Rubik:wght@400;500;600', 'Manrope': 'Manrope:wght@400;600', 'Sora': 'Sora:wght@400;600',
-      'Jost': 'Jost:wght@400;500;600', 'Outfit': 'Outfit:wght@400;500;600', 'Figtree': 'Figtree:wght@400;500;600', 'Public Sans': 'Public+Sans:wght@400;500;600',
-      'Albert Sans': 'Albert+Sans:wght@400;500;600', 'Plus Jakarta Sans': 'Plus+Jakarta+Sans:wght@400;500;600', 'Urbanist': 'Urbanist:wght@400;500;600'
+      'Cormorant Garamond': 'Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500',
+      'Playfair Display': 'Playfair+Display:ital,wght@0,400;0,500;1,400', 'Bodoni Moda': 'Bodoni+Moda:ital,wght@0,400;0,500;1,400',
+      'EB Garamond': 'EB+Garamond:ital,wght@0,400;0,500;1,400', 'Libre Baskerville': 'Libre+Baskerville:ital,wght@0,400;1,400',
+      'Marcellus': 'Marcellus', 'Prata': 'Prata', 'Lora': 'Lora:ital,wght@0,400;0,500;1,400',
+      'Jost': 'Jost:wght@300;400;500', 'Manrope': 'Manrope:wght@300;400;500', 'Outfit': 'Outfit:wght@300;400;500',
+      'Figtree': 'Figtree:wght@300;400;500', 'Work Sans': 'Work+Sans:wght@300;400;500', 'Inter': 'Inter:wght@300;400;500'
     };
     var useFont = function (name, cssVar, fallback) {
       if (!name || !FONTS[name] || name === fallback) return;
@@ -91,28 +77,28 @@
       document.head.appendChild(l);
       r.setProperty(cssVar, '"' + name + '", ' + getComputedStyle(document.documentElement).getPropertyValue(cssVar));
     };
-    useFont(TH.headFont, '--font-display', 'Fraunces');
-    useFont(TH.bodyFont, '--font-body', 'Work Sans');
+    useFont(TH.headFont, '--f-display', 'Cormorant Garamond');
+    useFont(TH.bodyFont, '--f-body', 'Jost');
     var scale = { small: '93.75%', large: '112.5%' }[TH.scale];
     if (scale) r.fontSize = scale;
   }
 
   /* ---------- tienda ---------- */
+  /* ---------- productos: enlace en el menú y vista previa en la portada ---------- */
   function renderShop(items) {
-    var sec = $('#tienda'), grid = $('[data-shop-grid]');
-    if (!sec || !grid || !items.length) return;
-    grid.innerHTML = items.map(function (p) {
-      var wa = APT.waLink('Hola, quiero pedir: ' + p.name);
-      return '<article class="product' + (p.out ? ' is-out' : '') + '">' +
-        (p.img ? '<img src="' + esc(p.img) + '" alt="' + esc(p.name) + '" loading="lazy" width="480" height="480">' : '') +
-        '<div class="product__body"><h3>' + esc(p.name) + '</h3>' + (p.desc ? '<p>' + esc(p.desc) + '</p>' : '') +
-        '<p class="product__price">' + esc(p.price) + (p.out ? '<span class="product__badge">Agotado</span>' : '') + '</p>' +
-        (p.out ? '' : '<a class="btn btn--primary btn--sm" href="' + esc(wa) + '" target="_blank" rel="noopener">Pedir por WhatsApp</a>') +
-        '</div></article>';
+    if (!items.length) return; // sin productos publicados: el enlace y la vista previa no aparecen
+    $$('[data-shop-link]').forEach(function (a) { a.hidden = false; });
+    var teaser = $('[data-shop-teaser]');
+    if (!teaser) return;
+    var pick = items.filter(function (p) { return !p.out; }).concat(items.filter(function (p) { return p.out; })).slice(0, 3);
+    $('[data-shop-teaser-grid]', teaser).innerHTML = pick.map(function (p) {
+      return '<a class="product" href="/productos">' +
+        '<div class="product__media">' + (p.img ? '<img src="' + esc(p.img) + '" alt="' + esc(p.name) + '" loading="lazy" width="480" height="600">' : '<span class="placeholder"><img src="/assets/img/emblema-crema-96.webp" alt=""></span>') +
+        (p.out ? '<span class="product__badge">Agotado</span>' : '') + '</div>' +
+        '<span class="label">' + esc(p.cat || 'De la casa') + '</span><h3>' + esc(p.name) + '</h3>' +
+        '<span class="product__price">' + esc(p.price ? APT.formatPrice(p.price) : 'Consultar') + '</span></a>';
     }).join('');
-    sec.hidden = false;
-    $$('a[href="#tienda"]').forEach(function (a) { a.hidden = false; });
-    APT.reveal($$('.product', grid));
+    teaser.hidden = false;
   }
 
   /* ---------- carga ---------- */
@@ -125,24 +111,25 @@
   })
     .then(function (r) { clearTimeout(timer); if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(function (rows) {
-      if (!Array.isArray(rows) || !rows.length) return;
+      if (!Array.isArray(rows)) throw new Error('respuesta inválida');
+      if (!rows.length) { APT.setContent({ texts: {}, theme: {}, menu: [], shop: [], images: {} }); return; }
       var row = function (col, id) { var x = rows.filter(function (r) { return r.col === col && r.id === id; })[0]; return (x && x.data) || {}; };
       var T = row('site', 'texts'), TH = row('site', 'theme');
       var images = {}, menu = [], shop = [];
       rows.forEach(function (r) {
         if (r.col === 'img' && r.data && r.data.src) images[r.id] = r.data.src;
         else if (r.col === 'menu') menu.push(r.data);
-        else if (r.col === 'shop') shop.push(r.data);
+        else if (r.col === 'shop' && r.data) shop.push(Object.assign({}, r.data, { id: r.id }));
       });
 
       // textos principales
       var tagline = changed(T, 'tagline'); if (tagline) setText('tagline', tagline.replace(/^["“«]+|["”»]+$/g, ''));
       ['lede', 'aboutTitle', 'aboutText'].forEach(function (k) { if (T[k] && String(T[k]).trim()) setText(k, String(T[k]).trim()); });
-      if (T.address && T.address.trim()) { setText('address', T.address); setText('addressLine', lines(T.address).join(', ')); }
+      if (T.address && T.address.trim()) { setText('address', T.address); setText('addressLine', lines(T.address).slice(0, 2).join(', ')); }
       if (T.hours && T.hours.trim()) {
         setText('hours', T.hours);
         var parsed = APT.parseHours(T.hours);
-        setText('hoursShort', parsed && parsed.daily && /todos/i.test(T.hours) ? 'Todos los días, ' + APT.fmtTime(parsed.open) + ' – ' + APT.fmtTime(parsed.close) : lines(T.hours).join(', '));
+        setText('hoursShort', parsed && parsed.daily ? 'Todos los días, ' + APT.fmtTime(parsed.open) + ' – ' + APT.fmtTime(parsed.close) : lines(T.hours).join(', '));
         APT.setHours(T.hours);
       }
       if (T.phone && T.phone.replace(/\D/g, '').length >= 10) {
@@ -150,26 +137,42 @@
         $$('[data-phone-text]').forEach(function (el) { el.textContent = T.phone.trim(); });
       }
       // textos pequeños (solo si el administrador los cambió)
-      ['navAbout', 'navMenu', 'navLoc', 'eyebrowAbout', 'eyebrowMenu', 'eyebrowLoc', 'eyebrowShop', 'menuTitle', 'locTitle', 'shopTitle', 'btnReserve', 'btnMenu', 'btnCall', 'btnMaps', 'heroBadge']
+      ['navAbout', 'navMenu', 'navLoc', 'navShop', 'eyebrowAbout', 'eyebrowMenu', 'eyebrowLoc', 'eyebrowShop', 'menuTitle', 'locTitle', 'shopTitle', 'btnReserve', 'btnMenu', 'btnCall', 'btnMaps', 'heroBadge']
         .forEach(function (k) { var v = changed(T, k); if (v) setText(k, v); });
       if (T.noticeOn && T.notice) APT.showNotice(String(T.notice).trim());
 
       // fotos
       if (images.hero) {
         var h = $('[data-cms-img="hero"]');
-        if (h) { h.src = images.hero; h.classList.remove('is-illustration'); h.alt = 'Amo Pijao Terraza'; h.removeAttribute('width'); h.removeAttribute('height'); }
+        if (h) { h.src = images.hero; h.classList.add('is-photo'); h.alt = 'Amo Pijao Terraza'; h.removeAttribute('width'); h.removeAttribute('height'); }
       }
       if (images.about) {
         var a = $('[data-cms-img="about"]');
         if (a) { a.src = images.about; a.classList.add('is-photo'); a.alt = 'Amo Pijao Terraza'; }
       }
 
+      // La apariencia solo se aplica si se guardó con el panel actual (v2); la del diseño anterior se ignora.
+      if (!(TH && TH.v >= 2)) TH = {};
       applyTheme(TH);
 
       var cats = menu.filter(function (c) { return c && c.name && c.items && c.items.length; });
-      if (cats.length) APT.renderMenu(cats, { layout: TH.menuLayout, scale: TH.menuScale });
+      if (cats.length) {
+        APT.renderMenu(cats, { scale: TH.menuScale });
+        // creaciones de la casa en la portada: precio y descripción al día; se ocultan si ya no están en la carta
+        var all = {};
+        cats.forEach(function (c) { (c.items || []).forEach(function (it) { all[APT.norm(it.n)] = it; }); });
+        $$('[data-dish]').forEach(function (el) {
+          var it = all[APT.norm(el.dataset.dish)];
+          if (!it) { el.hidden = true; return; }
+          var p = $('[data-dish-price]', el), d = $('[data-dish-desc]', el);
+          if (p && it.p) p.textContent = APT.formatPrice(it.p);
+          if (d) { d.textContent = it.d || ''; d.hidden = !it.d; }
+        });
+      }
 
-      renderShop(shop.filter(function (p) { return p && p.on && p.name; }));
+      var published = shop.filter(function (p) { return p && p.on && p.name; });
+      renderShop(published);
+      APT.setContent({ texts: T, theme: TH, menu: cats, shop: published, images: images });
     })
-    .catch(function () { /* sin conexión con el panel: se muestra el contenido del sitio tal cual */ });
+    .catch(function () { APT.setContentError(); /* sin conexión con el panel: se muestra el contenido del sitio tal cual */ });
 })();
