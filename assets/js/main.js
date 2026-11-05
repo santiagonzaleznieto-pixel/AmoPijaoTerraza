@@ -13,6 +13,30 @@
 
   var APT = window.APT = { phone: '573104337667', hours: { open: 13 * 60, close: 22 * 60, daily: true } };
 
+  /* Supabase (panel de administración). La clave "anon" es pública por diseño:
+     la seguridad la ponen las políticas RLS de cada tabla. */
+  APT.SB = {
+    url: 'https://suvqsjloaoovaxjusini.supabase.co',
+    key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1dnFzamxvYW9vdmF4anVzaW5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NTI0MDIsImV4cCI6MjEwNjEyODQwMn0.3HC7MK3TCSEIWkpgHApObsgo6a5oyUjMv_511AwG0iU'
+  };
+
+  /* Contenido del panel: cms.js lo entrega una vez; quien lo necesite se suscribe aquí. */
+  var contentState = { done: false, data: null, ok: [], ko: [] };
+  APT.onContent = function (ok, ko) {
+    if (contentState.done) { if (contentState.data) ok(contentState.data); else if (ko) ko(); return; }
+    contentState.ok.push(ok); if (ko) contentState.ko.push(ko);
+  };
+  APT.setContent = function (data) {
+    if (contentState.done) return;
+    contentState.done = true; contentState.data = data;
+    contentState.ok.forEach(function (f) { try { f(data); } catch (e) {} });
+  };
+  APT.setContentError = function () {
+    if (contentState.done) return;
+    contentState.done = true;
+    contentState.ko.forEach(function (f) { try { f(); } catch (e) {} });
+  };
+
   /* ---------- utilidades ---------- */
   var esc = function (s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -327,7 +351,8 @@
     var html = '<option value="">Seleccione</option>', last = Math.min(H.close - 60, 1410);
     for (var m = H.open; m <= last; m += 30) {
       var past = isToday && m < now.minutes + 30;
-      html += '<option value="' + fmtTime(m) + '"' + (past ? ' disabled' : '') + '>' + fmtTime(m) + (past ? ' (ya pasó)' : '') + '</option>';
+      var v = String(Math.floor(m / 60) % 24).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+      html += '<option value="' + v + '"' + (past ? ' disabled' : '') + '>' + fmtTime(m) + (past ? ' (ya pasó)' : '') + '</option>';
     }
     timeSelect.innerHTML = html;
     timeSelect.value = prev && $('option[value="' + prev + '"]:not([disabled])', timeSelect) ? prev : '';
@@ -377,20 +402,28 @@
       e.preventDefault();
       if (!validate()) return;
       var d = Object.fromEntries(new FormData(form));
+      var horaTxt = timeSelect.selectedOptions[0] ? timeSelect.selectedOptions[0].textContent : d.hora;
       var msg = 'Buen día, quisiera reservar una mesa en Amo Pijao Terraza:\n\n' +
         '• Nombre: ' + d.nombre.trim() + '\n• Celular: ' + d.telefono.trim() + '\n• Fecha: ' + prettyDate(d.fecha) +
-        '\n• Hora: ' + d.hora + '\n• Invitados: ' + (d.personas || '2 personas') +
+        '\n• Hora: ' + horaTxt + '\n• Invitados: ' + (d.personas || '2 personas') +
         (d.notas && d.notas.trim() ? '\n• Notas: ' + d.notas.trim() : '');
       var link = waLink(msg);
       // WhatsApp en el mismo gesto del usuario (sin 'noopener', que hace que window.open devuelva null)
       var win = window.open(link, '_blank');
       if (win) { try { win.opener = null; } catch (err) {} }
-      // copia por correo al negocio; si falla, no afecta al visitante
-      if (form.dataset.endpoint && window.fetch) {
-        fetch(form.dataset.endpoint, {
-          method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(Object.assign({ _subject: 'Nueva reserva · ' + d.nombre.trim() + ' · ' + d.fecha + ' ' + d.hora }, d))
+      // guardar en el panel (Reservas) y enviar copia por correo; si fallan, no afecta al visitante
+      if (window.fetch) {
+        fetch(APT.SB.url + '/rest/v1/reservas', {
+          method: 'POST', keepalive: true,
+          headers: { apikey: APT.SB.key, Authorization: 'Bearer ' + APT.SB.key, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+          body: JSON.stringify({ nombre: d.nombre.trim().slice(0, 120), telefono: d.telefono.trim().slice(0, 40), fecha: d.fecha, hora: d.hora, personas: String(d.personas || '2 personas').slice(0, 40), notas: (d.notas || '').trim().slice(0, 600) || null })
         }).catch(function () {});
+        if (form.dataset.endpoint) {
+          fetch(form.dataset.endpoint, {
+            method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(Object.assign({ _subject: 'Nueva reserva · ' + d.nombre.trim() + ' · ' + d.fecha + ' ' + horaTxt }, d, { hora: horaTxt }))
+          }).catch(function () {});
+        }
       }
       $('[data-reserve-wa]', success).href = link;
       form.hidden = true; success.hidden = false; success.focus({ preventScroll: true });
@@ -401,6 +434,35 @@
       form.reset(); resetDate();
       success.hidden = true; form.hidden = false; form.elements.nombre.focus();
     });
+  }
+
+  /* ---------- bienvenida (una vez por visita) ---------- */
+  var intro = $('[data-intro]');
+  if (intro && document.documentElement.classList.contains('intro-on')) {
+    var leave = function () { intro.classList.add('is-leaving'); document.removeEventListener('keydown', leave); };
+    intro.addEventListener('click', leave);
+    document.addEventListener('keydown', leave);
+    setTimeout(function () { intro.hidden = true; }, 2600);
+  }
+
+  /* ---------- espera al cambiar de página o con conexión lenta ---------- */
+  var loader = $('[data-loader]'), loaderTimer = null;
+  var hideLoader = function () { clearTimeout(loaderTimer); if (loader) loader.classList.remove('is-on'); };
+  document.addEventListener('click', function (e) {
+    if (!loader || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target.closest('a[href]');
+    if (!a || (a.target && a.target !== '_self') || a.hasAttribute('download')) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch (err) { return; }
+    if (url.origin !== location.origin || !/^https?:$/.test(url.protocol)) return;
+    if (url.pathname === location.pathname && url.search === location.search) return; // misma página
+    clearTimeout(loaderTimer);
+    loaderTimer = setTimeout(function () { loader.classList.add('is-on'); }, 180); // solo si tarda
+  });
+  window.addEventListener('pageshow', hideLoader); // al volver con "atrás"
+  if (document.readyState !== 'complete') {
+    var slow = setTimeout(function () { document.documentElement.classList.add('is-loading'); }, 500);
+    window.addEventListener('load', function () { clearTimeout(slow); document.documentElement.classList.remove('is-loading'); });
   }
 
   /* ---------- varios ---------- */

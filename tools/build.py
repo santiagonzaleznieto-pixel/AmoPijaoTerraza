@@ -22,7 +22,7 @@ NAV = [  # (página, texto, clave del panel)
     ('reservas', 'Reservas', None),
     ('nosotros', 'Nosotros', 'navAbout'),
     ('visitanos', 'Visítenos', 'navLoc'),
-    ('tienda', 'Tienda', 'navShop'),
+    ('productos', 'Productos', 'navShop'),
 ]
 
 PAGES = {
@@ -37,8 +37,8 @@ PAGES = {
                      desc='Un rincón para tomarse el café con calma en Pijao, Quindío, el primer pueblo Cittaslow de Latinoamérica.'),
     'visitanos': dict(out='visitanos.html', path='/visitanos', title='Visítenos · Amo Pijao Terraza',
                       desc='Cra. 4 #12-12, Pijao, Quindío. Horario, mapa, teléfono y WhatsApp de Amo Pijao Terraza.'),
-    'tienda': dict(out='tienda.html', path='/tienda', title='Tienda · Amo Pijao Terraza',
-                   desc='Recuerdos de Pijao hechos con amor. Pídalos por WhatsApp.'),
+    'productos': dict(out='productos.html', path='/productos', title='Productos · Amo Pijao Terraza',
+                      desc='Café en grano y molido, tazas, camisetas y recuerdos de Pijao. Pídalos por WhatsApp.'),
 }
 
 JSON_LD = {
@@ -105,7 +105,7 @@ def nav_html(current, mobile=False):
     for page, text, key in NAV:
         attrs = f'href="/{page}"'
         if key: attrs += f' data-cms="{key}"'
-        if page == 'tienda': attrs += ' data-shop-link hidden'
+        if page == 'productos': attrs += ' data-shop-link hidden'
         if page == current: attrs += ' aria-current="page"'
         if mobile:
             out.append(f'      <a class="mobile-nav__link" {attrs}>{text}</a>')
@@ -120,14 +120,14 @@ def main():
     tabs, panels = menu_html(cats)
     total = sum(len(c.get('items', [])) for c in cats)
     version = hashlib.sha1(b''.join((ROOT / f).read_bytes() for f in
-                                    ['assets/css/styles.css', 'assets/js/main.js', 'assets/js/cms.js'])).hexdigest()[:8]
+                                    ['assets/css/styles.css', 'assets/js/main.js', 'assets/js/cms.js', 'assets/js/productos.js'])).hexdigest()[:8]
 
-    def render(page, meta, content, head_extra=''):
+    def render(page, meta, content, head_extra='', scripts=''):
         out = layout
         for k, v in {'TITLE': meta['title'], 'DESCRIPTION': meta['desc'], 'OG_TITLE': meta.get('og', meta['title']),
                      'SITE': SITE, 'PATH': meta['path'], 'PAGE': page, 'VERSION': version,
                      'NAV': nav_html(meta.get('nav', page)), 'NAV_MOBILE': nav_html(meta.get('nav', page), True),
-                     'HEAD_EXTRA': head_extra, 'CONTENT': content.rstrip()}.items():
+                     'HEAD_EXTRA': head_extra, 'CONTENT': content.rstrip(), 'PAGE_SCRIPTS': scripts}.items():
             out = out.replace('{{' + k + '}}', v)
         assert '{{' not in out, re.findall(r'\{\{\w+\}\}', out)
         return out
@@ -136,10 +136,11 @@ def main():
         content = (ROOT / f'src/pages/{page}.html').read_text(encoding='utf-8')
         content = content.replace('{{MENU_TABS}}', tabs).replace('{{MENU_PANELS}}', panels).replace('{{MENU_TOTAL}}', str(total))
         extra = ''
+        scripts = f'<script src="/assets/js/productos.js?v={version}" defer></script>' if page == 'productos' else ''
         if page == 'inicio':
             extra = ('<link rel="preload" as="image" href="/assets/img/yo-amo-pijao.webp" type="image/webp">\n'
                      '<script type="application/ld+json">' + json.dumps(JSON_LD, ensure_ascii=False) + '</script>')
-        (ROOT / meta['out']).write_text(render(page, meta, content, extra), encoding='utf-8')
+        (ROOT / meta['out']).write_text(render(page, meta, content, extra, scripts), encoding='utf-8')
         print('ok', meta['out'])
 
     notfound = '''<section class="page-hero" aria-labelledby="page-title">

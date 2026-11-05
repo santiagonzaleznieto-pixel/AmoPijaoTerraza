@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
 <link rel="stylesheet" href="/assets/css/styles.css?v={{VERSION}}">
-<script>document.documentElement.classList.add('js')</script>
+<script>(function(d){var r=d.documentElement;r.classList.add('js');try{if(!sessionStorage.getItem('apt-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){r.classList.add('intro-on');sessionStorage.setItem('apt-intro','1')}}catch(e){}})(document)</script>
 {{HEAD_EXTRA}}
 </head>
 <body class="page-{{PAGE}}">
@@ -37,6 +37,23 @@
   <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></g></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.3" d="M3 12h18M15 6l6 6-6 6"/></symbol>
 </svg>
+
+<div class="intro" data-intro aria-hidden="true">
+  <div class="intro__inner">
+    <img src="/assets/img/emblema-crema-96.webp" width="76" height="85" alt="">
+    <span class="intro__line"></span>
+    <p class="intro__name">Amo Pijao <em>Terraza</em></p>
+    <p class="intro__sub label">Bienvenidos · Pijao, Quindío</p>
+  </div>
+</div>
+<div class="loader" data-loader aria-hidden="true">
+  <div class="loader__inner">
+    <img src="/assets/img/emblema-crema-96.webp" width="54" height="60" alt="">
+    <span class="spinner-line"><i></i></span>
+    <span class="label">Un momento</span>
+  </div>
+</div>
+<div class="page-progress" aria-hidden="true"><i></i></div>
 
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
@@ -103,7 +120,7 @@
         <li><a href="/carta">La carta</a></li>
         <li><a href="/reservas">Reservas</a></li>
         <li><a href="/nosotros">Nuestra historia</a></li>
-        <li><a href="/tienda" data-shop-link hidden>Tienda</a></li>
+        <li><a href="/productos" data-shop-link hidden>Productos</a></li>
       </ul>
     </div>
   </div>
@@ -121,5 +138,6 @@
 
 <script src="/assets/js/main.js?v={{VERSION}}" defer></script>
 <script src="/assets/js/cms.js?v={{VERSION}}" defer></script>
+{{PAGE_SCRIPTS}}
 </body>
 </html>

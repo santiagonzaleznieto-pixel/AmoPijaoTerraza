@@ -1,0 +1,43 @@
+<section class="page-hero" aria-labelledby="page-title">
+  <div class="wrap">
+    <span class="label" data-cms="eyebrowShop">Productos de la casa</span>
+    <h1 id="page-title" data-cms="shopTitle">Llévese un pedacito de Pijao</h1>
+    <div class="ornament" aria-hidden="true"><i></i></div>
+    <p class="page-hero__lede">Café de la región en grano y molido, tazas, camisetas y recuerdos de la casa. Arme su pedido y se lo tenemos listo.</p>
+  </div>
+</section>
+
+<div class="page-body">
+  <div class="wrap" data-shop>
+    <div class="shop-filters" data-shop-filters role="group" aria-label="Filtrar por categoría" hidden></div>
+    <div class="shop-grid" data-shop-grid aria-live="polite">
+      <div class="shop-skeleton" aria-hidden="true"><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span></div>
+      <div class="shop-skeleton" aria-hidden="true"><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span></div>
+      <div class="shop-skeleton" aria-hidden="true"><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span></div>
+    </div>
+    <div class="shop-message" data-shop-error hidden>
+      <h2>No pudimos cargar los productos</h2>
+      <p>Revise su conexión e intente de nuevo, o consúltenos directamente.</p>
+      <div class="hero__ctas" style="justify-content:center">
+        <button class="btn btn--ghost" type="button" data-shop-retry>Intentar de nuevo</button>
+        <a class="btn" href="https://wa.me/573104337667?text=Buen%20d%C3%ADa%2C%20%C2%BFqu%C3%A9%20productos%20tienen%20disponibles%3F" data-wa target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Consultar por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="bag-fab" type="button" data-bag-open hidden aria-haspopup="dialog">Su pedido <b data-bag-count>0</b></button>
+<div class="bag-backdrop" data-bag-close></div>
+<aside class="bag" role="dialog" aria-modal="true" aria-labelledby="bag-title" data-bag>
+  <div class="bag__head">
+    <h2 id="bag-title">Su pedido</h2>
+    <button class="bag__close" type="button" data-bag-close aria-label="Cerrar pedido"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <ul class="bag__items" data-bag-items></ul>
+  <div class="bag__foot">
+    <div class="bag__total"><span class="label">Total estimado</span><b data-bag-total>$0</b></div>
+    <div class="field"><label for="bag-nombre">Nombre</label><input id="bag-nombre" autocomplete="name" placeholder="¿A nombre de quién?"></div>
+    <button class="btn btn--block" type="button" data-bag-send><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Enviar pedido por WhatsApp</button>
+    <small>Le confirmamos disponibilidad, forma de pago y entrega por WhatsApp.</small>
+  </div>
+</aside>

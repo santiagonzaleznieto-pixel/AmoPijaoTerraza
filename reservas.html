@@ -23,8 +23,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
-<link rel="stylesheet" href="/assets/css/styles.css?v=a35765ac">
-<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="/assets/css/styles.css?v=22a5d79d">
+<script>(function(d){var r=d.documentElement;r.classList.add('js');try{if(!sessionStorage.getItem('apt-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){r.classList.add('intro-on');sessionStorage.setItem('apt-intro','1')}}catch(e){}})(document)</script>
 
 </head>
 <body class="page-reservas">
@@ -37,6 +37,23 @@
   <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></g></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.3" d="M3 12h18M15 6l6 6-6 6"/></symbol>
 </svg>
+
+<div class="intro" data-intro aria-hidden="true">
+  <div class="intro__inner">
+    <img src="/assets/img/emblema-crema-96.webp" width="76" height="85" alt="">
+    <span class="intro__line"></span>
+    <p class="intro__name">Amo Pijao <em>Terraza</em></p>
+    <p class="intro__sub label">Bienvenidos · Pijao, Quindío</p>
+  </div>
+</div>
+<div class="loader" data-loader aria-hidden="true">
+  <div class="loader__inner">
+    <img src="/assets/img/emblema-crema-96.webp" width="54" height="60" alt="">
+    <span class="spinner-line"><i></i></span>
+    <span class="label">Un momento</span>
+  </div>
+</div>
+<div class="page-progress" aria-hidden="true"><i></i></div>
 
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
@@ -58,7 +75,7 @@
       <a href="/reservas" aria-current="page">Reservas</a>
       <a href="/nosotros" data-cms="navAbout">Nosotros</a>
       <a href="/visitanos" data-cms="navLoc">Visítenos</a>
-      <a href="/tienda" data-cms="navShop" data-shop-link hidden>Tienda</a>
+      <a href="/productos" data-cms="navShop" data-shop-link hidden>Productos</a>
     </nav>
     <div class="header-cta">
       <a class="btn btn--ghost btn--sm" href="/reservas" data-cms="btnReserve">Reservar</a>
@@ -75,7 +92,7 @@
       <a class="mobile-nav__link" href="/reservas" aria-current="page">Reservas</a>
       <a class="mobile-nav__link" href="/nosotros" data-cms="navAbout">Nosotros</a>
       <a class="mobile-nav__link" href="/visitanos" data-cms="navLoc">Visítenos</a>
-      <a class="mobile-nav__link" href="/tienda" data-cms="navShop" data-shop-link hidden>Tienda</a>
+      <a class="mobile-nav__link" href="/productos" data-cms="navShop" data-shop-link hidden>Productos</a>
       <a class="btn" href="/reservas">Reservar mesa</a>
     </div>
   </nav>
@@ -198,7 +215,7 @@
         <li><a href="/carta">La carta</a></li>
         <li><a href="/reservas">Reservas</a></li>
         <li><a href="/nosotros">Nuestra historia</a></li>
-        <li><a href="/tienda" data-shop-link hidden>Tienda</a></li>
+        <li><a href="/productos" data-shop-link hidden>Productos</a></li>
       </ul>
     </div>
   </div>
@@ -214,7 +231,8 @@
   <a class="is-primary" href="/reservas">Reservar</a>
 </nav>
 
-<script src="/assets/js/main.js?v=a35765ac" defer></script>
-<script src="/assets/js/cms.js?v=a35765ac" defer></script>
+<script src="/assets/js/main.js?v=22a5d79d" defer></script>
+<script src="/assets/js/cms.js?v=22a5d79d" defer></script>
+
 </body>
 </html>

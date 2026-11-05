@@ -9,10 +9,10 @@ Publicado en Vercel: <https://amopijaoterraza.vercel.app>
 |--------------|------------------|-------------------------------------------------------------|
 | `/`          | `index.html`     | Portada, estado abierto/cerrado, creaciones de la casa      |
 | `/carta`     | `carta.html`     | Carta por categorías (una a la vez) y buscador              |
-| `/reservas`  | `reservas.html`  | Formulario que arma la solicitud y abre WhatsApp            |
+| `/reservas`  | `reservas.html`  | Formulario: guarda la reserva en el panel y abre WhatsApp   |
 | `/nosotros`  | `nosotros.html`  | Historia de la casa                                         |
 | `/visitanos` | `visitanos.html` | Dirección, horario de la semana, mapa y contacto            |
-| `/tienda`    | `tienda.html`    | Productos publicados desde el panel                         |
+| `/productos` | `productos.html` | Productos a la venta con pedido por WhatsApp (solo aparece si hay productos publicados) |
 | `/admin`     | `admin.html`     | Panel de administración (Supabase)                          |
 
 ## Diseño: "Noche en la terraza"
@@ -45,20 +45,31 @@ y publica los archivos generados junto con tus cambios (Vercel sirve la raíz ta
 compilar). El generador también pone la versión de CSS y JS en las URLs para que los
 visitantes reciban siempre la última.
 
-## Panel de administración
+## Panel de administración (`/admin`)
 
-Desde `/admin` se cambian textos, horario, teléfono, aviso superior, carta y precios, tienda,
-fotos de portada y de "Nuestra historia", colores y tipografías. La página los aplica al
-cargar (`assets/js/cms.js`, con un tiempo límite de 4 s: si el panel no responde, se ve el
-contenido del HTML).
+Ingreso con usuario y contraseña. Secciones:
 
-> ⚠️ El proyecto de Supabase (`amo-pijao-terraza`) estaba **pausado** al momento de esta
-> revisión. Se reactiva desde <https://supabase.com/dashboard/project/suvqsjloaoovaxjusini>.
+- **Reservas**: las solicitudes del sitio, agrupadas por día. Confirmar (abre WhatsApp con el
+  mensaje de confirmación para el cliente), cancelar, marcar atendida, notas internas y eliminar.
+  Se actualiza solo cada minuto y avisa cuando entra una reserva nueva.
+- **Carta y precios**: categorías y productos, precios, descripciones y orden. Se guarda solo.
+- **Productos**: tazas, camisetas, café, imanes, stickers… con foto, categoría, precio, opciones
+  (por ejemplo "Grano, Molido" o "S, M, L") y los interruptores *Publicado* y *Agotado*.
+  Si no hay ninguno publicado, la página Productos no aparece en el sitio.
+- **Textos y avisos**: aviso superior, frase principal, historia, horario, dirección y teléfono.
+- **Fotos**: portada y "Nuestra historia", con recorte antes de subir.
+- **Apariencia**: paletas, colores, tipografías y tamaños.
+- **Usuarios**: dar o quitar acceso, cambiar contraseñas.
+
+Base de datos (Supabase): tablas `content`, `reservas` y `admins`, todas con RLS. El público solo
+puede leer el contenido y crear reservas pendientes; todo lo demás exige ser administrador.
 
 ## Reservas
 
-El formulario arma un mensaje con los datos y abre **WhatsApp** (+57 310 433 7667). En paralelo
-manda una copia por correo a través de Formspree (`formspree.io/f/xrpbrlpw`).
+El formulario guarda la reserva en el panel, arma el mensaje y abre **WhatsApp**
+(+57 310 433 7667) y además envía una copia por correo a través de Formspree
+(`formspree.io/f/xrpbrlpw`). Si cambia el teléfono en el panel, todos los botones de llamada y
+WhatsApp se actualizan solos.
 
 ## Probar en local
 
